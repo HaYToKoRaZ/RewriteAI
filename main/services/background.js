@@ -14,6 +14,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  if (message.type === 'OPEN_OPTIONS') {
+    chrome.runtime.openOptionsPage();
+    sendResponse({ success: true });
+    return true;
+  }
+
   if (message.type === 'TRANSFORM_TEXT') {
     TextTransformService.transform(message.text, message.tone, message.model)
       .then((result) => {

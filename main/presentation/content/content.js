@@ -58,6 +58,11 @@
       </div>
 
       <div class="rewriteai-modal-body">
+        <div id="rewriteai-key-warning" class="rewriteai-key-warning" style="display:none;">
+          <span id="rewriteai-key-warning-text">⚠️ Bu model için API Anahtarı kayıtlı değil!</span>
+          <button id="rewriteai-open-settings-btn" type="button" class="rewriteai-settings-btn">⚙️ Ayarlara Git</button>
+        </div>
+
         <div class="rewriteai-field">
           <label>Seçilen Metin:</label>
           <div id="rewriteai-preview-text" class="rewriteai-text-box"></div>
@@ -217,6 +222,38 @@
       gap: 14px;
       max-height: 70vh;
       overflow-y: auto;
+    }
+    .rewriteai-key-warning {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #fca5a5;
+      animation: fadeInWarning 0.2s ease;
+    }
+    @keyframes fadeInWarning {
+      from { opacity: 0; transform: translateY(-3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .rewriteai-settings-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .rewriteai-settings-btn:hover {
+      background: #dc2626;
     }
     .rewriteai-field label {
       display: block;
@@ -420,6 +457,63 @@
   const quotaBadgeEl = document.getElementById('rewriteai-modal-quota-badge');
   const quotaTextEl = document.getElementById('rewriteai-modal-quota-text');
   const quotaLinkEl = document.getElementById('rewriteai-modal-quota-link');
+  const keyWarningEl = document.getElementById('rewriteai-key-warning');
+  const keyWarningTextEl = document.getElementById('rewriteai-key-warning-text');
+  const openSettingsBtn = document.getElementById('rewriteai-open-settings-btn');
+
+  // Sağlayıcı ve anahtar eşleşmesi kontrol fonksiyonu
+  function checkModelKeyStatus(modelId, callback) {
+    let providerName = 'Google Gemini';
+    let keyStorageName = 'apiKey';
+
+    if (modelId.startsWith('gemini')) {
+      providerName = 'Google Gemini';
+      keyStorageName = 'apiKey';
+    } else if (modelId.startsWith('llama')) {
+      providerName = 'Groq';
+      keyStorageName = 'groqApiKey';
+    } else if (modelId.startsWith('command')) {
+      providerName = 'Cohere';
+      keyStorageName = 'cohereApiKey';
+    } else if (modelId.includes('Qwen') || modelId.includes('/')) {
+      providerName = 'Hugging Face';
+      keyStorageName = 'hfApiKey';
+    } else if (modelId.startsWith('gpt')) {
+      providerName = 'OpenAI';
+      keyStorageName = 'openaiApiKey';
+    } else if (modelId.startsWith('claude')) {
+      providerName = 'Anthropic Claude';
+      keyStorageName = 'anthropicApiKey';
+    } else if (modelId.startsWith('deepseek')) {
+      providerName = 'DeepSeek';
+      keyStorageName = 'deepseekApiKey';
+    }
+
+    chrome.storage.local.get([keyStorageName], (data) => {
+      const hasKey = !!(data[keyStorageName] && data[keyStorageName].trim());
+      if (!hasKey) {
+        if (keyWarningEl) {
+          keyWarningTextEl.textContent = `⚠️ ${providerName} API Anahtarı girilmemiş! Bu modeli kullanabilmek için anahtar ekleyin.`;
+          keyWarningEl.style.display = 'flex';
+        }
+        if (statusMsg) {
+          statusMsg.textContent = `Uyarı: ${providerName} API anahtarı eksik. Ayarlardan anahtarınızı ekleyin.`;
+        }
+      } else {
+        if (keyWarningEl) {
+          keyWarningEl.style.display = 'none';
+        }
+      }
+      if (callback) callback(hasKey);
+    });
+  }
+
+  // Ayarlar sayfasını açma butonu
+  if (openSettingsBtn) {
+    openSettingsBtn.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ type: 'OPEN_OPTIONS' });
+    });
+  }
 
   function updateModalQuota() {
     const curModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
@@ -454,8 +548,9 @@
       selectedModel: 'gemini-3.5-flash-lite',
       defaultTone: 'fix_grammar'
     }, (items) => {
-      if (items.selectedModel && modelSelect) {
-        modelSelect.value = items.selectedModel;
+      const activeModel = items.selectedModel || 'gemini-3.5-flash-lite';
+      if (modelSelect) {
+        modelSelect.value = activeModel;
       }
 
       if (items.defaultTone) {
@@ -470,11 +565,16 @@
       }
 
       updateModalQuota();
-
-      // Otomatik çalıştırma istendiyse hemen dönüştür
-      if (autoRun) {
-        applyBtn.click();
-      }
+      checkModelKeyStatus(activeModel, (hasKey) => {
+        // Otomatik çalıştırma istendiyse ve anahtar varsa hemen dönüştür
+        if (autoRun) {
+          if (hasKey) {
+            applyBtn.click();
+          } else {
+            statusMsg.textContent = 'Otomatik işlem durduruldu: Model API anahtarı girilmemiş.';
+          }
+        }
+      });
     });
 
     modalOverlay.style.display = 'flex';
@@ -486,7 +586,11 @@
       const newModel = modelSelect.value;
       chrome.storage.local.set({ selectedModel: newModel }, () => {
         updateModalQuota();
-        statusMsg.textContent = `✓ Varsayılan model güncellendi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+        checkModelKeyStatus(newModel, (hasKey) => {
+          if (hasKey) {
+            statusMsg.textContent = `✓ Varsayılan model güncellendi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+          }
+        });
       });
     });
   }
