@@ -43,14 +43,63 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Mevcut ayarları çek
-  const settings = await StorageRepository.getSettings();
-  apiKeyInput.value = settings.apiKey || '';
-  if (groqApiKeyInput) groqApiKeyInput.value = settings.groqApiKey || '';
-  if (cohereApiKeyInput) cohereApiKeyInput.value = settings.cohereApiKey || '';
-  if (hfApiKeyInput) hfApiKeyInput.value = settings.hfApiKey || '';
-  if (openaiApiKeyInput) openaiApiKeyInput.value = settings.openaiApiKey || '';
-  if (anthropicApiKeyInput) anthropicApiKeyInput.value = settings.anthropicApiKey || '';
-  if (deepseekApiKeyInput) deepseekApiKeyInput.value = settings.deepseekApiKey || '';
+  let settings = await StorageRepository.getSettings();
+
+  const keyFieldIds = [
+    'apiKey',
+    'groqApiKey',
+    'cohereApiKey',
+    'hfApiKey',
+    'openaiApiKey',
+    'anthropicApiKey',
+    'deepseekApiKey'
+  ];
+
+  // Token kayıtlıysa giriş kutusunu gizle, güvenli rozet ve silme butonunu göster
+  function renderKeyStates() {
+    keyFieldIds.forEach((fieldId) => {
+      const inputEl = document.getElementById(fieldId);
+      const wrapEl = document.getElementById(`input-wrap-${fieldId}`);
+      const statusEl = document.getElementById(`status-${fieldId}`);
+      const hasKey = !!(settings[fieldId] && settings[fieldId].trim());
+
+      if (hasKey) {
+        if (wrapEl) wrapEl.classList.add('hidden');
+        if (statusEl) statusEl.classList.remove('hidden');
+        if (inputEl) inputEl.value = settings[fieldId];
+      } else {
+        if (wrapEl) wrapEl.classList.remove('hidden');
+        if (statusEl) statusEl.classList.add('hidden');
+        if (inputEl) inputEl.value = '';
+      }
+    });
+  }
+
+  renderKeyStates();
+
+  // Token Silme Butonları
+  document.querySelectorAll('.delete-token-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.getAttribute('data-target');
+      if (!confirm('Bu API anahtarını silmek istediğinize emin misiniz?')) {
+        return;
+      }
+
+      // Bellek ve depolamadan kaldır
+      settings[targetId] = '';
+      await StorageRepository.saveSettings({ [targetId]: '' });
+
+      const inputEl = document.getElementById(targetId);
+      if (inputEl) inputEl.value = '';
+
+      renderKeyStates();
+
+      saveStatus.textContent = '✓ Token başarıyla silindi.';
+      setTimeout(() => {
+        saveStatus.textContent = '';
+      }, 2500);
+    });
+  });
 
   selectedModelSelect.value = settings.selectedModel || 'gemini-3.5-flash-lite';
   defaultToneSelect.value = settings.defaultTone || 'fix_grammar';
@@ -73,35 +122,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateOptionsQuota();
   selectedModelSelect.addEventListener('change', updateOptionsQuota);
 
-  // Tüm şifre göster/gizle butonlarını dinle
-  document.querySelectorAll('.toggle-key-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      const inputEl = document.getElementById(targetId);
-      if (!inputEl) return;
-      if (inputEl.type === 'password') {
-        inputEl.type = 'text';
-        btn.textContent = '🔒';
-      } else {
-        inputEl.type = 'password';
-        btn.textContent = '👁️';
-      }
-    });
-  });
-
   // Kaydet butonu
   saveBtn.addEventListener('click', async () => {
     saveBtn.disabled = true;
     saveBtn.textContent = 'Kaydediliyor...';
 
+    // Eğer yeni bir değer girildiyse onu al, girilmediyse mevcut olanı koru
+    const updatedKeys = {};
+    keyFieldIds.forEach((fieldId) => {
+      const inputEl = document.getElementById(fieldId);
+      const val = inputEl ? inputEl.value.trim() : '';
+      if (val) {
+        updatedKeys[fieldId] = val;
+        settings[fieldId] = val;
+      }
+    });
+
     const newSettings = {
-      apiKey: apiKeyInput.value.trim(),
-      groqApiKey: groqApiKeyInput ? groqApiKeyInput.value.trim() : '',
-      cohereApiKey: cohereApiKeyInput ? cohereApiKeyInput.value.trim() : '',
-      hfApiKey: hfApiKeyInput ? hfApiKeyInput.value.trim() : '',
-      openaiApiKey: openaiApiKeyInput ? openaiApiKeyInput.value.trim() : '',
-      anthropicApiKey: anthropicApiKeyInput ? anthropicApiKeyInput.value.trim() : '',
-      deepseekApiKey: deepseekApiKeyInput ? deepseekApiKeyInput.value.trim() : '',
+      ...updatedKeys,
       selectedModel: selectedModelSelect.value,
       defaultTone: defaultToneSelect.value,
       autoCopy: autoCopyCheckbox.checked,
@@ -109,6 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     await StorageRepository.saveSettings(newSettings);
+    renderKeyStates();
 
     saveStatus.textContent = '✓ Ayarlar başarıyla kaydedildi!';
     saveBtn.disabled = false;

@@ -356,3 +356,53 @@ select:focus {
   margin: 24px 0;
 }
 
+.token-saved-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 2px;
+}
+
+.saved-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saved-icon {
+  font-size: 14px;
+}
+
+.saved-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #34d399;
+}
+
+.btn-danger-outline {
+  background: transparent;
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger-outline:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+

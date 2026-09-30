@@ -62,7 +62,7 @@
         <p class="section-desc">Kullanmak istediğiniz servisin anahtarını buraya girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
 
         <!-- 1. Google Gemini -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="apiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18">
@@ -74,9 +74,19 @@
             </div>
             <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <!-- Tanımlı Token Durum Alanı (Güvenlikli) -->
+          <div class="token-saved-status hidden" id="status-apiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="apiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <!-- Token Giriş Alanı (Henüz girilmemişken gösterilir) -->
+          <div class="input-wrapper" id="input-wrap-apiKey">
             <input type="password" id="apiKey" placeholder="AIzaSy... (Gemini Anahtarı)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="apiKey" title="Göster / Gizle">👁️</button>
           </div>
 
           <!-- Google Kota ve Kullanım Takip Kartı (Doğrudan Google Key'in Altında) -->
@@ -104,7 +114,7 @@
         </div>
 
         <!-- 2. Groq Cloud -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="groqApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#F55036">
@@ -116,14 +126,22 @@
             </div>
             <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-groqApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="groqApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-groqApiKey">
             <input type="password" id="groqApiKey" placeholder="gsk_... (Groq Anahtarı)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="groqApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
 
         <!-- 3. Cohere -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="cohereApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#39594C">
@@ -137,14 +155,22 @@
             </div>
             <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">Ücretsiz Trial Al ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-cohereApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="cohereApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-cohereApiKey">
             <input type="password" id="cohereApiKey" placeholder="Cohere API Anahtarı..." autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="cohereApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
 
         <!-- 4. Hugging Face -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="hfApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <span style="font-size:16px;line-height:1;">🤗</span>
@@ -153,14 +179,22 @@
             </div>
             <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">Ücretsiz Token Al ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-hfApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="hfApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-hfApiKey">
             <input type="password" id="hfApiKey" placeholder="hf_... (Read Token)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="hfApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
 
         <!-- 5. OpenAI -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="openaiApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#10A37F">
@@ -172,14 +206,22 @@
             </div>
             <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Paneli ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-openaiApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="openaiApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-openaiApiKey">
             <input type="password" id="openaiApiKey" placeholder="sk-... (OpenAI Anahtarı)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="openaiApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
 
         <!-- 6. Anthropic Claude -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="anthropicApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#D97757">
@@ -192,14 +234,22 @@
             </div>
             <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Claude Paneli ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-anthropicApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="anthropicApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-anthropicApiKey">
             <input type="password" id="anthropicApiKey" placeholder="sk-ant-... (Claude Anahtarı)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="anthropicApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
 
         <!-- 7. DeepSeek -->
-        <div class="provider-box">
+        <div class="provider-box" data-provider-id="deepseekApiKey">
           <div class="provider-box-header">
             <div class="provider-title-group">
               <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#4D6BFE">
@@ -211,9 +261,17 @@
             </div>
             <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">DeepSeek Paneli ↗</a>
           </div>
-          <div class="input-wrapper">
+
+          <div class="token-saved-status hidden" id="status-deepseekApiKey">
+            <div class="saved-info">
+              <span class="saved-icon">🔒</span>
+              <span class="saved-text">Token Kayıtlı ve Güvende</span>
+            </div>
+            <button type="button" class="btn-danger-outline delete-token-btn" data-target="deepseekApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+          </div>
+
+          <div class="input-wrapper" id="input-wrap-deepseekApiKey">
             <input type="password" id="deepseekApiKey" placeholder="sk-... (DeepSeek Anahtarı)" autocomplete="off">
-            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="deepseekApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
       </div>
