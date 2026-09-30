@@ -1,14 +1,16 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "default_locale": "en",
   "description": "__MSG_appDesc__",
   "permissions": [
     "storage",
     "contextMenus",
     "clipboardRead",
-    "clipboardWrite"
+    "clipboardWrite",
+    "scripting",
+    "activeTab"
   ],
   "host_permissions": [
     "https://generativelanguage.googleapis.com/*"
@@ -26,6 +28,13 @@
     "service_worker": "services/background.js",
     "type": "module"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["presentation/content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "options_ui": {
     "page": "presentation/options/options.html",
     "open_in_tab": false
