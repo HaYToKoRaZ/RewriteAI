@@ -197,4 +197,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   });
+
+  // Açılır pencereden (modal) veya başka bir yerden model değişirse seçeneklerde canlı güncelle
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.selectedModel) {
+      if (selectedModelSelect && changes.selectedModel.newValue) {
+        selectedModelSelect.value = changes.selectedModel.newValue;
+        updateOptionsQuota();
+      }
+    }
+  });
 });

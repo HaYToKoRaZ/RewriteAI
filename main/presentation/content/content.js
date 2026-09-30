@@ -480,12 +480,14 @@
     modalOverlay.style.display = 'flex';
   }
 
-  // Model kutudan değiştirilirse tercihi hatırla ve o modelin kotasını göster
+  // Model kutudan değiştirilirse tercihi kalıcı olarak kaydet (Varsayılan Sistem Modeli yap)
   if (modelSelect) {
     modelSelect.addEventListener('change', () => {
-      chrome.storage.local.set({ selectedModel: modelSelect.value });
-      updateModalQuota();
-      statusMsg.textContent = `Model seçildi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+      const newModel = modelSelect.value;
+      chrome.storage.local.set({ selectedModel: newModel }, () => {
+        updateModalQuota();
+        statusMsg.textContent = `✓ Varsayılan model güncellendi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+      });
     });
   }
 
