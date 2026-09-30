@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "default_locale": "en",
   "description": "__MSG_appDesc__",
   "permissions": [
@@ -37,7 +37,7 @@
   ],
   "options_ui": {
     "page": "presentation/options/options.html",
-    "open_in_tab": false
+    "open_in_tab": true
   },
   "icons": {
     "16": "assets/icons/icon16.png",

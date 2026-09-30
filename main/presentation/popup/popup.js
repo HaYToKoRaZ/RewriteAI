@@ -56,11 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Ayarlar sayfasını açma
   const openOptions = () => {
-    if (chrome.runtime.openOptionsPage) {
-      chrome.runtime.openOptionsPage();
-    } else {
-      window.open(chrome.runtime.getURL('presentation/options/options.html'));
-    }
+    chrome.tabs.create({ url: chrome.runtime.getURL('presentation/options/options.html') });
   };
   openOptionsBtn.addEventListener('click', openOptions);
   goToOptionsBtn.addEventListener('click', openOptions);
