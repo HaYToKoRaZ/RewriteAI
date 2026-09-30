@@ -67,9 +67,10 @@ export class GeminiService {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        const message = errorData?.error?.message || `HTTP ${response.status} hatası`;
-        Logger.error('Gemini API Hatası:', message);
-        throw new Error(`Gemini API Hatası: ${message}`);
+        const rawMessage = errorData?.error?.message || `HTTP ${response.status} hatası`;
+        Logger.error('Gemini API Hatası:', rawMessage);
+        const localizedMessage = this._localizeErrorMessage(rawMessage);
+        throw new Error(localizedMessage);
       }
 
       const data = await response.json();
@@ -77,7 +78,8 @@ export class GeminiService {
       const resultText = candidate?.content?.parts?.[0]?.text;
 
       if (!resultText) {
-        throw new Error('API yanıtında metin bulunamadı.');
+        const isTr = this._isTurkishLocale();
+        throw new Error(isTr ? 'API yanıtında metin bulunamadı.' : 'No text found in API response.');
       }
 
       return resultText.trim();
@@ -85,5 +87,40 @@ export class GeminiService {
       Logger.error('Ağ/İstek Hatası:', err);
       throw err;
     }
+  }
+
+  static _isTurkishLocale() {
+    try {
+      const uiLang = chrome?.i18n?.getUILanguage?.() || navigator?.language || 'en';
+      return uiLang.toLowerCase().startsWith('tr');
+    } catch {
+      return true;
+    }
+  }
+
+  static _localizeErrorMessage(rawMsg) {
+    if (!this._isTurkishLocale()) {
+      return `Gemini API Error: ${rawMsg}`;
+    }
+
+    const lower = rawMsg.toLowerCase();
+
+    if (lower.includes('experiencing high demand') || lower.includes('spikes in demand')) {
+      return 'Bu yapay zeka modeli şu anda yoğun talep görüyor. Bu durum genellikle geçicidir; lütfen birkaç saniye sonra tekrar deneyin veya farklı bir model seçin.';
+    }
+
+    if (lower.includes('quota') || lower.includes('rate limit') || lower.includes('resource_exhausted')) {
+      return 'API kotanız veya dakikalık istek limitiniz doldu. Lütfen 1 dakika bekleyip tekrar deneyin veya AI Studio panelinizi kontrol edin.';
+    }
+
+    if (lower.includes('api key not valid') || lower.includes('invalid api key') || lower.includes('api_key_invalid')) {
+      return 'Geçersiz API Anahtarı! Lütfen eklenti Ayarlar sayfasından Gemini API anahtarınızı kontrol edip tekrar kaydedin.';
+    }
+
+    if (lower.includes('is no longer available') || lower.includes('not found for api version')) {
+      return 'Seçilen model artık mevcut değil veya bu API sürümüyle desteklenmiyor. Lütfen pencerenin sağ üstünden Gemini 3.8 Flash veya 3.7 Flash modelini seçin.';
+    }
+
+    return `Gemini API Hatası: ${rawMsg}`;
   }
 }
