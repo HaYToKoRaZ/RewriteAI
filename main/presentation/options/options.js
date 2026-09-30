@@ -185,6 +185,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
 
+    inputEl.addEventListener('blur', () => {
+      if (inputEl.value.trim()) {
+        autoSave('API Anahtarı güvenle kaydedildi');
+      }
+    });
+
     inputEl.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         inputEl.blur(); // change tetikler

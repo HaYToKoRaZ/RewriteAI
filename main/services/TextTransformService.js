@@ -1,4 +1,5 @@
 import { GeminiService } from './GeminiService.js';
+import { GroqService } from './GroqService.js';
 import { OpenAISpecService } from './OpenAISpecService.js';
 import { CohereService } from './CohereService.js';
 import { HuggingFaceService } from './HuggingFaceService.js';
@@ -43,12 +44,7 @@ export class TextTransformService {
         if (!key) {
           throw new Error('Groq API Anahtarınız bulunamadı. Lütfen eklenti ayarlarından ücretsiz Groq anahtarınızı girin.');
         }
-        result = await OpenAISpecService.generate({
-          endpoint: 'https://api.groq.com/openai/v1/chat/completions',
-          apiKey: key,
-          model: activeModelId,
-          promptText: prompt
-        });
+        result = await GroqService.generate(key, prompt, activeModelId);
         break;
       }
 
