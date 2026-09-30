@@ -3,18 +3,48 @@ import { Logger } from '../core/Logger.js';
 export class GeminiService {
   static BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
-  static async generate(apiKey, promptText, preferredModel = 'gemini-3.8-flash') {
+  /**
+   * Google Gemini hesabındaki aktif modelleri çeker
+   */
+  static async getAvailableModels(apiKey) {
+    if (!apiKey) return [];
+    try {
+      const response = await fetch(`${this.BASE_URL}?key=${apiKey}`);
+      if (!response.ok) return [];
+      const data = await response.json();
+      return (data.models || [])
+        .map((m) => m.name.replace('models/', ''))
+        .filter((name) => name.includes('gemini') && !name.includes('vision') && !name.includes('embedding'));
+    } catch (e) {
+      Logger.warn('Gemini model listesi çekilemedi:', e);
+      return [];
+    }
+  }
+
+  static async generate(apiKey, promptText, preferredModel = 'gemini-3.5-flash-lite') {
     if (!apiKey) {
       throw new Error('API anahtarı bulunamadı. Lütfen eklenti ayarlarından Gemini API anahtarınızı girin.');
     }
 
     // Denenecek model öncelik sırası (Aktif çalışan Gemini 3.x Flash ailesi)
-    const candidateModels = [
+    let candidateModels = [
       preferredModel,
+      'gemini-3.5-flash-lite',
       'gemini-3.8-flash',
-      'gemini-3.7-flash',
-      'gemini-3.5-flash-lite'
+      'gemini-3.7-flash'
     ].filter((m, idx, self) => m && self.indexOf(m) === idx);
+
+    try {
+      const live = await this.getAvailableModels(apiKey);
+      if (live.length > 0) {
+        candidateModels = [
+          preferredModel,
+          ...live
+        ].filter((m, idx, self) => m && self.indexOf(m) === idx && live.includes(m));
+      }
+    } catch {
+      // ignore
+    }
 
     let lastError = null;
 

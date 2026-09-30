@@ -2,6 +2,23 @@ import { Logger } from '../core/Logger.js';
 
 export class OpenAISpecService {
   /**
+   * OpenAI Uyumlu /models uç noktasından aktif modelleri çeker
+   */
+  static async getAvailableModels(baseUrl, apiKey) {
+    if (!apiKey) return [];
+    try {
+      const response = await fetch(`${baseUrl}/models`, {
+        headers: { 'Authorization': `Bearer ${apiKey}` }
+      });
+      if (!response.ok) return [];
+      const data = await response.json();
+      return (data.data || []).map((m) => m.id);
+    } catch {
+      return [];
+    }
+  }
+
+  /**
    * OpenAI Uyumlu Chat Completions İstemcisi
    * Groq, OpenAI ve DeepSeek aynı endpoint formatını (/chat/completions) kullanır.
    */
