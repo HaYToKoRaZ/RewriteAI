@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RewriteAI - Ayarlar</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="../../assets/icons/icon48.png" alt="RewriteAI Logo" class="logo">
+      <div>
+        <h1>RewriteAI Ayarları</h1>
+        <p class="subtitle">Google Gemini API yapılandırması ve genel tercihler</p>
+      </div>
+    </header>
+
+    <main class="card">
+      <div class="form-group">
+        <label for="apiKey">Gemini API Anahtarı <span class="required">*</span></label>
+        <div class="input-wrapper">
+          <input type="password" id="apiKey" placeholder="AIzaSy..." autocomplete="off">
+          <button type="button" id="toggleApiKey" class="btn-secondary btn-icon" title="Göster / Gizle">👁️</button>
+        </div>
+        <small class="helper-text">
+          API anahtarınız yoksa <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> üzerinden ücretsiz alabilirsiniz. Anahtarınız yalnızca tarayıcınızın yerel depolama alanında tutulur.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="selectedModel">Yapay Zeka Modeli</label>
+        <select id="selectedModel">
+          <!-- Dinamik doldurulacak -->
+        </select>
+        <small class="helper-text">Gemini 1.5 Flash hızı ve cömert ücretsiz kotası ile önerilir.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="defaultTone">Varsayılan Ton</label>
+        <select id="defaultTone">
+          <!-- Dinamik doldurulacak -->
+        </select>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoCopy">
+          <span class="switch-slider"></span>
+          <span>Dönüştürme tamamlandığında sonucu otomatik panoya kopyala</span>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="saveBtn" class="btn-primary">Ayarları Kaydet</button>
+        <span id="saveStatus" class="status-msg"></span>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

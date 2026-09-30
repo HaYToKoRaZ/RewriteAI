@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "RewriteAI - Akıllı Metin Düzenleyici",
+  "version": "1.0.0",
+  "description": "Yapay zeka ile metinlerdeki imla hatalarını düzeltin; günlük, resmi, samimi veya sokak ağzı gibi tonlara dönüştürün.",
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "clipboardRead",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "action": {
+    "default_popup": "presentation/popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "services/background.js",
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "presentation/options/options.html",
+    "open_in_tab": false
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+}

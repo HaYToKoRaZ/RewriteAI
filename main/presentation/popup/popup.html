@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RewriteAI</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-wrapper">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <img src="../../assets/icons/icon32.png" alt="Logo" class="logo-small">
+        <span class="brand-title">RewriteAI</span>
+      </div>
+      <div class="header-actions">
+        <button id="openOptionsBtn" class="icon-btn" title="Ayarlar">⚙️</button>
+      </div>
+    </header>
+
+    <!-- API Uyarısı (Eğer anahtar yoksa) -->
+    <div id="apiAlert" class="alert-box hidden">
+      <span>API anahtarınızı girmediniz.</span>
+      <button id="goToOptionsBtn" class="link-btn">Ayarla</button>
+    </div>
+
+    <!-- Tone Selector Bar -->
+    <div class="tone-bar">
+      <label for="toneSelect" class="tone-label">Dönüşüm Tonu:</label>
+      <select id="toneSelect">
+        <!-- JS ile dinamik gelecek -->
+      </select>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Input Panel -->
+      <div class="text-panel">
+        <div class="panel-header">
+          <span>Orijinal Metin</span>
+          <div class="panel-actions">
+            <button id="pasteBtn" class="mini-btn" title="Panodan Yapıştır">📋 Yapıştır</button>
+            <button id="clearBtn" class="mini-btn" title="Temizle">🗑️</button>
+          </div>
+        </div>
+        <textarea id="inputText" placeholder="Metninizi buraya yazın veya yapıştırın..." spellcheck="false"></textarea>
+      </div>
+
+      <!-- Action Button -->
+      <div class="action-bar">
+        <button id="transformBtn" class="btn-primary">
+          <span class="btn-text">Metni Yeniden Yaz</span>
+          <div id="loader" class="spinner hidden"></div>
+        </button>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="text-panel output-panel">
+        <div class="panel-header">
+          <span>Dönüştürülen Metin</span>
+          <div class="panel-actions">
+            <button id="copyBtn" class="mini-btn highlight-btn" title="Sonucu Kopyala">📄 Kopyala</button>
+          </div>
+        </div>
+        <textarea id="outputText" placeholder="Dönüştürülen metin burada belirecek..." readonly></textarea>
+      </div>
+    </main>
+
+    <!-- Footer Status -->
+    <footer class="popup-footer">
+      <span id="charCount">0 karakter</span>
+      <span id="statusInfo">Hazır</span>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
