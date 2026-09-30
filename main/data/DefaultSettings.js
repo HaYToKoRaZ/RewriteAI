@@ -3,7 +3,8 @@ export const DEFAULT_SETTINGS = {
   selectedModel: 'gemini-1.5-flash',
   defaultTone: 'fix_grammar',
   autoCopy: false,
-  showNotifications: true
+  showNotifications: true,
+  showSelectionBubble: false
 };
 
 export const AVAILABLE_MODELS = [

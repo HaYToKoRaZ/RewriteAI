@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const selectedModelSelect = document.getElementById('selectedModel');
   const defaultToneSelect = document.getElementById('defaultTone');
   const autoCopyCheckbox = document.getElementById('autoCopy');
+  const showSelectionBubbleCheckbox = document.getElementById('showSelectionBubble');
   const saveBtn = document.getElementById('saveBtn');
   const saveStatus = document.getElementById('saveStatus');
 
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   selectedModelSelect.value = settings.selectedModel || 'gemini-1.5-flash';
   defaultToneSelect.value = settings.defaultTone || 'fix_grammar';
   autoCopyCheckbox.checked = !!settings.autoCopy;
+  showSelectionBubbleCheckbox.checked = !!settings.showSelectionBubble;
 
   // Şifre göster/gizle
   toggleApiKeyBtn.addEventListener('click', () => {
@@ -54,7 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       apiKey: apiKeyInput.value.trim(),
       selectedModel: selectedModelSelect.value,
       defaultTone: defaultToneSelect.value,
-      autoCopy: autoCopyCheckbox.checked
+      autoCopy: autoCopyCheckbox.checked,
+      showSelectionBubble: showSelectionBubbleCheckbox.checked
     };
 
     await StorageRepository.saveSettings(newSettings);

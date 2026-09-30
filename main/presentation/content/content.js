@@ -7,9 +7,10 @@
   let selectionRange = null;
 
   // Floating trigger ikonu ve modal arayüzünü oluştur
+  const iconUrl = chrome.runtime.getURL('assets/icons/icon32.png');
   const triggerBtn = document.createElement('div');
   triggerBtn.id = 'rewriteai-trigger-btn';
-  triggerBtn.innerHTML = '✨';
+  triggerBtn.innerHTML = `<img src="${iconUrl}" alt="RewriteAI" style="width:20px;height:20px;display:block;">`;
   triggerBtn.title = 'RewriteAI ile Düzenle';
   document.body.appendChild(triggerBtn);
 
@@ -19,7 +20,7 @@
     <div class="rewriteai-modal">
       <div class="rewriteai-modal-header">
         <div class="rewriteai-brand">
-          <span class="rewriteai-logo">✨</span>
+          <img src="${iconUrl}" alt="RewriteAI" style="width:22px;height:22px;border-radius:4px;">
           <span class="rewriteai-title">RewriteAI Metin Düzenleyici</span>
         </div>
         <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
@@ -86,15 +87,16 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #fff;
-      font-size: 15px;
-      line-height: 28px;
-      text-align: center;
+      background: #0f172a;
+      border: 1px solid #38bdf8;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
       transition: transform 0.15s ease;
       user-select: none;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+      box-sizing: border-box;
     }
     #rewriteai-trigger-btn:hover {
       transform: scale(1.15);
@@ -277,26 +279,33 @@
     // Modal içindeki tıklamaları yok say
     if (modalOverlay.contains(e.target) || triggerBtn.contains(e.target)) return;
 
-    setTimeout(() => {
-      const selection = window.getSelection();
-      const text = selection.toString().trim();
-
-      if (text.length > 1) {
-        currentSelectedText = text;
-        try {
-          selectionRange = selection.getRangeAt(0).cloneRange();
-        } catch {
-          selectionRange = null;
-        }
-
-        const rect = selection.getRangeAt(0).getBoundingClientRect();
-        triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
-        triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
-        triggerBtn.style.display = 'block';
-      } else {
+    chrome.storage.local.get({ showSelectionBubble: false }, (items) => {
+      if (!items.showSelectionBubble) {
         triggerBtn.style.display = 'none';
+        return;
       }
-    }, 10);
+
+      setTimeout(() => {
+        const selection = window.getSelection();
+        const text = selection.toString().trim();
+
+        if (text.length > 1) {
+          currentSelectedText = text;
+          try {
+            selectionRange = selection.getRangeAt(0).cloneRange();
+          } catch {
+            selectionRange = null;
+          }
+
+          const rect = selection.getRangeAt(0).getBoundingClientRect();
+          triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
+          triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
+          triggerBtn.style.display = 'flex';
+        } else {
+          triggerBtn.style.display = 'none';
+        }
+      }, 10);
+    });
   });
 
   // Butona tıklayınca modal aç

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "default_locale": "en",
   "description": "__MSG_appDesc__",
   "permissions": [
@@ -33,6 +33,12 @@
       "matches": ["<all_urls>"],
       "js": ["presentation/content/content.js"],
       "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/icons/*"],
+      "matches": ["<all_urls>"]
     }
   ],
   "options_ui": {

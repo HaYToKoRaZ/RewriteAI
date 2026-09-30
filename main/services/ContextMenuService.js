@@ -19,7 +19,7 @@ export class ContextMenuService {
       // Doğrudan düzenleme penceresini açacak ana bağlam menüsü
       chrome.contextMenus.create({
         id: this.ROOT_ID,
-        title: '✨ RewriteAI ile Düzenle...',
+        title: 'RewriteAI ile Düzenle...',
         contexts: ['selection']
       });
 
