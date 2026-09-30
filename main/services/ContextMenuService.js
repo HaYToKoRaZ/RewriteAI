@@ -23,11 +23,43 @@ export class ContextMenuService {
         contexts: ['selection']
       });
 
-      Logger.log('Sağ tık menüsü (modal tetikleyici) oluşturuldu.');
+      // Ayırıcı
+      chrome.contextMenus.create({
+        id: 'rewriteai_separator',
+        type: 'separator',
+        contexts: ['page', 'selection', 'link']
+      });
+
+      // Web sitesi linki
+      chrome.contextMenus.create({
+        id: 'rewriteai_visit_site',
+        title: '🌐 RewriteAI Web Sitesini Aç',
+        contexts: ['page', 'selection', 'link']
+      });
+
+      // Portal linki
+      chrome.contextMenus.create({
+        id: 'rewriteai_open_portal',
+        title: '🚀 RewriteAI Portalı',
+        contexts: ['page', 'selection', 'link']
+      });
+
+      Logger.log('Sağ tık menüsü (modal tetikleyici + site linkleri) oluşturuldu.');
     });
   }
 
   static async handleMenuClick(info, tab) {
+    // Web sitesi ve portal linkleri
+    if (info.menuItemId === 'rewriteai_visit_site') {
+      chrome.tabs.create({ url: 'https://rewriteai.app' });
+      return;
+    }
+
+    if (info.menuItemId === 'rewriteai_open_portal') {
+      chrome.tabs.create({ url: 'https://rewriteai.app/portal' });
+      return;
+    }
+
     if (!info.selectionText || info.menuItemId !== this.ROOT_ID) {
       return;
     }

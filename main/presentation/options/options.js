@@ -1,6 +1,7 @@
 import { StorageRepository } from '../../data/StorageRepository.js';
 import { AVAILABLE_MODELS } from '../../data/DefaultSettings.js';
 import { TONE_DEFINITIONS } from '../../core/TonePrompts.js';
+import { detectLanguage, getT } from '../../core/i18n.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const apiKeyInput = document.getElementById('apiKey');
@@ -15,6 +16,45 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultToneSelect = document.getElementById('defaultTone');
   const autoCopyCheckbox = document.getElementById('autoCopy');
   const showSelectionBubbleCheckbox = document.getElementById('showSelectionBubble');
+
+  // ── Dil Başlatma ──
+  let lang = await detectLanguage();
+  let t = getT(lang);
+
+  const optLangTr = document.getElementById('optLangTr');
+  const optLangEn = document.getElementById('optLangEn');
+
+  function applyOptionsLanguage() {
+    t = getT(lang);
+    if (optLangTr) { optLangTr.classList.toggle('active', lang === 'tr'); }
+    if (optLangEn) { optLangEn.classList.toggle('active', lang === 'en'); }
+    const sfx = document.getElementById('optionsTitleSuffix');
+    const sub = document.getElementById('optionsSubtitle');
+    const wl = document.getElementById('websiteLink');
+    const gl = document.getElementById('githubLink');
+    if (sfx) sfx.textContent = lang === 'en' ? 'Settings' : 'Ayarları';
+    if (sub) sub.textContent = t.optionsSubtitle;
+    if (wl) wl.textContent = t.websiteLink;
+    if (gl) gl.textContent = t.githubLink;
+    // Manifest versiyonunu badge'e yaz
+    const vb = document.getElementById('versionBadge');
+    if (vb) {
+      const mVersion = chrome.runtime.getManifest().version;
+      vb.textContent = `v${mVersion}`;
+    }
+  }
+
+  [optLangTr, optLangEn].forEach((btn) => {
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      lang = btn.dataset.lang;
+      await chrome.storage.local.set({ uiLanguage: lang });
+      applyOptionsLanguage();
+    });
+  });
+
+  // Dili uygula
+  applyOptionsLanguage();
 
   // Modelleri sağlayıcı gruplarıyla yükle
   const groups = {};
@@ -33,10 +73,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Tonları yükle
-  Object.values(TONE_DEFINITIONS).forEach((t) => {
+  Object.values(TONE_DEFINITIONS).forEach((tone) => {
     const opt = document.createElement('option');
-    opt.value = t.id;
-    opt.textContent = `${t.name} (${t.description})`;
+    opt.value = tone.id;
+    opt.textContent = `${tone.name} (${tone.description})`;
     defaultToneSelect.appendChild(opt);
   });
 

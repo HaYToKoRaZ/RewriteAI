@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="popup-wrapper">
+
     <!-- Header -->
     <header class="popup-header">
       <div class="brand">
@@ -15,30 +16,37 @@
         <span class="brand-title">RewriteAI</span>
       </div>
       <div class="header-actions">
-        <button id="openOptionsBtn" class="icon-btn" title="Ayarlar">⚙️</button>
+        <!-- Dil Seçici -->
+        <div class="lang-selector" title="Dil / Language">
+          <button class="lang-btn" id="langBtnTr" data-lang="tr">🇹🇷</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" id="langBtnEn" data-lang="en">🇬🇧</button>
+        </div>
+        <button id="openOptionsBtn" class="icon-btn" title="Ayarlar / Settings">⚙️</button>
       </div>
     </header>
 
-    <!-- API Uyarısı (Eğer anahtar yoksa) -->
+    <!-- API Uyarısı -->
     <div id="apiAlert" class="alert-box hidden">
-      <span>API anahtarınızı girmediniz.</span>
-      <button id="goToOptionsBtn" class="link-btn">Ayarla</button>
+      <span id="apiAlertText">API anahtarınızı girmediniz.</span>
+      <button id="goToOptionsBtn" class="link-btn" id="apiAlertBtn">Ayarla</button>
     </div>
 
-    <!-- Tone Selector Bar -->
+    <!-- Ton Seçici -->
     <div class="tone-bar">
-      <label for="toneSelect" class="tone-label">Dönüşüm Tonu:</label>
+      <label for="toneSelect" class="tone-label" id="toneLabelEl">Dönüşüm Tonu:</label>
       <select id="toneSelect">
-        <!-- JS ile dinamik gelecek -->
+        <!-- JS ile dinamik -->
       </select>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Ana İçerik -->
     <main class="main-content">
-      <!-- Input Panel -->
+
+      <!-- Giriş Paneli -->
       <div class="text-panel">
         <div class="panel-header">
-          <span>Orijinal Metin</span>
+          <span id="inputPanelLabel">Orijinal Metin</span>
           <div class="panel-actions">
             <button id="pasteBtn" class="mini-btn" title="Panodan Yapıştır">📋 Yapıştır</button>
             <button id="clearBtn" class="mini-btn" title="Temizle">🗑️</button>
@@ -47,31 +55,33 @@
         <textarea id="inputText" placeholder="Metninizi buraya yazın veya yapıştırın..." spellcheck="false"></textarea>
       </div>
 
-      <!-- Action Button -->
+      <!-- Dönüştür Butonu -->
       <div class="action-bar">
         <button id="transformBtn" class="btn-primary">
-          <span class="btn-text">Metni Yeniden Yaz</span>
+          <span class="btn-text" id="transformBtnText">Metni Yeniden Yaz</span>
           <div id="loader" class="spinner hidden"></div>
         </button>
       </div>
 
-      <!-- Output Panel -->
+      <!-- Çıktı Paneli -->
       <div class="text-panel output-panel">
         <div class="panel-header">
-          <span>Dönüştürülen Metin</span>
+          <span id="outputPanelLabel">Dönüştürülen Metin</span>
           <div class="panel-actions">
-            <button id="copyBtn" class="mini-btn highlight-btn" title="Sonucu Kopyala">📄 Kopyala</button>
+            <button id="copyBtn" class="mini-btn highlight-btn" title="Kopyala">📄 Kopyala</button>
           </div>
         </div>
         <textarea id="outputText" placeholder="Dönüştürülen metin burada belirecek..." readonly></textarea>
       </div>
+
     </main>
 
-    <!-- Footer Status -->
+    <!-- Footer -->
     <footer class="popup-footer">
       <span id="charCount">0 karakter</span>
       <span id="statusInfo">Hazır</span>
     </footer>
+
   </div>
 
   <script type="module" src="popup.js"></script>

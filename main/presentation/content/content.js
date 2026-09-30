@@ -220,7 +220,7 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      max-height: 70vh;
+      max-height: 75vh;
       overflow-y: auto;
     }
     .rewriteai-key-warning {
@@ -304,19 +304,22 @@
     .rewriteai-tone-btn.active small { color: #bae6fd; }
     #rewriteai-result-text {
       width: 100%;
-      height: 110px;
+      height: 160px;
+      min-height: 120px;
       background: #020617;
       border: 1px solid #334155;
       border-radius: 8px;
-      color: #fff;
-      padding: 10px;
-      font-size: 13px;
-      line-height: 1.4;
+      color: #e2e8f0;
+      padding: 12px;
+      font-size: 13.5px;
+      line-height: 1.6;
       resize: vertical;
       box-sizing: border-box;
       outline: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
-    #rewriteai-result-text:focus { border-color: #38bdf8; }
+    #rewriteai-result-text::placeholder { color: #2d3f57; }
+    #rewriteai-result-text:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56,189,248,0.12); }
     .rewriteai-modal-footer {
       display: flex;
       flex-wrap: wrap;
