@@ -397,11 +397,13 @@
 
   function updateModalQuota() {
     const today = new Date().toISOString().slice(0, 10);
-    chrome.storage.local.get(['usageStats'], (data) => {
-      const stats = data.usageStats || {};
-      const count = stats.date === today ? (stats.count || 0) : 0;
+    const curModel = modelSelect ? modelSelect.value : 'gemini-3.8-flash';
+    chrome.storage.local.get(['modelUsageStats'], (data) => {
+      const stats = data.modelUsageStats || {};
+      const counts = (stats.date === today && stats.counts) ? stats.counts : {};
+      const count = counts[curModel] || 0;
       if (quotaTextEl) {
-        quotaTextEl.textContent = `Bugün: ${count} / 1.500 istek`;
+        quotaTextEl.textContent = `Bu Model: ${count} / 1.500 istek (Bugün)`;
       }
     });
   }
@@ -412,22 +414,23 @@
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
     statusMsg.textContent = 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.';
-    updateModalQuota();
 
     // Ayarlardan kaydedilmiş varsayılan modeli getir
     chrome.storage.local.get({ selectedModel: 'gemini-3.8-flash' }, (items) => {
       if (items.selectedModel && modelSelect) {
         modelSelect.value = items.selectedModel;
       }
+      updateModalQuota();
     });
 
     modalOverlay.style.display = 'flex';
   }
 
-  // Model kutudan değiştirilirse tercihi hatırla
+  // Model kutudan değiştirilirse tercihi hatırla ve o modelin kotasını göster
   if (modelSelect) {
     modelSelect.addEventListener('change', () => {
       chrome.storage.local.set({ selectedModel: modelSelect.value });
+      updateModalQuota();
       statusMsg.textContent = `Model seçildi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
     });
   }

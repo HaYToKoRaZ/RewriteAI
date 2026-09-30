@@ -46,27 +46,39 @@ export class StorageRepository {
     });
   }
 
-  static async getDailyUsage() {
+  static async getDailyUsage(model = 'gemini-3.8-flash') {
     const today = new Date().toISOString().slice(0, 10);
     return new Promise((resolve) => {
-      chrome.storage.local.get(['usageStats'], (data) => {
-        const stats = data.usageStats || {};
+      chrome.storage.local.get(['modelUsageStats'], (data) => {
+        const stats = data.modelUsageStats || {};
         if (stats.date !== today) {
           resolve({ date: today, count: 0 });
         } else {
-          resolve({ date: today, count: stats.count || 0 });
+          const modelCounts = stats.counts || {};
+          resolve({ date: today, count: modelCounts[model] || 0 });
         }
       });
     });
   }
 
-  static async incrementDailyUsage() {
+  static async incrementDailyUsage(model = 'gemini-3.8-flash') {
     const today = new Date().toISOString().slice(0, 10);
-    const usage = await this.getDailyUsage();
-    const newCount = (usage.date === today ? usage.count : 0) + 1;
-    await this.saveSettings({
-      usageStats: { date: today, count: newCount }
+    return new Promise((resolve) => {
+      chrome.storage.local.get(['modelUsageStats'], (data) => {
+        let stats = data.modelUsageStats || {};
+        if (stats.date !== today) {
+          stats = { date: today, counts: {} };
+        }
+        if (!stats.counts) stats.counts = {};
+
+        const currentCount = stats.counts[model] || 0;
+        const newCount = currentCount + 1;
+        stats.counts[model] = newCount;
+
+        chrome.storage.local.set({ modelUsageStats: stats }, () => {
+          resolve(newCount);
+        });
+      });
     });
-    return newCount;
   }
 }

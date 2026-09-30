@@ -36,15 +36,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   autoCopyCheckbox.checked = !!settings.autoCopy;
   showSelectionBubbleCheckbox.checked = !!settings.showSelectionBubble;
 
-  // Kota ve kullanım istatistiğini göster
-  const usage = await StorageRepository.getDailyUsage();
-  const usageCountEl = document.getElementById('dailyUsageCount');
-  const progressBarEl = document.getElementById('quotaProgressBar');
-  if (usageCountEl && progressBarEl) {
-    usageCountEl.textContent = usage.count;
-    const pct = Math.min(100, Math.round((usage.count / 1500) * 100));
-    progressBarEl.style.width = `${pct}%`;
+  // Kota ve kullanım istatistiğini seçili modele göre göster
+  async function updateOptionsQuota() {
+    const curModel = selectedModelSelect.value;
+    const usage = await StorageRepository.getDailyUsage(curModel);
+    const usageCountEl = document.getElementById('dailyUsageCount');
+    const progressBarEl = document.getElementById('quotaProgressBar');
+    if (usageCountEl && progressBarEl) {
+      usageCountEl.textContent = usage.count;
+      const pct = Math.min(100, Math.round((usage.count / 1500) * 100));
+      progressBarEl.style.width = `${pct}%`;
+    }
   }
+
+  updateOptionsQuota();
+  selectedModelSelect.addEventListener('change', updateOptionsQuota);
 
   // Şifre göster/gizle
   toggleApiKeyBtn.addEventListener('click', () => {
