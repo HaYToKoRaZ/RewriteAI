@@ -21,8 +21,9 @@ export class TextTransformService {
     Logger.log(`Metin işleniyor... Model: ${activeModel}, Ton: ${toneConfig.name}`);
     const result = await GeminiService.generate(settings.apiKey, prompt, activeModel);
 
-    // Sonucu yerel geçmişe kaydet
+    // Sonucu yerel geçmişe kaydet ve günlük sayacı artır
     await StorageRepository.saveLastResult(text, result, toneId);
+    await StorageRepository.incrementDailyUsage();
 
     return result;
   }

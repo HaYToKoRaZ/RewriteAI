@@ -183,3 +183,81 @@ select:focus {
   font-weight: 500;
   color: var(--success);
 }
+
+/* Quota Card */
+.quota-card {
+  background-color: #0b1120;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.quota-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quota-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.quota-link {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.quota-link:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.quota-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.quota-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.quota-limit {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.quota-progress-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.quota-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #0284c7);
+  transition: width 0.3s ease;
+}
+
+.quota-specs {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.quota-specs strong {
+  color: #e2e8f0;
+}

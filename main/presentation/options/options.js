@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   autoCopyCheckbox.checked = !!settings.autoCopy;
   showSelectionBubbleCheckbox.checked = !!settings.showSelectionBubble;
 
+  // Kota ve kullanım istatistiğini göster
+  const usage = await StorageRepository.getDailyUsage();
+  const usageCountEl = document.getElementById('dailyUsageCount');
+  const progressBarEl = document.getElementById('quotaProgressBar');
+  if (usageCountEl && progressBarEl) {
+    usageCountEl.textContent = usage.count;
+    const pct = Math.min(100, Math.round((usage.count / 1500) * 100));
+    progressBarEl.style.width = `${pct}%`;
+  }
+
   // Şifre göster/gizle
   toggleApiKeyBtn.addEventListener('click', () => {
     if (apiKeyInput.type === 'password') {

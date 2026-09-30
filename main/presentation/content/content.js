@@ -73,7 +73,13 @@
       </div>
 
       <div class="rewriteai-modal-footer">
-        <div id="rewriteai-status-msg" class="rewriteai-status">Dönüşüm tonu seçin ve 'Dönüştür'e basın</div>
+        <div class="rewriteai-footer-left">
+          <div id="rewriteai-status-msg" class="rewriteai-status">Dönüşüm tonu seçin ve 'Dönüştür'e basın</div>
+          <div class="rewriteai-quota-badge">
+            <span id="rewriteai-modal-quota-text">Bugün: 0 / 1.500 istek</span>
+            <a href="https://aistudio.google.com/app/plan_information" target="_blank" rel="noopener" class="rewriteai-quota-external" title="Google AI Studio Resmi Kota Paneli">Panel ↗</a>
+          </div>
+        </div>
         <div class="rewriteai-actions">
           <button id="rewriteai-apply-btn" class="rewriteai-btn-primary">⚡ Dönüştür</button>
           <button id="rewriteai-copy-btn" class="rewriteai-btn-secondary" disabled>📋 Kopyala</button>
@@ -260,10 +266,35 @@
       background: #1e293b;
       border-top: 1px solid #334155;
     }
+    .rewriteai-footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
     .rewriteai-status {
       font-size: 12px;
       color: #94a3b8;
-      flex: 1;
+    }
+    .rewriteai-quota-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .rewriteai-quota-badge span {
+      color: #38bdf8;
+      font-weight: 500;
+    }
+    .rewriteai-quota-external {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 11px;
+    }
+    .rewriteai-quota-external:hover {
+      color: #38bdf8;
+      text-decoration: underline;
     }
     .rewriteai-actions {
       display: flex;
@@ -362,12 +393,26 @@
     });
   });
 
+  const quotaTextEl = document.getElementById('rewriteai-modal-quota-text');
+
+  function updateModalQuota() {
+    const today = new Date().toISOString().slice(0, 10);
+    chrome.storage.local.get(['usageStats'], (data) => {
+      const stats = data.usageStats || {};
+      const count = stats.date === today ? (stats.count || 0) : 0;
+      if (quotaTextEl) {
+        quotaTextEl.textContent = `Bugün: ${count} / 1.500 istek`;
+      }
+    });
+  }
+
   function openModal(text) {
     previewBox.textContent = text;
     resultBox.value = '';
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
     statusMsg.textContent = 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.';
+    updateModalQuota();
 
     // Ayarlardan kaydedilmiş varsayılan modeli getir
     chrome.storage.local.get({ selectedModel: 'gemini-3.8-flash' }, (items) => {
@@ -420,6 +465,7 @@
         copyBtn.disabled = false;
         replaceBtn.disabled = false;
         statusMsg.textContent = '✓ Tamamlandı!';
+        updateModalQuota();
       } else {
         const err = response?.error || 'Bilinmeyen bir hata oluştu.';
         statusMsg.textContent = `Hata: ${err}`;

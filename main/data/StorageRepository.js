@@ -45,4 +45,28 @@ export class StorageRepository {
       lastTone: tone
     });
   }
+
+  static async getDailyUsage() {
+    const today = new Date().toISOString().slice(0, 10);
+    return new Promise((resolve) => {
+      chrome.storage.local.get(['usageStats'], (data) => {
+        const stats = data.usageStats || {};
+        if (stats.date !== today) {
+          resolve({ date: today, count: 0 });
+        } else {
+          resolve({ date: today, count: stats.count || 0 });
+        }
+      });
+    });
+  }
+
+  static async incrementDailyUsage() {
+    const today = new Date().toISOString().slice(0, 10);
+    const usage = await this.getDailyUsage();
+    const newCount = (usage.date === today ? usage.count : 0) + 1;
+    await this.saveSettings({
+      usageStats: { date: today, count: newCount }
+    });
+    return newCount;
+  }
 }

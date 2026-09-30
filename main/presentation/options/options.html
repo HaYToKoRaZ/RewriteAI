@@ -38,6 +38,29 @@
         </small>
       </div>
 
+      <!-- Kota ve Kullanım Takip Kartı -->
+      <div class="quota-card">
+        <div class="quota-header">
+          <span class="quota-title">📊 Bugünkü Kota Kullanımı</span>
+          <a href="https://aistudio.google.com/app/plan_information" target="_blank" rel="noopener" class="quota-link">
+            AI Studio Resmi Panel ↗
+          </a>
+        </div>
+        <div class="quota-body">
+          <div class="quota-stat">
+            <span class="quota-number" id="dailyUsageCount">0</span>
+            <span class="quota-limit">/ 1.500 istek (Bugün)</span>
+          </div>
+          <div class="quota-progress-bg">
+            <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
+          </div>
+          <div class="quota-specs">
+            <span>⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
+            <span>📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="defaultTone">Varsayılan Ton</label>
         <select id="defaultTone">
