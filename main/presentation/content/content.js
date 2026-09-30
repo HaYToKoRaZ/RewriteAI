@@ -25,9 +25,9 @@
         </div>
         <div class="rewriteai-header-controls">
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
-            <option value="gemini-3.8-flash">Gemini 3.8 Flash (✨ Önerilen)</option>
+            <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash Lite (✨ En Hafif & Hızlı)</option>
+            <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
             <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
-            <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option>
           </select>
           <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
         </div>
@@ -365,11 +365,11 @@
     });
   });
 
-  // Butona tıklayınca modal aç
+  // Butona tıklayınca modal aç (varsayılan tonla otomatik başlat)
   triggerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     triggerBtn.style.display = 'none';
-    openModal(currentSelectedText);
+    openModal(currentSelectedText, true);
   });
 
   // Modal Kontrolleri
@@ -397,7 +397,7 @@
 
   function updateModalQuota() {
     const today = new Date().toISOString().slice(0, 10);
-    const curModel = modelSelect ? modelSelect.value : 'gemini-3.8-flash';
+    const curModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
     chrome.storage.local.get(['modelUsageStats'], (data) => {
       const stats = data.modelUsageStats || {};
       const counts = (stats.date === today && stats.counts) ? stats.counts : {};
@@ -408,19 +408,39 @@
     });
   }
 
-  function openModal(text) {
+  function openModal(text, autoRun = false) {
     previewBox.textContent = text;
     resultBox.value = '';
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
     statusMsg.textContent = 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.';
 
-    // Ayarlardan kaydedilmiş varsayılan modeli getir
-    chrome.storage.local.get({ selectedModel: 'gemini-3.8-flash' }, (items) => {
+    // Ayarlardan kaydedilmiş varsayılan model ve tonu getir
+    chrome.storage.local.get({
+      selectedModel: 'gemini-3.5-flash-lite',
+      defaultTone: 'fix_grammar'
+    }, (items) => {
       if (items.selectedModel && modelSelect) {
         modelSelect.value = items.selectedModel;
       }
+
+      if (items.defaultTone) {
+        selectedTone = items.defaultTone;
+        toneBtns.forEach((btn) => {
+          if (btn.getAttribute('data-tone') === selectedTone) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
       updateModalQuota();
+
+      // Otomatik çalıştırma istendiyse hemen dönüştür
+      if (autoRun) {
+        applyBtn.click();
+      }
     });
 
     modalOverlay.style.display = 'flex';
@@ -452,7 +472,7 @@
     applyBtn.textContent = '⏳ İşleniyor...';
     statusMsg.textContent = 'Yapay zeka metni yeniden yazıyor...';
 
-    const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.8-flash';
+    const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
 
     chrome.runtime.sendMessage({
       type: 'TRANSFORM_TEXT',
@@ -501,7 +521,7 @@
   chrome.runtime.onMessage.addListener((request) => {
     if (request.type === 'OPEN_REWRITE_MODAL') {
       currentSelectedText = request.text;
-      openModal(request.text);
+      openModal(request.text, true); // Varsayılan tonla doğrudan çalıştır
     }
   });
 })();

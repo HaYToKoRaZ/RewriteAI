@@ -1,6 +1,6 @@
 export const DEFAULT_SETTINGS = {
   apiKey: '',
-  selectedModel: 'gemini-3.8-flash',
+  selectedModel: 'gemini-3.5-flash-lite',
   defaultTone: 'fix_grammar',
   autoCopy: false,
   showNotifications: true,
