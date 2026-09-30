@@ -3,17 +3,43 @@ import { Logger } from '../core/Logger.js';
 export class GeminiService {
   static BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
-  static async generate(apiKey, promptText, model = 'gemini-1.5-flash-latest') {
+  static async generate(apiKey, promptText, preferredModel = 'gemini-2.0-flash') {
     if (!apiKey) {
       throw new Error('API anahtarı bulunamadı. Lütfen eklenti ayarlarından Gemini API anahtarınızı girin.');
     }
 
-    // Eski 'gemini-1.5-flash' kalmışsa otomatik 'gemini-1.5-flash-latest'e dönüştür
-    let cleanModel = model;
-    if (cleanModel === 'gemini-1.5-flash') cleanModel = 'gemini-1.5-flash-latest';
-    if (cleanModel === 'gemini-1.5-pro') cleanModel = 'gemini-1.5-pro-latest';
+    // Denenecek model öncelik sırası
+    const candidateModels = [
+      preferredModel,
+      'gemini-2.0-flash',
+      'gemini-2.5-flash',
+      'gemini-2.5-flash-lite',
+      'gemini-1.5-flash'
+    ].filter((m, idx, self) => m && self.indexOf(m) === idx);
 
-    const endpoint = `${this.BASE_URL}/${cleanModel}:generateContent?key=${apiKey}`;
+    let lastError = null;
+
+    for (const model of candidateModels) {
+      try {
+        const result = await this._callModel(apiKey, promptText, model);
+        return result;
+      } catch (err) {
+        lastError = err;
+        // Eğer model bulunamadı (404) hatası ise bir sonraki güncel modeli dene
+        if (err.message && (err.message.includes('not found') || err.message.includes('404'))) {
+          Logger.warn(`Model '${model}' bulunamadı, sıradaki modele geçiliyor...`);
+          continue;
+        }
+        // Başka bir hata (ör. API anahtarı geçersiz, kota aşımı) ise hemen fırlat
+        throw err;
+      }
+    }
+
+    throw lastError || new Error('Uygun bir Gemini modeli bulunamadı.');
+  }
+
+  static async _callModel(apiKey, promptText, model) {
+    const endpoint = `${this.BASE_URL}/${model}:generateContent?key=${apiKey}`;
 
     const payload = {
       contents: [
