@@ -3,12 +3,17 @@ import { Logger } from '../core/Logger.js';
 export class GeminiService {
   static BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
-  static async generate(apiKey, promptText, model = 'gemini-1.5-flash') {
+  static async generate(apiKey, promptText, model = 'gemini-1.5-flash-latest') {
     if (!apiKey) {
       throw new Error('API anahtarı bulunamadı. Lütfen eklenti ayarlarından Gemini API anahtarınızı girin.');
     }
 
-    const endpoint = `${this.BASE_URL}/${model}:generateContent?key=${apiKey}`;
+    // Eski 'gemini-1.5-flash' kalmışsa otomatik 'gemini-1.5-flash-latest'e dönüştür
+    let cleanModel = model;
+    if (cleanModel === 'gemini-1.5-flash') cleanModel = 'gemini-1.5-flash-latest';
+    if (cleanModel === 'gemini-1.5-pro') cleanModel = 'gemini-1.5-pro-latest';
+
+    const endpoint = `${this.BASE_URL}/${cleanModel}:generateContent?key=${apiKey}`;
 
     const payload = {
       contents: [
