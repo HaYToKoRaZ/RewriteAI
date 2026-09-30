@@ -77,7 +77,7 @@
           <div id="rewriteai-status-msg" class="rewriteai-status">Dönüşüm tonu seçin ve 'Dönüştür'e basın</div>
           <div class="rewriteai-quota-badge">
             <span id="rewriteai-modal-quota-text">Bugün: 0 / 1.500 istek</span>
-            <a href="https://aistudio.google.com/app/plan_information" target="_blank" rel="noopener" class="rewriteai-quota-external" title="Google AI Studio Resmi Kota Paneli">Panel ↗</a>
+            <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="rewriteai-quota-external" title="Google AI Studio Resmi Kota Paneli">Panel ↗</a>
           </div>
         </div>
         <div class="rewriteai-actions">
