@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "RewriteAI - Akıllı Metin Düzenleyici",
+    "description": "Eklenti başlığı"
+  },
+  "appDesc": {
+    "message": "Google Gemini ile imla hatalarını düzeltin; günlük, resmi, sokak ağzı veya akademik tonlara anında dönüştürün.",
+    "description": "Eklenti açıklaması"
+  }
+}

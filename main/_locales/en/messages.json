@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "RewriteAI - AI Text Rewriter & Tone Changer",
+    "description": "Extension title"
+  },
+  "appDesc": {
+    "message": "Fix spelling mistakes, adjust tones (casual, formal, slang, academic), and rewrite any text instantly using Google Gemini AI.",
+    "description": "Extension description"
+  }
+}
