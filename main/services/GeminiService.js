@@ -3,17 +3,18 @@ import { Logger } from '../core/Logger.js';
 export class GeminiService {
   static BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
-  static async generate(apiKey, promptText, preferredModel = 'gemini-2.0-flash') {
+  static async generate(apiKey, promptText, preferredModel = 'gemini-3.8-flash') {
     if (!apiKey) {
       throw new Error('API anahtarı bulunamadı. Lütfen eklenti ayarlarından Gemini API anahtarınızı girin.');
     }
 
-    // Denenecek model öncelik sırası
+    // Denenecek model öncelik sırası (En yeni Gemini 3.x Flash ailesi öncelikli)
     const candidateModels = [
       preferredModel,
+      'gemini-3.8-flash',
+      'gemini-3.7-flash',
+      'gemini-3.5-flash-lite',
       'gemini-2.0-flash',
-      'gemini-2.5-flash',
-      'gemini-2.5-flash-lite',
       'gemini-1.5-flash'
     ].filter((m, idx, self) => m && self.indexOf(m) === idx);
 

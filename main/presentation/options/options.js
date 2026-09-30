@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Mevcut ayarları çek
   const settings = await StorageRepository.getSettings();
   apiKeyInput.value = settings.apiKey || '';
-  selectedModelSelect.value = settings.selectedModel || 'gemini-1.5-flash-latest';
+  selectedModelSelect.value = settings.selectedModel || 'gemini-3.8-flash';
   defaultToneSelect.value = settings.defaultTone || 'fix_grammar';
   autoCopyCheckbox.checked = !!settings.autoCopy;
   showSelectionBubbleCheckbox.checked = !!settings.showSelectionBubble;
