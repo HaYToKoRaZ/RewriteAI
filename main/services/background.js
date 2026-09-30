@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'TRANSFORM_TEXT') {
-    TextTransformService.transform(message.text, message.tone)
+    TextTransformService.transform(message.text, message.tone, message.model)
       .then((result) => {
         sendResponse({ success: true, result });
       })

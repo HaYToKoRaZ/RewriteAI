@@ -4,7 +4,7 @@ import { TONE_DEFINITIONS } from '../core/TonePrompts.js';
 import { Logger } from '../core/Logger.js';
 
 export class TextTransformService {
-  static async transform(text, toneId = 'fix_grammar') {
+  static async transform(text, toneId = 'fix_grammar', overrideModel = null) {
     if (!text || text.trim() === '') {
       throw new Error('Lütfen dönüştürülecek bir metin girin.');
     }
@@ -14,11 +14,12 @@ export class TextTransformService {
       throw new Error('Lütfen önce Eklenti Seçeneklerinden Gemini API Anahtarınızı kaydedin.');
     }
 
+    const activeModel = overrideModel || settings.selectedModel || 'gemini-3.8-flash';
     const toneConfig = TONE_DEFINITIONS[toneId] || TONE_DEFINITIONS.fix_grammar;
     const prompt = `${toneConfig.prompt}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
 
-    Logger.log(`Metin işleniyor... Model: ${settings.selectedModel}, Ton: ${toneConfig.name}`);
-    const result = await GeminiService.generate(settings.apiKey, prompt, settings.selectedModel);
+    Logger.log(`Metin işleniyor... Model: ${activeModel}, Ton: ${toneConfig.name}`);
+    const result = await GeminiService.generate(settings.apiKey, prompt, activeModel);
 
     // Sonucu yerel geçmişe kaydet
     await StorageRepository.saveLastResult(text, result, toneId);

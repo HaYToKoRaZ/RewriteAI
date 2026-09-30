@@ -23,7 +23,16 @@
           <img src="${iconUrl}" alt="RewriteAI" style="width:22px;height:22px;border-radius:4px;">
           <span class="rewriteai-title">RewriteAI Metin Düzenleyici</span>
         </div>
-        <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
+        <div class="rewriteai-header-controls">
+          <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
+            <option value="gemini-3.8-flash">Gemini 3.8 Flash (✨ Ücretsiz)</option>
+            <option value="gemini-3.7-flash">Gemini 3.7 Flash (✨ Ücretsiz)</option>
+            <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (✨ Ücretsiz)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+          </select>
+          <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
+        </div>
       </div>
 
       <div class="rewriteai-modal-body">
@@ -144,6 +153,25 @@
       font-weight: 700;
       font-size: 15px;
       color: #38bdf8;
+    }
+    .rewriteai-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .rewriteai-select {
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+    }
+    .rewriteai-select:hover {
+      border-color: #38bdf8;
     }
     .rewriteai-close-btn {
       background: transparent;
@@ -324,6 +352,7 @@
   const copyBtn = document.getElementById('rewriteai-copy-btn');
   const replaceBtn = document.getElementById('rewriteai-replace-btn');
   const toneBtns = document.querySelectorAll('.rewriteai-tone-btn');
+  const modelSelect = document.getElementById('rewriteai-modal-model-select');
 
   let selectedTone = 'fix_grammar';
 
@@ -341,7 +370,23 @@
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
     statusMsg.textContent = 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.';
+
+    // Ayarlardan kaydedilmiş varsayılan modeli getir
+    chrome.storage.local.get({ selectedModel: 'gemini-3.8-flash' }, (items) => {
+      if (items.selectedModel && modelSelect) {
+        modelSelect.value = items.selectedModel;
+      }
+    });
+
     modalOverlay.style.display = 'flex';
+  }
+
+  // Model kutudan değiştirilirse tercihi hatırla
+  if (modelSelect) {
+    modelSelect.addEventListener('change', () => {
+      chrome.storage.local.set({ selectedModel: modelSelect.value });
+      statusMsg.textContent = `Model seçildi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+    });
   }
 
   function closeModal() {
@@ -361,10 +406,13 @@
     applyBtn.textContent = '⏳ İşleniyor...';
     statusMsg.textContent = 'Yapay zeka metni yeniden yazıyor...';
 
+    const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.8-flash';
+
     chrome.runtime.sendMessage({
       type: 'TRANSFORM_TEXT',
       text: currentSelectedText,
-      tone: selectedTone
+      tone: selectedTone,
+      model: chosenModel
     }, (response) => {
       applyBtn.disabled = false;
       applyBtn.textContent = '⚡ Dönüştür';
