@@ -28,7 +28,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Ayarları ve son durumu yükle
   const settings = await StorageRepository.getSettings();
-  if (!settings.apiKey) {
+  const hasAnyKey = !!(
+    settings.apiKey ||
+    settings.groqApiKey ||
+    settings.cohereApiKey ||
+    settings.hfApiKey ||
+    settings.openaiApiKey ||
+    settings.anthropicApiKey ||
+    settings.deepseekApiKey
+  );
+
+  if (!hasAnyKey) {
     apiAlert.classList.remove('hidden');
   } else {
     apiAlert.classList.add('hidden');

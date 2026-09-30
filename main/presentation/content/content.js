@@ -25,9 +25,33 @@
         </div>
         <div class="rewriteai-header-controls">
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
-            <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash Lite (✨ En Hafif & Hızlı)</option>
-            <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
-            <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+            <optgroup label="🆓 Google Gemini (Ücretsiz Tier)">
+              <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash Lite (✨ En Hafif)</option>
+              <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+              <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+            </optgroup>
+            <optgroup label="⚡ Groq (Ücretsiz & Işık Hızında)">
+              <option value="llama-3.3-70b-versatile">Groq: Llama 3.3 70B (Çok Hızlı)</option>
+              <option value="llama-3.1-8b-instant">Groq: Llama 3.1 8B (Anında)</option>
+            </optgroup>
+            <optgroup label="🏢 Cohere (Ücretsiz Trial)">
+              <option value="command-r-plus">Cohere: Command R+</option>
+              <option value="command-r">Cohere: Command R</option>
+            </optgroup>
+            <optgroup label="🤗 Hugging Face (Ücretsiz Token)">
+              <option value="Qwen/Qwen2.5-72B-Instruct">HF: Qwen 2.5 72B</option>
+            </optgroup>
+            <optgroup label="🌐 OpenAI (ChatGPT)">
+              <option value="gpt-4o-mini">OpenAI: GPT-4o Mini</option>
+              <option value="gpt-4o">OpenAI: GPT-4o</option>
+            </optgroup>
+            <optgroup label="🧠 Anthropic Claude">
+              <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+              <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+            </optgroup>
+            <optgroup label="🐋 DeepSeek">
+              <option value="deepseek-chat">DeepSeek: DeepSeek-V3</option>
+            </optgroup>
           </select>
           <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
         </div>

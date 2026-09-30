@@ -12,21 +12,102 @@
       <img src="../../assets/icons/icon48.png" alt="RewriteAI Logo" class="logo">
       <div>
         <h1>RewriteAI Ayarları</h1>
-        <p class="subtitle">Google Gemini API yapılandırması ve genel tercihler</p>
+        <p class="subtitle">Çoklu Yapay Zeka Sağlayıcıları (Gemini, Groq, Cohere, OpenAI vb.) ve Tercihler</p>
       </div>
     </header>
 
     <main class="card">
-      <div class="form-group">
-        <label for="apiKey">Gemini API Anahtarı <span class="required">*</span></label>
-        <div class="input-wrapper">
-          <input type="password" id="apiKey" placeholder="AIzaSy..." autocomplete="off">
-          <button type="button" id="toggleApiKey" class="btn-secondary btn-icon" title="Göster / Gizle">👁️</button>
+      <!-- Sağlayıcı API Anahtarları Akordeon / Bölüm -->
+      <div class="providers-section">
+        <h3 class="section-title">🔑 Yapay Zeka API Anahtarları</h3>
+        <p class="section-desc">Kullanmak istediğiniz servisin anahtarını girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
+
+        <!-- 1. Google Gemini -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🆓 Google Gemini</strong>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="apiKey" placeholder="AIzaSy... (Gemini Anahtarı)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="apiKey" title="Göster / Gizle">👁️</button>
+          </div>
         </div>
-        <small class="helper-text">
-          API anahtarınız yoksa <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> üzerinden ücretsiz alabilirsiniz. Anahtarınız yalnızca tarayıcınızın yerel depolama alanında tutulur.
-        </small>
+
+        <!-- 2. Groq Cloud -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>⚡ Groq Cloud (Ücretsiz & Işık Hızında)</strong>
+            <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="groqApiKey" placeholder="gsk_... (Groq Anahtarı)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="groqApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
+
+        <!-- 3. Cohere -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🏢 Cohere (Ücretsiz Trial)</strong>
+            <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">Ücretsiz Trial Al ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="cohereApiKey" placeholder="Cohere API Anahtarı..." autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="cohereApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
+
+        <!-- 4. Hugging Face -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🤗 Hugging Face</strong>
+            <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">Ücretsiz Token Al ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="hfApiKey" placeholder="hf_... (Read Token)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="hfApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
+
+        <!-- 5. OpenAI -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🌐 OpenAI (ChatGPT)</strong>
+            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Paneli ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="openaiApiKey" placeholder="sk-... (OpenAI Anahtarı)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="openaiApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
+
+        <!-- 6. Anthropic Claude -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🧠 Anthropic Claude</strong>
+            <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Claude Paneli ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="anthropicApiKey" placeholder="sk-ant-... (Claude Anahtarı)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="anthropicApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
+
+        <!-- 7. DeepSeek -->
+        <div class="provider-box">
+          <div class="provider-box-header">
+            <strong>🐋 DeepSeek</strong>
+            <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">DeepSeek Paneli ↗</a>
+          </div>
+          <div class="input-wrapper">
+            <input type="password" id="deepseekApiKey" placeholder="sk-... (DeepSeek Anahtarı)" autocomplete="off">
+            <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="deepseekApiKey" title="Göster / Gizle">👁️</button>
+          </div>
+        </div>
       </div>
+
+      <hr class="divider">
 
       <div class="form-group">
         <label for="selectedModel">Yapay Zeka Modeli</label>
@@ -34,7 +115,7 @@
           <!-- Dinamik doldurulacak -->
         </select>
         <small class="helper-text">
-          💡 <strong>Ücretsiz Kullanım (Free Tier):</strong> Google AI Studio üzerinde kredi kartı eklemeden tüm Flash modellerini (3.8, 3.7 ve 3.5 Lite) <strong>tamamen ücretsiz</strong> günlük kotalarla (dakikada 15 istek, günde 1.500 istek) kullanabilirsiniz. Kart tanımlarsanız kota kalkar ve kullandıkça çok düşük ücretlendirilir ($0.30 - $0.75 / milyon token).
+          💡 İstediğiniz sağlayıcının modelini seçebilirsiniz. Seçtiğiniz modele ait API anahtarının yukarıda girilmiş olduğundan emin olun.
         </small>
       </div>
 

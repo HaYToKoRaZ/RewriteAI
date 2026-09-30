@@ -4,7 +4,13 @@ import { TONE_DEFINITIONS } from '../../core/TonePrompts.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const apiKeyInput = document.getElementById('apiKey');
-  const toggleApiKeyBtn = document.getElementById('toggleApiKey');
+  const groqApiKeyInput = document.getElementById('groqApiKey');
+  const cohereApiKeyInput = document.getElementById('cohereApiKey');
+  const hfApiKeyInput = document.getElementById('hfApiKey');
+  const openaiApiKeyInput = document.getElementById('openaiApiKey');
+  const anthropicApiKeyInput = document.getElementById('anthropicApiKey');
+  const deepseekApiKeyInput = document.getElementById('deepseekApiKey');
+
   const selectedModelSelect = document.getElementById('selectedModel');
   const defaultToneSelect = document.getElementById('defaultTone');
   const autoCopyCheckbox = document.getElementById('autoCopy');
@@ -12,12 +18,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const saveBtn = document.getElementById('saveBtn');
   const saveStatus = document.getElementById('saveStatus');
 
-  // Modelleri yükle
+  // Modelleri sağlayıcı gruplarıyla yükle
+  const groups = {};
   AVAILABLE_MODELS.forEach((m) => {
+    const groupName = m.group || 'Diğer Modeller';
+    if (!groups[groupName]) {
+      const optGroup = document.createElement('optgroup');
+      optGroup.label = groupName;
+      groups[groupName] = optGroup;
+      selectedModelSelect.appendChild(optGroup);
+    }
     const opt = document.createElement('option');
     opt.value = m.id;
     opt.textContent = m.name;
-    selectedModelSelect.appendChild(opt);
+    groups[groupName].appendChild(opt);
   });
 
   // Tonları yükle
@@ -31,6 +45,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Mevcut ayarları çek
   const settings = await StorageRepository.getSettings();
   apiKeyInput.value = settings.apiKey || '';
+  if (groqApiKeyInput) groqApiKeyInput.value = settings.groqApiKey || '';
+  if (cohereApiKeyInput) cohereApiKeyInput.value = settings.cohereApiKey || '';
+  if (hfApiKeyInput) hfApiKeyInput.value = settings.hfApiKey || '';
+  if (openaiApiKeyInput) openaiApiKeyInput.value = settings.openaiApiKey || '';
+  if (anthropicApiKeyInput) anthropicApiKeyInput.value = settings.anthropicApiKey || '';
+  if (deepseekApiKeyInput) deepseekApiKeyInput.value = settings.deepseekApiKey || '';
+
   selectedModelSelect.value = settings.selectedModel || 'gemini-3.5-flash-lite';
   defaultToneSelect.value = settings.defaultTone || 'fix_grammar';
   autoCopyCheckbox.checked = !!settings.autoCopy;
@@ -52,15 +73,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateOptionsQuota();
   selectedModelSelect.addEventListener('change', updateOptionsQuota);
 
-  // Şifre göster/gizle
-  toggleApiKeyBtn.addEventListener('click', () => {
-    if (apiKeyInput.type === 'password') {
-      apiKeyInput.type = 'text';
-      toggleApiKeyBtn.textContent = '🔒';
-    } else {
-      apiKeyInput.type = 'password';
-      toggleApiKeyBtn.textContent = '👁️';
-    }
+  // Tüm şifre göster/gizle butonlarını dinle
+  document.querySelectorAll('.toggle-key-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const inputEl = document.getElementById(targetId);
+      if (!inputEl) return;
+      if (inputEl.type === 'password') {
+        inputEl.type = 'text';
+        btn.textContent = '🔒';
+      } else {
+        inputEl.type = 'password';
+        btn.textContent = '👁️';
+      }
+    });
   });
 
   // Kaydet butonu
@@ -70,6 +96,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const newSettings = {
       apiKey: apiKeyInput.value.trim(),
+      groqApiKey: groqApiKeyInput ? groqApiKeyInput.value.trim() : '',
+      cohereApiKey: cohereApiKeyInput ? cohereApiKeyInput.value.trim() : '',
+      hfApiKey: hfApiKeyInput ? hfApiKeyInput.value.trim() : '',
+      openaiApiKey: openaiApiKeyInput ? openaiApiKeyInput.value.trim() : '',
+      anthropicApiKey: anthropicApiKeyInput ? anthropicApiKeyInput.value.trim() : '',
+      deepseekApiKey: deepseekApiKeyInput ? deepseekApiKeyInput.value.trim() : '',
       selectedModel: selectedModelSelect.value,
       defaultTone: defaultToneSelect.value,
       autoCopy: autoCopyCheckbox.checked,
