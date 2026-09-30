@@ -35,8 +35,8 @@
               <option value="llama-3.1-8b-instant">Groq: Llama 3.1 8B (Anında)</option>
             </optgroup>
             <optgroup label="🏢 Cohere (Ücretsiz Trial)">
-              <option value="command-r-plus">Cohere: Command R+</option>
-              <option value="command-r">Cohere: Command R</option>
+              <option value="command-a">Cohere: Command A</option>
+              <option value="command-r7b-12-2024">Cohere: Command R7B</option>
             </optgroup>
             <optgroup label="🤗 Hugging Face (Ücretsiz Token)">
               <option value="Qwen/Qwen2.5-72B-Instruct">HF: Qwen 2.5 72B</option>

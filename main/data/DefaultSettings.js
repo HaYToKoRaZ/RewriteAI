@@ -24,8 +24,8 @@ export const AVAILABLE_MODELS = [
   { id: 'llama-3.1-8b-instant', provider: 'groq', group: '⚡ Groq (Ücretsiz & Işık Hızında)', name: 'Llama 3.1 8B Instant (Meta - Anında Yanıt)' },
 
   // Cohere (Trial Free Key)
-  { id: 'command-r-plus', provider: 'cohere', group: '🏢 Cohere (Ücretsiz Trial Key)', name: 'Command R+ (Üst Düzey Kurumsal & Dil Becerisi)' },
-  { id: 'command-r', provider: 'cohere', group: '🏢 Cohere (Ücretsiz Trial Key)', name: 'Command R (Dengeli & Hızlı)' },
+  { id: 'command-a', provider: 'cohere', group: '🏢 Cohere (Ücretsiz Trial Key)', name: 'Command A (En Yeni & Güçlü Agentic Model)' },
+  { id: 'command-r7b-12-2024', provider: 'cohere', group: '🏢 Cohere (Ücretsiz Trial Key)', name: 'Command R7B (Hızlı & Dengeli)' },
 
   // Hugging Face (Ücretsiz Token)
   { id: 'Qwen/Qwen2.5-72B-Instruct', provider: 'huggingface', group: '🤗 Hugging Face (Ücretsiz Token)', name: 'Qwen 2.5 72B Instruct (Açık Kaynak Lideri)' },

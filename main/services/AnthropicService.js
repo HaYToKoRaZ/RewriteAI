@@ -4,14 +4,15 @@ export class AnthropicService {
   static ENDPOINT = 'https://api.anthropic.com/v1/messages';
 
   static async generate(apiKey, promptText, model = 'claude-3-5-haiku-20241022') {
-    if (!apiKey) {
+    const cleanKey = (apiKey || '').trim();
+    if (!cleanKey) {
       throw new Error('Anthropic API anahtarı bulunamadı. Lütfen eklenti ayarlarından Anthropic API anahtarınızı girin.');
     }
 
     const payload = {
       model,
       max_tokens: 2048,
-      system: 'Sen profesyonel bir metin düzenleme ve dilbilgisi asistanısın. Yalnızca istenen nihai metni üret.',
+      system: 'Sen profesyonel bir metin düzenleme ve dilbilgisi asistanısın. Yalnızca istenen nihai metni üret, fazladan sohbet cümlesi ekleme.',
       messages: [
         {
           role: 'user',
@@ -25,7 +26,7 @@ export class AnthropicService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': apiKey,
+          'x-api-key': cleanKey,
           'anthropic-version': '2023-06-01',
           'dangerously-allow-browser': 'true'
         },
@@ -41,10 +42,10 @@ export class AnthropicService {
         }
         const msg = errData?.error?.message || `HTTP ${response.status}: ${response.statusText}`;
         if (response.status === 401) {
-          throw new Error('Anthropic API anahtarı geçersiz.');
+          throw new Error(`Anthropic Hatası (401 Yetkisiz): ${msg} (Lütfen 'sk-ant-api03-...' ile başlayan geçerli bir API anahtarı girildiğinden ve hesapta kredi olduğundan emin olun).`);
         }
         if (response.status === 429) {
-          throw new Error('Anthropic hız limiti aşıldı.');
+          throw new Error('Anthropic hız veya bakiye limiti aşıldı.');
         }
         throw new Error(`Anthropic Hatası: ${msg}`);
       }
