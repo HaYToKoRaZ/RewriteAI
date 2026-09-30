@@ -27,10 +27,10 @@ if (Test-Path $ManifestPath) {
 }
 
 $TimeStamp = Get-Date -Format "yyyy-MM-dd_HH-mm.ss"
-$DestPath = Join-Path $BackupDir "MetinDuzenleyici_${Version}_Yedek_$TimeStamp.7z"
+$DestPath = Join-Path $BackupDir "RewriteAI_${Version}_Yedek_$TimeStamp.7z"
 
 Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host "💾 Yedekleme baslatildi: Metin Duzenleyici ($Version)" -ForegroundColor Green
+Write-Host "💾 Yedekleme baslatildi: RewriteAI ($Version)" -ForegroundColor Green
 Write-Host "====================================================" -ForegroundColor Cyan
 
 $FoldersToBackup = @()

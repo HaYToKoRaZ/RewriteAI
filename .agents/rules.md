@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-# Metin Düzenleme Eklentisi (Chrome Extension) - Sistem Anayasası
+# RewriteAI - Sistem Anayasası
 
 ## 1. Temel Direktifler & Güvenlik
 - Sandbox: Sadece `d:\Users\Documents\Metin-Duzenleme-Eklentisi` içinde çalış. Dış dizinlere ASLA erişme.

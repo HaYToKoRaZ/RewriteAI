@@ -26,11 +26,11 @@ $ManifestContent = Get-Content $ManifestPath -Raw | ConvertFrom-Json
 $Version = $ManifestContent.version
 if (-not $Version) { $Version = "1.0.0" }
 
-$ZipFileName = "Metin-Duzenleyici-v$Version-WebStore.zip"
+$ZipFileName = "RewriteAI-v$Version-WebStore.zip"
 $ZipFilePath = Join-Path $DistDir $ZipFileName
 
 Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host "Paketleme: Chrome Web Magazasi Icin ZIP Paketi Olusturuluyor" -ForegroundColor Green
+Write-Host "Paketleme: RewriteAI Chrome Web Magazasi Icin ZIP Paketi Olusturuluyor" -ForegroundColor Green
 Write-Host "Surum:  v$Version" -ForegroundColor Yellow
 Write-Host "Hedef:  $ZipFilePath" -ForegroundColor Gray
 Write-Host "====================================================" -ForegroundColor Cyan
