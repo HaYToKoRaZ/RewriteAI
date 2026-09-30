@@ -99,9 +99,9 @@
       <div class="rewriteai-modal-footer">
         <div class="rewriteai-footer-left">
           <div id="rewriteai-status-msg" class="rewriteai-status">Dönüşüm tonu seçin ve 'Dönüştür'e basın</div>
-          <div class="rewriteai-quota-badge">
+          <div id="rewriteai-modal-quota-badge" class="rewriteai-quota-badge">
             <span id="rewriteai-modal-quota-text">Bugün: 0 / 1.500 istek</span>
-            <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="rewriteai-quota-external" title="Google AI Studio Resmi Kota Paneli">Panel ↗</a>
+            <a id="rewriteai-modal-quota-link" href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="rewriteai-quota-external" title="Google AI Studio Resmi Kota Paneli">Panel ↗</a>
           </div>
         </div>
         <div class="rewriteai-actions">
@@ -417,17 +417,27 @@
     });
   });
 
+  const quotaBadgeEl = document.getElementById('rewriteai-modal-quota-badge');
   const quotaTextEl = document.getElementById('rewriteai-modal-quota-text');
+  const quotaLinkEl = document.getElementById('rewriteai-modal-quota-link');
 
   function updateModalQuota() {
-    const today = new Date().toISOString().slice(0, 10);
     const curModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
+    const isGemini = curModel.startsWith('gemini');
+
+    if (!isGemini) {
+      if (quotaBadgeEl) quotaBadgeEl.style.display = 'none';
+      return;
+    }
+
+    if (quotaBadgeEl) quotaBadgeEl.style.display = 'flex';
+    const today = new Date().toISOString().slice(0, 10);
     chrome.storage.local.get(['modelUsageStats'], (data) => {
       const stats = data.modelUsageStats || {};
       const counts = (stats.date === today && stats.counts) ? stats.counts : {};
       const count = counts[curModel] || 0;
       if (quotaTextEl) {
-        quotaTextEl.textContent = `Bu Model: ${count} / 1.500 istek (Bugün)`;
+        quotaTextEl.textContent = `Google Kotası: ${count} / 1.500 istek (Bugün)`;
       }
     });
   }
