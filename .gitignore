@@ -1,0 +1,22 @@
+# Arşiv, yedek ve dağıtım
+.agents/backup/
+.agents/dist/
+.agents/temp_backup_*
+*.7z
+*.zip
+*.tar.gz
+
+# Codebase Memory yerel veritabanı
+.codebase-memory/
+
+# İşletim sistemi & loglar
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE ve geçici dosyalar
+.vscode/
+.idea/
+*.tmp
+*.bak
