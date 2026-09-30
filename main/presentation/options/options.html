@@ -17,10 +17,72 @@
     </header>
 
     <main class="card">
-      <!-- Sağlayıcı API Anahtarları Akordeon / Bölüm -->
+      <!-- 1. Model Seçimi -->
+      <div class="form-group">
+        <label for="selectedModel">Yapay Zeka Modeli</label>
+        <select id="selectedModel">
+          <!-- Dinamik doldurulacak -->
+        </select>
+        <small class="helper-text">
+          💡 İstediğiniz sağlayıcının modelini seçebilirsiniz. Seçtiğiniz modele ait API anahtarının aşağıdaki panelde girilmiş olduğundan emin olun.
+        </small>
+      </div>
+
+      <!-- 2. Kota ve Kullanım Takip Kartı -->
+      <div class="quota-card">
+        <div class="quota-header">
+          <span class="quota-title">📊 Bugünkü Kota Kullanımı</span>
+          <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link">
+            AI Studio Resmi Panel ↗
+          </a>
+        </div>
+        <div class="quota-body">
+          <div class="quota-stat">
+            <span class="quota-number" id="dailyUsageCount">0</span>
+            <span class="quota-limit">/ 1.500 istek (Bugün)</span>
+          </div>
+          <div class="quota-progress-bg">
+            <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
+          </div>
+          <div class="quota-specs">
+            <span>⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
+            <span>📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Varsayılan Ton -->
+      <div class="form-group">
+        <label for="defaultTone">Varsayılan Ton</label>
+        <select id="defaultTone">
+          <!-- Dinamik doldurulacak -->
+        </select>
+      </div>
+
+      <!-- 4. Tercihler -->
+      <div class="form-group checkbox-group">
+        <label class="switch-label">
+          <input type="checkbox" id="autoCopy">
+          <span class="switch-slider"></span>
+          <span>Dönüştürme tamamlandığında sonucu otomatik panoya kopyala</span>
+        </label>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="switch-label">
+          <input type="checkbox" id="showSelectionBubble">
+          <span class="switch-slider"></span>
+          <span>Metin seçildiğinde hızlı düzenleme butonunu (ikonu) göster</span>
+        </label>
+        <small class="helper-text">Kapalı olduğunda yalnızca sağ tıklayıp "RewriteAI ile Düzenle" menüsünü kullanarak pencereyi açabilirsiniz.</small>
+      </div>
+
+      <hr class="divider">
+
+      <!-- 5. Sağlayıcı API Anahtarları (En Altta) -->
       <div class="providers-section">
-        <h3 class="section-title">🔑 Yapay Zeka API Anahtarları</h3>
-        <p class="section-desc">Kullanmak istediğiniz servisin anahtarını girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
+        <h3 class="section-title">🔑 Yapay Zeka API Anahtarları / Tokenleri</h3>
+        <p class="section-desc">Kullanmak istediğiniz servisin anahtarını buraya girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
 
         <!-- 1. Google Gemini -->
         <div class="provider-box">
@@ -105,65 +167,6 @@
             <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="deepseekApiKey" title="Göster / Gizle">👁️</button>
           </div>
         </div>
-      </div>
-
-      <hr class="divider">
-
-      <div class="form-group">
-        <label for="selectedModel">Yapay Zeka Modeli</label>
-        <select id="selectedModel">
-          <!-- Dinamik doldurulacak -->
-        </select>
-        <small class="helper-text">
-          💡 İstediğiniz sağlayıcının modelini seçebilirsiniz. Seçtiğiniz modele ait API anahtarının yukarıda girilmiş olduğundan emin olun.
-        </small>
-      </div>
-
-      <!-- Kota ve Kullanım Takip Kartı -->
-      <div class="quota-card">
-        <div class="quota-header">
-          <span class="quota-title">📊 Bugünkü Kota Kullanımı</span>
-          <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link">
-            AI Studio Resmi Panel ↗
-          </a>
-        </div>
-        <div class="quota-body">
-          <div class="quota-stat">
-            <span class="quota-number" id="dailyUsageCount">0</span>
-            <span class="quota-limit">/ 1.500 istek (Bugün)</span>
-          </div>
-          <div class="quota-progress-bg">
-            <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
-          </div>
-          <div class="quota-specs">
-            <span>⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
-            <span>📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="defaultTone">Varsayılan Ton</label>
-        <select id="defaultTone">
-          <!-- Dinamik doldurulacak -->
-        </select>
-      </div>
-
-      <div class="form-group checkbox-group">
-        <label class="switch-label">
-          <input type="checkbox" id="autoCopy">
-          <span class="switch-slider"></span>
-          <span>Dönüştürme tamamlandığında sonucu otomatik panoya kopyala</span>
-        </label>
-      </div>
-
-      <div class="form-group checkbox-group">
-        <label class="switch-label">
-          <input type="checkbox" id="showSelectionBubble">
-          <span class="switch-slider"></span>
-          <span>Metin seçildiğinde hızlı düzenleme butonunu (ikonu) göster</span>
-        </label>
-        <small class="helper-text">Kapalı olduğunda yalnızca sağ tıklayıp "RewriteAI ile Düzenle" menüsünü kullanarak pencereyi açabilirsiniz.</small>
       </div>
 
       <div class="actions">
