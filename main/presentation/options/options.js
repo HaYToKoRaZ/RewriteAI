@@ -15,8 +15,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultToneSelect = document.getElementById('defaultTone');
   const autoCopyCheckbox = document.getElementById('autoCopy');
   const showSelectionBubbleCheckbox = document.getElementById('showSelectionBubble');
-  const saveBtn = document.getElementById('saveBtn');
-  const saveStatus = document.getElementById('saveStatus');
 
   // Modelleri sağlayıcı gruplarıyla yükle
   const groups = {};
@@ -77,6 +75,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   renderKeyStates();
 
+  // Toast Bildirimi Göster
+  const toastEl = document.getElementById('toastNotification');
+  const toastMsgEl = document.getElementById('toastMsg');
+  let toastTimer = null;
+
+  function showToast(message = 'Ayarlar otomatik kaydedildi') {
+    if (!toastEl) return;
+    if (toastMsgEl) toastMsgEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove('show');
+    }, 2400);
+  }
+
   // Token Silme Butonları
   document.querySelectorAll('.delete-token-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
@@ -93,11 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (inputEl) inputEl.value = '';
 
       renderKeyStates();
-
-      saveStatus.textContent = '✓ Token başarıyla silindi.';
-      setTimeout(() => {
-        saveStatus.textContent = '';
-      }, 2500);
+      showToast('API Anahtarı silindi.');
     });
   });
 
@@ -120,14 +129,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   updateOptionsQuota();
-  selectedModelSelect.addEventListener('change', updateOptionsQuota);
 
-  // Kaydet butonu
-  saveBtn.addEventListener('click', async () => {
-    saveBtn.disabled = true;
-    saveBtn.textContent = 'Kaydediliyor...';
-
-    // Eğer yeni bir değer girildiyse onu al, girilmediyse mevcut olanı koru
+  // Otomatik Kayıt Fonksiyonu
+  async function autoSave(notificationMsg = 'Ayarlar otomatik kaydedildi') {
     const updatedKeys = {};
     keyFieldIds.forEach((fieldId) => {
       const inputEl = document.getElementById(fieldId);
@@ -148,13 +152,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await StorageRepository.saveSettings(newSettings);
     renderKeyStates();
+    showToast(notificationMsg);
+  }
 
-    saveStatus.textContent = '✓ Ayarlar başarıyla kaydedildi!';
-    saveBtn.disabled = false;
-    saveBtn.textContent = 'Ayarları Kaydet';
+  // Model & Ton değişince anında kaydet
+  selectedModelSelect.addEventListener('change', () => {
+    updateOptionsQuota();
+    autoSave('Model tercihi kaydedildi');
+  });
 
-    setTimeout(() => {
-      saveStatus.textContent = '';
-    }, 3000);
+  defaultToneSelect.addEventListener('change', () => {
+    autoSave('Varsayılan ton kaydedildi');
+  });
+
+  // Switch/Checkbox değişince anında kaydet
+  autoCopyCheckbox.addEventListener('change', () => {
+    autoSave('Tercih güncellendi');
+  });
+
+  showSelectionBubbleCheckbox.addEventListener('change', () => {
+    autoSave('Tercih güncellendi');
+  });
+
+  // API Anahtarı kutularına anahtar yapıştırılıp veya yazılıp çıkıldığında / enter basıldığında kaydet
+  keyFieldIds.forEach((fieldId) => {
+    const inputEl = document.getElementById(fieldId);
+    if (!inputEl) return;
+
+    inputEl.addEventListener('change', () => {
+      if (inputEl.value.trim()) {
+        autoSave('API Anahtarı güvenle kaydedildi');
+      }
+    });
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        inputEl.blur(); // change tetikler
+      }
+    });
   });
 });

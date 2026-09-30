@@ -273,14 +273,14 @@
           <div class="input-wrapper" id="input-wrap-deepseekApiKey">
             <input type="password" id="deepseekApiKey" placeholder="sk-... (DeepSeek Anahtarı)" autocomplete="off">
           </div>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button id="saveBtn" class="btn-primary">Ayarları Kaydet</button>
-        <span id="saveStatus" class="status-msg"></span>
       </div>
     </main>
+
+    <!-- Otomatik Kayıt Toast Bildirimi -->
+    <div id="toastNotification" class="toast-notification">
+      <span class="toast-icon">✓</span>
+      <span id="toastMsg" class="toast-message">Ayarlar otomatik kaydedildi</span>
+    </div>
   </div>
 
   <script type="module" src="options.js"></script>
