@@ -25,11 +25,9 @@
         </div>
         <div class="rewriteai-header-controls">
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
-            <option value="gemini-3.8-flash">Gemini 3.8 Flash (✨ Ücretsiz)</option>
-            <option value="gemini-3.7-flash">Gemini 3.7 Flash (✨ Ücretsiz)</option>
-            <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite (✨ Ücretsiz)</option>
-            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-            <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+            <option value="gemini-3.8-flash">Gemini 3.8 Flash (✨ Önerilen)</option>
+            <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
+            <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option>
           </select>
           <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
         </div>
