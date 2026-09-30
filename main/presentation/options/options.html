@@ -28,30 +28,7 @@
         </small>
       </div>
 
-      <!-- 2. Kota ve Kullanım Takip Kartı -->
-      <div class="quota-card">
-        <div class="quota-header">
-          <span class="quota-title">📊 Bugünkü Kota Kullanımı</span>
-          <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link">
-            AI Studio Resmi Panel ↗
-          </a>
-        </div>
-        <div class="quota-body">
-          <div class="quota-stat">
-            <span class="quota-number" id="dailyUsageCount">0</span>
-            <span class="quota-limit">/ 1.500 istek (Bugün)</span>
-          </div>
-          <div class="quota-progress-bg">
-            <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
-          </div>
-          <div class="quota-specs">
-            <span>⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
-            <span>📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Varsayılan Ton -->
+      <!-- 2. Varsayılan Ton -->
       <div class="form-group">
         <label for="defaultTone">Varsayılan Ton</label>
         <select id="defaultTone">
@@ -59,7 +36,7 @@
         </select>
       </div>
 
-      <!-- 4. Tercihler -->
+      <!-- 3. Tercihler -->
       <div class="form-group checkbox-group">
         <label class="switch-label">
           <input type="checkbox" id="autoCopy">
@@ -79,7 +56,7 @@
 
       <hr class="divider">
 
-      <!-- 5. Sağlayıcı API Anahtarları (En Altta) -->
+      <!-- 4. Sağlayıcı API Anahtarları (En Altta) -->
       <div class="providers-section">
         <h3 class="section-title">🔑 Yapay Zeka API Anahtarları / Tokenleri</h3>
         <p class="section-desc">Kullanmak istediğiniz servisin anahtarını buraya girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
@@ -87,19 +64,56 @@
         <!-- 1. Google Gemini -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🆓 Google Gemini</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18">
+                <!-- Google Gemini Yıldız İkonu (Gradient) -->
+                <path fill="#4285F4" d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z"/>
+              </svg>
+              <strong>Google Gemini</strong>
+              <span class="free-badge">Ücretsiz Tier</span>
+            </div>
             <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
           </div>
           <div class="input-wrapper">
             <input type="password" id="apiKey" placeholder="AIzaSy... (Gemini Anahtarı)" autocomplete="off">
             <button type="button" class="btn-secondary btn-icon toggle-key-btn" data-target="apiKey" title="Göster / Gizle">👁️</button>
           </div>
+
+          <!-- Google Kota ve Kullanım Takip Kartı (Doğrudan Google Key'in Altında) -->
+          <div class="quota-card">
+            <div class="quota-header">
+              <span class="quota-title">📊 Google Gemini Kota Kullanımı</span>
+              <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link">
+                AI Studio Resmi Panel ↗
+              </a>
+            </div>
+            <div class="quota-body">
+              <div class="quota-stat">
+                <span class="quota-number" id="dailyUsageCount">0</span>
+                <span class="quota-limit">/ 1.500 istek (Bugün)</span>
+              </div>
+              <div class="quota-progress-bg">
+                <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
+              </div>
+              <div class="quota-specs">
+                <span>⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
+                <span>📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- 2. Groq Cloud -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>⚡ Groq Cloud (Ücretsiz & Işık Hızında)</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#F55036">
+                <!-- Groq Turuncu Yıldırım / G İkonu -->
+                <path d="M13 2L3 14h7v8l10-12h-7l3-8z"/>
+              </svg>
+              <strong>Groq Cloud</strong>
+              <span class="free-badge">Ücretsiz & Ultra Hızlı</span>
+            </div>
             <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Ücretsiz Anahtar Al ↗</a>
           </div>
           <div class="input-wrapper">
@@ -111,7 +125,16 @@
         <!-- 3. Cohere -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🏢 Cohere (Ücretsiz Trial)</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#39594C">
+                <!-- Cohere Mercan/Koyu Yeşil Geometrik İkon -->
+                <circle cx="12" cy="12" r="10" fill="#D45D55"/>
+                <circle cx="12" cy="12" r="6" fill="#F9F6F0"/>
+                <circle cx="12" cy="12" r="3" fill="#39594C"/>
+              </svg>
+              <strong>Cohere</strong>
+              <span class="free-badge">Ücretsiz Trial</span>
+            </div>
             <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">Ücretsiz Trial Al ↗</a>
           </div>
           <div class="input-wrapper">
@@ -123,7 +146,11 @@
         <!-- 4. Hugging Face -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🤗 Hugging Face</strong>
+            <div class="provider-title-group">
+              <span style="font-size:16px;line-height:1;">🤗</span>
+              <strong>Hugging Face</strong>
+              <span class="free-badge">Ücretsiz Token</span>
+            </div>
             <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">Ücretsiz Token Al ↗</a>
           </div>
           <div class="input-wrapper">
@@ -135,7 +162,14 @@
         <!-- 5. OpenAI -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🌐 OpenAI (ChatGPT)</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#10A37F">
+                <!-- OpenAI Girdap / Spiral Logo -->
+                <path d="M21.5 9.5a5.5 5.5 0 0 0-.48-4.66 5.6 5.6 0 0 0-4.9-2.84 5.5 5.5 0 0 0-3.34 1.13A5.5 5.5 0 0 0 4.14 4.5a5.55 5.55 0 0 0-.64 5.43 5.5 5.5 0 0 0-1.5 5.27 5.55 5.55 0 0 0 3.32 4.13 5.5 5.5 0 0 0 5.46 2.54 5.5 5.5 0 0 0 3.34-1.13 5.5 5.5 0 0 0 8.64-1.37 5.55 5.55 0 0 0 .64-5.43 5.5 5.5 0 0 0 1.5-5.27z"/>
+              </svg>
+              <strong>OpenAI</strong>
+              <span class="paid-badge">ChatGPT / Bakiye</span>
+            </div>
             <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Paneli ↗</a>
           </div>
           <div class="input-wrapper">
@@ -147,7 +181,15 @@
         <!-- 6. Anthropic Claude -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🧠 Anthropic Claude</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#D97757">
+                <!-- Anthropic Claude Toprak Rengi / A İkonu -->
+                <circle cx="12" cy="12" r="10" fill="#D97757"/>
+                <path d="M7 17l5-10 5 10M9 13h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <strong>Anthropic Claude</strong>
+              <span class="paid-badge">Hesap Bakiyesi</span>
+            </div>
             <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Claude Paneli ↗</a>
           </div>
           <div class="input-wrapper">
@@ -159,7 +201,14 @@
         <!-- 7. DeepSeek -->
         <div class="provider-box">
           <div class="provider-box-header">
-            <strong>🐋 DeepSeek</strong>
+            <div class="provider-title-group">
+              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#4D6BFE">
+                <!-- DeepSeek Mavi Balina İkonu -->
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-2.48 0-4.5-2.02-4.5-4.5S10.52 7.5 13 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/>
+              </svg>
+              <strong>DeepSeek</strong>
+              <span class="paid-badge">Ekonomik Bakiye</span>
+            </div>
             <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener">DeepSeek Paneli ↗</a>
           </div>
           <div class="input-wrapper">

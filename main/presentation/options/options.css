@@ -318,8 +318,41 @@ select:focus {
   text-decoration: underline;
 }
 
+.provider-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.provider-favicon {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.free-badge {
+  font-size: 10px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.paid-badge {
+  font-size: 10px;
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
 .divider {
   border: none;
   border-top: 1px solid var(--border);
   margin: 24px 0;
 }
+
