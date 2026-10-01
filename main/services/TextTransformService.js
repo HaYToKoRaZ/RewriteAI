@@ -25,14 +25,28 @@ export class TextTransformService {
     const toneConfig = TONE_DEFINITIONS[toneId] || TONE_DEFINITIONS.fix_grammar;
 
     // Hedef Dil Yönergesi
+    const LANG_MAP = {
+      tr: 'TÜRKÇE / TURKISH',
+      en: 'ENGLISH',
+      de: 'GERMAN (DEUTSCH)',
+      fr: 'FRENCH (FRANÇAIS)',
+      es: 'SPANISH (ESPAÑOL)',
+      it: 'ITALIAN (ITALIANO)',
+      pt: 'PORTUGUESE (PORTUGUÊS)',
+      ru: 'RUSSIAN (РУССКИЙ)',
+      ar: 'ARABIC (العَرَبِية)',
+      zh: 'CHINESE (中文)',
+      ja: 'JAPANESE (日本語)',
+      ko: 'KOREAN (한국어)'
+    };
+
     let langInstruction = '';
-    if (targetLanguage === 'tr') {
-      langInstruction = 'Hedef Çıktı Dili: TÜRKÇE. Orijinal metin hangi dilde olursa olsun sonucu Türkçe olarak ve istenen tonda üret.';
-    } else if (targetLanguage === 'en') {
-      langInstruction = 'Target Output Language: ENGLISH. Regardless of the input language, produce the final rewritten result in English in the requested tone.';
+    if (targetLanguage && targetLanguage !== 'auto' && LANG_MAP[targetLanguage]) {
+      const langName = LANG_MAP[targetLanguage];
+      langInstruction = `TARGET OUTPUT LANGUAGE: ${langName}. Regardless of the input language, produce the final rewritten result entirely and fluently in ${langName} in the requested tone.`;
     } else {
       // 'auto' veya belirtilmemiş: Orijinal dili titizlikle koru
-      langInstruction = 'DİL KURALI (ÇOK ÖNEMLİ): Çıktıyı MUTLAKA girdi metninin kendi orijinal dilinde üret. Girdi İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca yaz. Asla dili değiştirme veya çeviri yapma.';
+      langInstruction = 'DİL KURALI (ÇOK ÖNEMLİ): Çıktıyı MUTLAKA girdi metninin kendi orijinal dilinde üret. Girdi hangi dilde ise aynı dilde yaz. Asla dili değiştirme veya çeviri yapma.';
     }
 
     // Twitter / X karakter kısıtı

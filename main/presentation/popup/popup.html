@@ -11,10 +11,11 @@
 
     <!-- Header -->
     <header class="popup-header">
-      <div class="brand">
+      <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank" rel="noopener" class="brand" title="RewriteAI Web Sitesini Aç">
         <img src="../../assets/icons/icon32.png" alt="Logo" class="logo-small">
         <span class="brand-title">RewriteAI</span>
-      </div>
+        <span class="brand-version" id="brandVersion">v2.0</span>
+      </a>
       <div class="header-actions">
         <!-- Dil Seçici -->
         <div class="lang-selector" title="Dil / Language">
@@ -46,11 +47,21 @@
       </div>
       <div class="model-bar-item lang-bar-item">
         <label for="popupTargetLangSelect" class="model-bar-label" id="lblTargetLang">Çıktı Dili:</label>
-        <select id="popupTargetLangSelect" class="popup-model-select" title="Hedef Çıktı Dili">
-          <option value="auto">🌐 Orijinal Dil (Oto)</option>
-          <option value="tr">🇹🇷 Türkçe</option>
-          <option value="en">🇬🇧 English</option>
+        <!-- Gizli select (uyumluluk için korunur) -->
+        <select id="popupTargetLangSelect" class="popup-model-select hidden-select" title="Hedef Çıktı Dili">
+          <option value="auto">Orijinal Dil (Oto)</option>
         </select>
+        <!-- Özel Bayraklı Açılır Menü -->
+        <div class="custom-lang-dropdown" id="customLangDropdown">
+          <button class="custom-dropdown-btn" id="customLangBtn" type="button" aria-expanded="false" title="Hedef Çıktı Dili">
+            <span class="custom-dropdown-flag" id="customLangSelectedFlag"></span>
+            <span class="custom-dropdown-text" id="customLangSelectedText">Orijinal</span>
+            <span class="custom-dropdown-arrow">▾</span>
+          </button>
+          <div class="custom-dropdown-menu" id="customLangMenu">
+            <!-- Dinamik doldurulur -->
+          </div>
+        </div>
       </div>
     </div>
 
@@ -60,19 +71,7 @@
       <button id="warningSettingsBtn" class="warning-settings-btn" type="button">⚙️ Ayarlara Git</button>
     </div>
 
-    <!-- Twitter Modu Çubuğu -->
-    <div class="twitter-bar" id="twitterBar">
-      <button id="twitterModeBtn" class="twitter-toggle" type="button">
-        <span class="twitter-x-icon">𝕏</span>
-        <span id="twitterModeLabel">Twitter / X Modu</span>
-      </button>
-      <div class="twitter-right">
-        <span class="twitter-limit-hint" id="twitterLimitHint">≤ 280 karakter</span>
-        <div class="toggle-pill" id="twitterTogglePill">
-          <div class="toggle-thumb"></div>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Ana İçerik -->
     <main class="main-content">
@@ -130,7 +129,18 @@
       <!-- Çıktı Paneli -->
       <div class="text-panel output-panel">
         <div class="panel-header">
-          <span id="outputPanelLabel">Dönüştürülen Metin</span>
+          <div class="panel-header-left">
+            <span id="outputPanelLabel">Dönüştürülen Metin</span>
+            <div class="twitter-bar twitter-inline" id="twitterBar">
+              <button id="twitterModeBtn" class="twitter-toggle" type="button" title="Twitter / X Modu (≤ 280 Karakter)">
+                <span class="twitter-x-icon">𝕏</span>
+                <span id="twitterModeLabel">X Modu</span>
+              </button>
+              <div class="toggle-pill" id="twitterTogglePill" title="Twitter / X Modunu Aç / Kapat">
+                <div class="toggle-thumb"></div>
+              </div>
+            </div>
+          </div>
           <div class="panel-actions">
             <button id="transformBtn" class="mini-btn execute-btn" title="Dönüştür">
               <span id="transformBtnText">⚡ Dönüştür</span>

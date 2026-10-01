@@ -56,7 +56,7 @@ export class ContextMenuService {
       // Portal linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_open_portal',
-        title: t.contextOpenPortal || (lang === 'en' ? '🚀 RewriteAI Portal' : '🚀 RewriteAI Portalı'),
+        title: '🚀 HaYTooL PoRTaL',
         contexts: ['action']
       });
 

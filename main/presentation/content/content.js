@@ -62,10 +62,43 @@
   let activeInputStart = 0;
   let activeInputEnd = 0;
 
+  // Crisp Vector SVG Bayrakları (Windows emoji font limitlerini aşmak için)
+  const FLAG_SVGS = {
+    auto: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E`,
+    tr: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23E30A17'/%3E%3Ccircle cx='10' cy='10' r='6' fill='white'/%3E%3Ccircle cx='12' cy='10' r='4.8' fill='%23E30A17'/%3E%3Cpolygon points='17,10 18.5,6.5 22,8.8 19.5,11.8 22,11' fill='white' transform='rotate(-18,17,10)'/%3E%3C/svg%3E`,
+    en: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='white' stroke-width='8'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23C8102E' stroke-width='5'/%3E%3Cpath d='M30,0 L30,30 M0,15 L60,15' stroke='white' stroke-width='12'/%3E%3Cpath d='M30,0 L30,30 M0,15 L60,15' stroke='%23C8102E' stroke-width='7'/%3E%3C/svg%3E`,
+    de: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='6.66' y='0' fill='%23000000'/%3E%3Crect width='30' height='6.66' y='6.66' fill='%23DD0000'/%3E%3Crect width='30' height='6.68' y='13.32' fill='%23FFCE00'/%3E%3C/svg%3E`,
+    fr: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='10' height='20' x='0' fill='%23002654'/%3E%3Crect width='10' height='20' x='10' fill='%23FFFFFF'/%3E%3Crect width='10' height='20' x='20' fill='%23CE1126'/%3E%3C/svg%3E`,
+    es: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='5' y='0' fill='%23AA151B'/%3E%3Crect width='30' height='10' y='5' fill='%23F1BF00'/%3E%3Crect width='30' height='5' y='15' fill='%23AA151B'/%3E%3C/svg%3E`,
+    it: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='10' height='20' x='0' fill='%23009246'/%3E%3Crect width='10' height='20' x='10' fill='%23FFFFFF'/%3E%3Crect width='10' height='20' x='20' fill='%23CE2B37'/%3E%3C/svg%3E`,
+    pt: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='12' height='20' x='0' fill='%23046A38'/%3E%3Crect width='18' height='20' x='12' fill='%23DA291C'/%3E%3Ccircle cx='12' cy='10' r='4' fill='%23FFCD00'/%3E%3C/svg%3E`,
+    ru: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='6.66' y='0' fill='%23FFFFFF'/%3E%3Crect width='30' height='6.66' y='6.66' fill='%230039A6'/%3E%3Crect width='30' height='6.68' y='13.32' fill='%23D52B1E'/%3E%3C/svg%3E`,
+    ar: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23006C35'/%3E%3Ctext x='15' y='12' font-size='8' fill='%23FFFFFF' text-anchor='middle' font-family='sans-serif' font-weight='bold'%3E%D8%B6%3C/text%3E%3C/svg%3E`,
+    zh: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23EE1C25'/%3E%3Cpolygon points='5,2.5 6,5.5 3.5,3.6 6.5,3.6 4,5.5' fill='%23FFFF00'/%3E%3C/svg%3E`,
+    ja: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23FFFFFF'/%3E%3Ccircle cx='15' cy='10' r='6' fill='%23BC002D'/%3E%3C/svg%3E`,
+    ko: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23FFFFFF'/%3E%3Ccircle cx='15' cy='10' r='5' fill='%23CD2E3A'/%3E%3Cpath d='M15,5 A5,5 0 0,0 15,15 A2.5,2.5 0 0,1 15,10 A2.5,2.5 0 0,0 15,5' fill='%230047A0'/%3E%3C/svg%3E`
+  };
+
+  const TARGET_LANG_ITEMS = [
+    { code: 'auto', nameTr: 'Orijinal Dil (Oto)', nameEn: 'Original Language (Auto)' },
+    { code: 'tr', nameTr: 'Türkçe', nameEn: 'Turkish' },
+    { code: 'en', nameTr: 'İngilizce', nameEn: 'English' },
+    { code: 'de', nameTr: 'Almanca', nameEn: 'German' },
+    { code: 'fr', nameTr: 'Fransızca', nameEn: 'French' },
+    { code: 'es', nameTr: 'İspanyolca', nameEn: 'Spanish' },
+    { code: 'it', nameTr: 'İtalyanca', nameEn: 'Italian' },
+    { code: 'pt', nameTr: 'Portekizce', nameEn: 'Portuguese' },
+    { code: 'ru', nameTr: 'Rusça', nameEn: 'Russian' },
+    { code: 'ar', nameTr: 'Arapça', nameEn: 'Arabic' },
+    { code: 'zh', nameTr: 'Çince', nameEn: 'Chinese' },
+    { code: 'ja', nameTr: 'Japonca', nameEn: 'Japanese' },
+    { code: 'ko', nameTr: 'Korece', nameEn: 'Korean' }
+  ];
+
   // Çeviri Sözlüğü (Content Script içinde bağımsız çalışabilmesi için)
   const I18N = {
     tr: {
-      appName: 'RewriteAI Metin Düzenleyici',
+      appName: 'RewriteAI',
       selectedText: 'Seçilen Metin:',
       convertedResult: 'Dönüştürülen Sonuç:',
       resultPlaceholder: 'Dönüşüm sonucunuz burada belirecek...',
@@ -91,6 +124,16 @@
       autoLang: '🌐 Orijinal Dil (Oto)',
       langTurkish: '🇹🇷 Türkçe',
       langEnglish: '🇬🇧 English',
+      langGerman: '🇩🇪 Almanca',
+      langFrench: '🇫🇷 Fransızca',
+      langSpanish: '🇪🇸 İspanyolca',
+      langItalian: '🇮🇹 İtalyanca',
+      langPortuguese: '🇵🇹 Portekizce',
+      langRussian: '🇷🇺 Rusça',
+      langArabic: '🇸🇦 Arapça',
+      langChinese: '🇨🇳 Çince',
+      langJapanese: '🇯🇵 Japonca',
+      langKorean: '🇰🇷 Korece',
       tones: {
         fix_grammar: { title: '✍️ İmla & Dilbilgisi' },
         daily: { title: '💬 Günlük & Samimi' },
@@ -127,7 +170,7 @@
       }
     },
     en: {
-      appName: 'RewriteAI Text Editor',
+      appName: 'RewriteAI',
       selectedText: 'Selected Text:',
       convertedResult: 'Converted Result:',
       resultPlaceholder: 'Your converted text will appear here...',
@@ -153,6 +196,16 @@
       autoLang: '🌐 Original Language (Auto)',
       langTurkish: '🇹🇷 Turkish',
       langEnglish: '🇬🇧 English',
+      langGerman: '🇩🇪 German',
+      langFrench: '🇫🇷 French',
+      langSpanish: '🇪🇸 Spanish',
+      langItalian: '🇮🇹 Italian',
+      langPortuguese: '🇵🇹 Portuguese',
+      langRussian: '🇷🇺 Russian',
+      langArabic: '🇸🇦 Arabic',
+      langChinese: '🇨🇳 Chinese',
+      langJapanese: '🇯🇵 Japanese',
+      langKorean: '🇰🇷 Korean',
       tones: {
         fix_grammar: { title: '✍️ Grammar & Spelling' },
         daily: { title: '💬 Casual & Friendly' },
@@ -213,16 +266,27 @@
   modalOverlay.innerHTML = `
     <div class="rewriteai-modal">
       <div class="rewriteai-modal-header">
-        <div class="rewriteai-brand">
+        <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank" rel="noopener" class="rewriteai-brand" title="RewriteAI Web Sitesi">
           <img src="${iconUrl}" alt="RewriteAI" style="width:22px;height:22px;border-radius:4px;">
-          <span class="rewriteai-title" id="rewriteai-modal-title">RewriteAI Metin Düzenleyici</span>
-        </div>
+          <span class="rewriteai-title" id="rewriteai-modal-title">RewriteAI</span>
+          <span class="rewriteai-version" id="rewriteai-modal-version">v2.0</span>
+        </a>
         <div class="rewriteai-header-controls">
-          <select id="rewriteai-modal-target-lang-select" class="rewriteai-select" title="Çıktı Dili">
-            <option value="auto">🌐 Orijinal Dil (Oto)</option>
-            <option value="tr">🇹🇷 Türkçe</option>
-            <option value="en">🇬🇧 English</option>
+          <!-- Gizli select (uyumluluk için) -->
+          <select id="rewriteai-modal-target-lang-select" class="rewriteai-select" style="display:none;" title="Çıktı Dili">
+            <option value="auto">Orijinal Dil (Oto)</option>
           </select>
+          <!-- Özel Bayraklı Açılır Menü -->
+          <div class="rewriteai-custom-lang-dropdown" id="rewriteai-modal-lang-dropdown">
+            <button class="rewriteai-custom-dropdown-btn" id="rewriteai-modal-lang-btn" type="button" title="Çıktı Dili">
+              <span class="rewriteai-custom-dropdown-flag" id="rewriteai-modal-selected-flag"></span>
+              <span class="rewriteai-custom-dropdown-text" id="rewriteai-modal-selected-text">Orijinal</span>
+              <span class="rewriteai-custom-dropdown-arrow">▾</span>
+            </button>
+            <div class="rewriteai-custom-dropdown-menu" id="rewriteai-modal-lang-menu">
+              <!-- Dinamik doldurulur -->
+            </div>
+          </div>
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
             <!-- Dinamik doldurulur -->
           </select>
@@ -241,19 +305,7 @@
           <textarea id="rewriteai-preview-text" class="rewriteai-preview-textarea" spellcheck="true"></textarea>
         </div>
 
-        <!-- Twitter Modu Satırı -->
-        <div class="rewriteai-twitter-bar" id="rewriteai-twitter-bar">
-          <button id="rewriteai-twitter-btn" class="rewriteai-twitter-toggle" type="button">
-            <span class="rewriteai-x-icon">𝕏</span>
-            <span>Twitter / X Modu</span>
-          </button>
-          <div class="rewriteai-twitter-right">
-            <span class="rewriteai-limit-hint" id="rewriteai-limit-hint">≤ 280 karakter</span>
-            <div class="rewriteai-toggle-pill" id="rewriteai-toggle-pill">
-              <div class="rewriteai-toggle-thumb"></div>
-            </div>
-          </div>
-        </div>
+
 
         <div class="rewriteai-tone-grid">
           <button class="rewriteai-tone-btn active" data-tone="fix_grammar" type="button" title="✍️ İmla &amp; Dilbilgisi">
@@ -291,7 +343,18 @@
         </div>
 
         <div class="rewriteai-field">
-          <label id="rewriteai-lbl-result">Dönüştürülen Sonuç:</label>
+          <div class="rewriteai-field-header">
+            <label id="rewriteai-lbl-result">Dönüştürülen Sonuç:</label>
+            <div class="rewriteai-twitter-bar rewriteai-twitter-inline" id="rewriteai-twitter-bar">
+              <button id="rewriteai-twitter-btn" class="rewriteai-twitter-toggle" type="button" title="Twitter / X Modu (≤ 280 Karakter)">
+                <span class="rewriteai-x-icon">𝕏</span>
+                <span>X Modu</span>
+              </button>
+              <div class="rewriteai-toggle-pill" id="rewriteai-toggle-pill" title="Twitter / X Modunu Aç / Kapat">
+                <div class="rewriteai-toggle-thumb"></div>
+              </div>
+            </div>
+          </div>
           <textarea id="rewriteai-result-text" placeholder="Dönüşüm sonucunuz burada belirecek..." readonly></textarea>
           <div class="rewriteai-char-bar" id="rewriteai-char-bar">
             <span id="rewriteai-char-count">0 karakter</span>
@@ -354,7 +417,7 @@
     }
     .rewriteai-modal {
       width: 90%;
-      max-width: 580px;
+      max-width: 680px;
       background: #0f172a;
       border: 1px solid #334155;
       border-radius: 14px;
@@ -378,12 +441,28 @@
     .rewriteai-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+    .rewriteai-brand:hover {
+      opacity: 0.85;
     }
     .rewriteai-title {
       font-weight: 700;
       font-size: 15px;
       color: #38bdf8;
+    }
+    .rewriteai-version {
+      font-size: 10px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 6px;
+      border-radius: 99px;
+      letter-spacing: 0.3px;
     }
     .rewriteai-header-controls {
       display: flex;
@@ -400,9 +479,101 @@
       border-radius: 6px;
       outline: none;
       cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Segoe UI", Roboto, sans-serif;
     }
     .rewriteai-select:hover {
       border-color: #38bdf8;
+    }
+    /* Modal Özel Bayraklı Açılır Menü */
+    .rewriteai-custom-lang-dropdown {
+      position: relative;
+    }
+    .rewriteai-custom-dropdown-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .rewriteai-custom-dropdown-btn:hover,
+    .rewriteai-custom-lang-dropdown.open .rewriteai-custom-dropdown-btn {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+    .rewriteai-custom-dropdown-flag {
+      display: inline-block;
+      width: 16px;
+      height: 11px;
+      border-radius: 2px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+    .rewriteai-custom-dropdown-text {
+      white-space: nowrap;
+    }
+    .rewriteai-custom-dropdown-arrow {
+      font-size: 9px;
+      color: #94a3b8;
+      transition: transform 0.2s;
+    }
+    .rewriteai-custom-lang-dropdown.open .rewriteai-custom-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .rewriteai-custom-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 140px;
+      max-height: 220px;
+      overflow-y: auto;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      display: none;
+      padding: 4px;
+    }
+    .rewriteai-custom-lang-dropdown.open .rewriteai-custom-dropdown-menu {
+      display: block;
+      animation: rewriteai-fade 0.15s ease-out;
+    }
+    .rewriteai-custom-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 5px 8px;
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      font-size: 11.5px;
+      font-weight: 500;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.12s, color 0.12s;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .rewriteai-custom-dropdown-item:hover {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+    }
+    .rewriteai-custom-dropdown-item.active {
+      background: rgba(56, 189, 248, 0.25);
+      color: #38bdf8;
+      font-weight: 700;
     }
     .rewriteai-close-btn {
       background: transparent;
@@ -453,14 +624,61 @@
     .rewriteai-settings-btn:hover {
       background: #dc2626;
     }
+    .rewriteai-field-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
     .rewriteai-field label {
       display: block;
       font-size: 12px;
       font-weight: 600;
       color: #94a3b8;
-      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+    .rewriteai-twitter-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      background: #0f1d30;
+      border: 1px solid #1e3a52;
+      border-radius: 99px;
+      transition: all 0.2s;
+    }
+    .rewriteai-twitter-inline.twitter-active {
+      background: rgba(29, 155, 240, 0.15);
+      border-color: rgba(29, 155, 240, 0.6);
+    }
+    .rewriteai-twitter-inline .rewriteai-twitter-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .rewriteai-twitter-inline.twitter-active .rewriteai-twitter-toggle {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .rewriteai-twitter-inline .rewriteai-x-icon {
+      font-size: 12px;
+    }
+    .rewriteai-twitter-inline .rewriteai-toggle-pill {
+      width: 26px;
+      height: 14px;
+      border-radius: 7px;
+    }
+    .rewriteai-twitter-inline .rewriteai-toggle-thumb {
+      width: 10px;
+      height: 10px;
+      top: 2px;
+      left: 2px;
+    }
+    .rewriteai-twitter-inline.twitter-active .rewriteai-toggle-thumb {
+      transform: translateX(12px);
     }
     .rewriteai-preview-textarea {
       width: 100%;
@@ -878,16 +1096,90 @@
   const keyWarningTextEl = document.getElementById('rewriteai-key-warning-text');
   const openSettingsBtn = document.getElementById('rewriteai-open-settings-btn');
 
-  function renderModalTargetLang() {
-    if (!targetLangSelect) return;
-    const currentVal = targetLangSelect.value || targetLang;
-    targetLangSelect.innerHTML = `
-      <option value="auto">${t.autoLang || '🌐 Orijinal Dil (Oto)'}</option>
-      <option value="tr">${t.langTurkish || '🇹🇷 Türkçe'}</option>
-      <option value="en">${t.langEnglish || '🇬🇧 English'}</option>
-    `;
-    targetLangSelect.value = currentVal;
+  // Modal Özel Bayraklı Açılır Menü DOM Ref'leri
+  const modalLangDropdown = document.getElementById('rewriteai-modal-lang-dropdown');
+  const modalLangBtn = document.getElementById('rewriteai-modal-lang-btn');
+  const modalLangMenu = document.getElementById('rewriteai-modal-lang-menu');
+  const modalSelectedFlag = document.getElementById('rewriteai-modal-selected-flag');
+  const modalSelectedText = document.getElementById('rewriteai-modal-selected-text');
+
+  function updateModalCustomDropdownUI(val) {
+    const item = TARGET_LANG_ITEMS.find((it) => it.code === val) || TARGET_LANG_ITEMS[0];
+    const flagSvg = FLAG_SVGS[item.code] || FLAG_SVGS.auto;
+    const name = curLang === 'en' ? item.nameEn : item.nameTr;
+
+    if (modalSelectedFlag) {
+      modalSelectedFlag.style.backgroundImage = `url("${flagSvg}")`;
+    }
+    if (modalSelectedText) {
+      modalSelectedText.textContent = name;
+    }
+    if (modalLangMenu) {
+      modalLangMenu.querySelectorAll('.rewriteai-custom-dropdown-item').forEach((el) => {
+        el.classList.toggle('active', el.getAttribute('data-code') === item.code);
+      });
+    }
   }
+
+  function renderModalTargetLang() {
+    if (!modalLangMenu) return;
+    const currentVal = targetLangSelect ? (targetLangSelect.value || targetLang) : targetLang;
+
+    // Özel bayraklı menüyü oluştur
+    modalLangMenu.innerHTML = '';
+    TARGET_LANG_ITEMS.forEach((it) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `rewriteai-custom-dropdown-item ${it.code === currentVal ? 'active' : ''}`;
+      btn.setAttribute('data-code', it.code);
+
+      const flagSpan = document.createElement('span');
+      flagSpan.className = 'rewriteai-custom-dropdown-flag';
+      flagSpan.style.backgroundImage = `url("${FLAG_SVGS[it.code] || FLAG_SVGS.auto}")`;
+
+      const textSpan = document.createElement('span');
+      textSpan.textContent = curLang === 'en' ? it.nameEn : it.nameTr;
+
+      btn.appendChild(flagSpan);
+      btn.appendChild(textSpan);
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        targetLang = it.code;
+        if (targetLangSelect) targetLangSelect.value = targetLang;
+        safeStorageSet({ selectedTargetLanguage: targetLang });
+        updateModalCustomDropdownUI(targetLang);
+        modalLangDropdown && modalLangDropdown.classList.remove('open');
+      });
+
+      modalLangMenu.appendChild(btn);
+    });
+
+    // Native select güncelle (yedek)
+    if (targetLangSelect) {
+      targetLangSelect.innerHTML = TARGET_LANG_ITEMS.map((it) => {
+        const name = curLang === 'en' ? it.nameEn : it.nameTr;
+        return `<option value="${it.code}">${name}</option>`;
+      }).join('');
+      targetLangSelect.value = currentVal;
+    }
+
+    updateModalCustomDropdownUI(currentVal);
+  }
+
+  // Dropdown açma / kapatma
+  if (modalLangBtn) {
+    modalLangBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      modalLangDropdown && modalLangDropdown.classList.toggle('open');
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (modalLangDropdown && !modalLangDropdown.contains(e.target)) {
+      modalLangDropdown.classList.remove('open');
+    }
+  });
 
   // Modal Arayüz Dilini Güncelle
   function applyModalLanguage() {
@@ -896,6 +1188,14 @@
     // Başlık & Buton İpuçları
     const modalTitleEl = document.getElementById('rewriteai-modal-title');
     if (modalTitleEl) modalTitleEl.textContent = t.appName;
+    const modalVerEl = document.getElementById('rewriteai-modal-version');
+    if (modalVerEl && chrome.runtime && chrome.runtime.getManifest) {
+      try {
+        modalVerEl.textContent = `v${chrome.runtime.getManifest().version}`;
+      } catch {
+        modalVerEl.textContent = 'v2.0';
+      }
+    }
     if (triggerBtn) triggerBtn.title = t.triggerBtnTitle;
 
     // Etiketler & Placeholder
@@ -1091,6 +1391,7 @@
         if (langData && langData.selectedTargetLanguage) {
           targetLang = langData.selectedTargetLanguage;
           if (targetLangSelect) targetLangSelect.value = targetLang;
+          updateModalCustomDropdownUI(targetLang);
         }
       });
 

@@ -62,7 +62,14 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 7px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.brand:hover {
+  opacity: 0.9;
 }
 
 .logo-small {
@@ -80,6 +87,17 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.brand-version {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 1px 5px;
+  border-radius: 99px;
+  letter-spacing: 0.3px;
 }
 
 .header-actions {
@@ -204,17 +222,21 @@ body {
   background: var(--panel-alt);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  position: relative;
+  z-index: 20;
 }
 
 .model-bar-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex: 1.3;
+  flex: 1.2;
+  min-width: 0;
 }
 
 .model-bar-item.lang-bar-item {
   flex: 1;
+  min-width: 0;
 }
 
 .model-bar-label {
@@ -233,7 +255,7 @@ body {
   padding: 4px 6px;
   font-size: 0.76rem;
   font-weight: 600;
-  font-family: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Segoe UI", Roboto, sans-serif;
   outline: none;
   cursor: pointer;
   transition: all 0.15s;
@@ -243,6 +265,120 @@ body {
 .popup-model-select:hover {
   border-color: var(--accent);
   box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.hidden-select {
+  display: none !important;
+}
+
+/* ── Custom Flag Dropdown ── */
+.custom-lang-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #090f1d;
+  color: var(--accent);
+  border: 1px solid #2d3f57;
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s;
+  box-sizing: border-box;
+}
+
+.custom-dropdown-btn:hover,
+.custom-dropdown-btn:focus,
+.custom-lang-dropdown.open .custom-dropdown-btn {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.custom-dropdown-flag {
+  display: inline-block;
+  width: 16px;
+  height: 11px;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.custom-dropdown-text {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-dropdown-arrow {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+
+.custom-lang-dropdown.open .custom-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 150px;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: none;
+  padding: 4px;
+}
+
+.custom-lang-dropdown.open .custom-dropdown-menu {
+  display: block;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+  box-sizing: border-box;
+}
+
+.custom-dropdown-item:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+}
+
+.custom-dropdown-item.active {
+  background: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+  font-weight: 700;
 }
 
 /* ── Key Warning Box ── */
@@ -385,15 +521,86 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 12px;
+  padding: 6px 10px;
   background: #1a2333;
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border);
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
   flex-shrink: 0;
+  gap: 8px;
+}
+
+.panel-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.panel-header-left span {
+  white-space: nowrap;
+}
+
+.twitter-bar.twitter-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 6px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(51, 65, 85, 0.85);
+  border-radius: 99px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.twitter-bar.twitter-inline.twitter-active {
+  background: rgba(29, 155, 240, 0.15);
+  border-color: rgba(29, 155, 240, 0.6);
+}
+
+.twitter-bar.twitter-inline .twitter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.68rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-soft);
+}
+
+.twitter-bar.twitter-inline.twitter-active .twitter-toggle {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.twitter-bar.twitter-inline .twitter-x-icon {
+  font-size: 0.75rem;
+}
+
+.twitter-bar.twitter-inline .toggle-pill {
+  width: 26px;
+  height: 14px;
+  border-radius: 7px;
+}
+
+.twitter-bar.twitter-inline .toggle-thumb {
+  width: 10px;
+  height: 10px;
+  top: 2px;
+  left: 2px;
+}
+
+.twitter-bar.twitter-inline.twitter-active .toggle-thumb {
+  transform: translateX(12px);
 }
 
 .panel-actions { display: flex; gap: 5px; }
@@ -503,99 +710,7 @@ textarea::placeholder { color: #2d3f57; }
 #statusInfo.success { color: var(--success); }
 #statusInfo.error { color: #f87171; }
 
-/* ── Twitter / X Modu Çubuğu ── */
-.twitter-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 14px;
-  background: var(--panel-alt);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  transition: background 0.2s;
-}
 
-.twitter-bar.twitter-active {
-  background: rgba(29, 155, 240, 0.08);
-  border-bottom-color: rgba(29, 155, 240, 0.3);
-}
-
-.twitter-toggle {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-soft);
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0;
-  transition: color 0.15s;
-}
-
-.twitter-bar.twitter-active .twitter-toggle {
-  color: #1d9bf0;
-}
-
-.twitter-x-icon {
-  font-size: 1rem;
-  font-weight: 900;
-  line-height: 1;
-  font-style: normal;
-}
-
-.twitter-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.twitter-limit-hint {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.twitter-bar.twitter-active .twitter-limit-hint {
-  opacity: 1;
-  color: #1d9bf0;
-}
-
-/* Toggle Pill */
-.toggle-pill {
-  width: 36px;
-  height: 20px;
-  border-radius: 10px;
-  background: var(--border-light);
-  position: relative;
-  cursor: pointer;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-
-.twitter-bar.twitter-active .toggle-pill {
-  background: #1d9bf0;
-}
-
-.toggle-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
-}
-
-.twitter-bar.twitter-active .toggle-thumb {
-  transform: translateX(16px);
-}
 
 /* Output Karakter Sayacı */
 .output-char-bar {

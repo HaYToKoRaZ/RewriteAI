@@ -2,6 +2,7 @@ import { StorageRepository } from '../../data/StorageRepository.js';
 import { TextTransformService } from '../../services/TextTransformService.js';
 import { AVAILABLE_MODELS } from '../../data/DefaultSettings.js';
 import { detectLanguage, getT } from '../../core/i18n.js';
+import { FLAG_SVGS, TARGET_LANG_ITEMS } from '../../core/FlagSVGs.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // ── DOM ──
@@ -41,9 +42,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   let targetLang = 'auto';
   let twitterMode = false;
 
-  // ── Dil Başlatma ──
   let lang = await detectLanguage();
   let t = getT(lang);
+
+  // Versiyon Gösterimi
+  try {
+    const brandVersionEl = document.getElementById('brandVersion');
+    if (brandVersionEl && chrome.runtime && chrome.runtime.getManifest) {
+      brandVersionEl.textContent = `v${chrome.runtime.getManifest().version}`;
+    }
+  } catch (err) {
+    console.warn('Versiyon yüklenemedi:', err);
+  }
 
   function renderPopupModels() {
     const currentVal = modelSelect.value;
@@ -71,16 +81,89 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (currentVal) modelSelect.value = currentVal;
   }
 
-  function renderTargetLangOptions() {
-    if (!targetLangSelect) return;
-    const currentVal = targetLangSelect.value || targetLang;
-    targetLangSelect.innerHTML = `
-      <option value="auto">${t.autoLang || '🌐 Orijinal Dil (Oto)'}</option>
-      <option value="tr">${t.langTurkish || '🇹🇷 Türkçe'}</option>
-      <option value="en">${t.langEnglish || '🇬🇧 English'}</option>
-    `;
-    targetLangSelect.value = currentVal;
+  const customLangDropdown = document.getElementById('customLangDropdown');
+  const customLangBtn = document.getElementById('customLangBtn');
+  const customLangMenu = document.getElementById('customLangMenu');
+  const customLangSelectedFlag = document.getElementById('customLangSelectedFlag');
+  const customLangSelectedText = document.getElementById('customLangSelectedText');
+
+  function updateCustomDropdownUI(val) {
+    const item = TARGET_LANG_ITEMS.find((it) => it.code === val) || TARGET_LANG_ITEMS[0];
+    const flagSvg = FLAG_SVGS[item.code] || FLAG_SVGS.auto;
+    const name = lang === 'en' ? item.nameEn : item.nameTr;
+    
+    if (customLangSelectedFlag) {
+      customLangSelectedFlag.style.backgroundImage = `url("${flagSvg}")`;
+    }
+    if (customLangSelectedText) {
+      customLangSelectedText.textContent = name;
+    }
+    if (customLangMenu) {
+      customLangMenu.querySelectorAll('.custom-dropdown-item').forEach((el) => {
+        el.classList.toggle('active', el.getAttribute('data-code') === item.code);
+      });
+    }
   }
+
+  function renderTargetLangOptions() {
+    if (!customLangMenu) return;
+    const currentVal = targetLangSelect ? (targetLangSelect.value || targetLang) : targetLang;
+
+    // Özel menüyü oluştur
+    customLangMenu.innerHTML = '';
+    TARGET_LANG_ITEMS.forEach((it) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `custom-dropdown-item ${it.code === currentVal ? 'active' : ''}`;
+      btn.setAttribute('data-code', it.code);
+
+      const flagSpan = document.createElement('span');
+      flagSpan.className = 'custom-dropdown-flag';
+      flagSpan.style.backgroundImage = `url("${FLAG_SVGS[it.code] || FLAG_SVGS.auto}")`;
+
+      const textSpan = document.createElement('span');
+      textSpan.textContent = lang === 'en' ? it.nameEn : it.nameTr;
+
+      btn.appendChild(flagSpan);
+      btn.appendChild(textSpan);
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        targetLang = it.code;
+        if (targetLangSelect) targetLangSelect.value = targetLang;
+        chrome.storage.local.set({ selectedTargetLanguage: targetLang });
+        updateCustomDropdownUI(targetLang);
+        customLangDropdown && customLangDropdown.classList.remove('open');
+      });
+
+      customLangMenu.appendChild(btn);
+    });
+
+    // Native select güncelle (yedek)
+    if (targetLangSelect) {
+      targetLangSelect.innerHTML = TARGET_LANG_ITEMS.map((it) => {
+        const name = lang === 'en' ? it.nameEn : it.nameTr;
+        return `<option value="${it.code}">${name}</option>`;
+      }).join('');
+      targetLangSelect.value = currentVal;
+    }
+
+    updateCustomDropdownUI(currentVal);
+  }
+
+  // Dropdown açma / kapatma
+  if (customLangBtn) {
+    customLangBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      customLangDropdown && customLangDropdown.classList.toggle('open');
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (customLangDropdown && !customLangDropdown.contains(e.target)) {
+      customLangDropdown.classList.remove('open');
+    }
+  });
 
   function applyLanguage() {
     t = getT(lang);
@@ -242,6 +325,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (items.selectedTargetLanguage) {
       targetLang = items.selectedTargetLanguage;
       if (targetLangSelect) targetLangSelect.value = targetLang;
+      updateCustomDropdownUI(targetLang);
     }
   });
 
