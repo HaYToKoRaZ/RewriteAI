@@ -58,6 +58,9 @@
 
   let currentSelectedText = '';
   let selectionRange = null;
+  let activeInputElement = null;
+  let activeInputStart = 0;
+  let activeInputEnd = 0;
 
   // Çeviri Sözlüğü (Content Script içinde bağımsız çalışabilmesi için)
   const I18N = {
@@ -548,10 +551,54 @@
   `;
   document.head.appendChild(style);
 
-  // Metin Seçim Takibi
+  // Sayfa genelinde seçim ve odaklanan girdi alanlarını (input, textarea, contenteditable) sürekli takip et
+  function captureCurrentSelection() {
+    const activeEl = document.activeElement;
+    if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+      const start = activeEl.selectionStart;
+      const end = activeEl.selectionEnd;
+      if (typeof start === 'number' && typeof end === 'number' && end > start) {
+        activeInputElement = activeEl;
+        activeInputStart = start;
+        activeInputEnd = end;
+        currentSelectedText = activeEl.value.substring(start, end);
+        selectionRange = null;
+        return;
+      }
+    }
+
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+      const txt = sel.toString();
+      if (txt && txt.trim().length > 0) {
+        currentSelectedText = txt.trim();
+        try {
+          selectionRange = sel.getRangeAt(0).cloneRange();
+        } catch {
+          selectionRange = null;
+        }
+        activeInputElement = null;
+      }
+    }
+  }
+
+  document.addEventListener('selectionchange', () => {
+    // Modal açıkken arkadaki seçimi kaybetme
+    if (modalOverlay.style.display === 'flex') return;
+    captureCurrentSelection();
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    if (modalOverlay.contains(e.target)) return;
+    captureCurrentSelection();
+  });
+
+  // Metin Seçim Takibi & Bubble Tetikleyici
   document.addEventListener('mouseup', (e) => {
     // Modal içindeki tıklamaları yok say
     if (modalOverlay.contains(e.target) || triggerBtn.contains(e.target)) return;
+
+    captureCurrentSelection();
 
     safeStorageGet({ showSelectionBubble: false }, (items) => {
       if (!items || !items.showSelectionBubble) {
@@ -561,18 +608,16 @@
 
       setTimeout(() => {
         const selection = window.getSelection();
-        const text = selection ? selection.toString().trim() : '';
+        const text = currentSelectedText || (selection ? selection.toString().trim() : '');
 
-        if (text.length > 1) {
-          currentSelectedText = text;
-          try {
-            selectionRange = selection.getRangeAt(0).cloneRange();
-          } catch {
-            selectionRange = null;
-          }
-
-          if (selection.rangeCount > 0) {
+        if (text && text.length > 1) {
+          if (selection && selection.rangeCount > 0 && !selection.isCollapsed) {
             const rect = selection.getRangeAt(0).getBoundingClientRect();
+            triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
+            triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
+            triggerBtn.style.display = 'flex';
+          } else if (activeInputElement) {
+            const rect = activeInputElement.getBoundingClientRect();
             triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
             triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
             triggerBtn.style.display = 'flex';
@@ -927,15 +972,82 @@
     }
   });
 
-  // Sayfadaki metni doğrudan değiştir
+  // Sayfadaki metni doğrudan değiştir (Input, Textarea, ContentEditable ve Genel DOM Desteği)
   replaceBtn.addEventListener('click', () => {
-    if (!resultBox.value || !selectionRange) return;
-    try {
-      selectionRange.deleteContents();
-      selectionRange.insertNode(document.createTextNode(resultBox.value));
+    const replacementText = resultBox.value;
+    if (!replacementText) return;
+
+    let replaced = false;
+
+    // 1. Durum: INPUT veya TEXTAREA içindeyse
+    if (activeInputElement && (activeInputElement.tagName === 'INPUT' || activeInputElement.tagName === 'TEXTAREA')) {
+      try {
+        const val = activeInputElement.value;
+        const start = activeInputStart;
+        const end = activeInputEnd;
+
+        // execCommand 'insertText' dener (Undo geçmişi korunur)
+        activeInputElement.focus();
+        activeInputElement.setSelectionRange(start, end);
+        const success = document.execCommand('insertText', false, replacementText);
+
+        if (!success) {
+          // Doğrudan değer değiştirme ve input event tetikleme
+          activeInputElement.value = val.substring(0, start) + replacementText + val.substring(end);
+          const newPos = start + replacementText.length;
+          activeInputElement.setSelectionRange(newPos, newPos);
+          activeInputElement.dispatchEvent(new Event('input', { bubbles: true }));
+          activeInputElement.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        replaced = true;
+      } catch (err) {
+        // Fallback aşağıya devam eder
+      }
+    }
+
+    // 2. Durum: DOM Range üzerinden değiştirme
+    if (!replaced && selectionRange) {
+      try {
+        // Seçim alanını geri yükle
+        const sel = window.getSelection();
+        if (sel) {
+          sel.removeAllRanges();
+          sel.addRange(selectionRange);
+        }
+
+        // execCommand ile contenteditable / zengin editörlerde deneme
+        const execSuccess = document.execCommand('insertText', false, replacementText);
+        if (execSuccess) {
+          replaced = true;
+        } else {
+          // Range düğüm değişimi
+          selectionRange.deleteContents();
+          const textNode = document.createTextNode(replacementText);
+          selectionRange.insertNode(textNode);
+          
+          // Yeni imleç pozisyonunu metin sonuna al
+          const newRange = document.createRange();
+          newRange.setStartAfter(textNode);
+          newRange.collapse(true);
+          if (sel) {
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+          }
+          replaced = true;
+        }
+      } catch (err) {
+        // DOM değiştirilemezse (örneğin salt okunur bir yer veya iframe)
+      }
+    }
+
+    if (replaced) {
       closeModal();
-    } catch {
+    } else {
       statusMsg.textContent = t.pageReplaceError;
+      // Kolaylık olsun diye otomatik kopyala ve kullanıcıya bildir
+      navigator.clipboard.writeText(replacementText).then(() => {
+        statusMsg.textContent = `${t.pageReplaceError} (${t.copied}!)`;
+      }).catch(() => {});
     }
   });
 
