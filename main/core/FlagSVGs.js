@@ -42,7 +42,31 @@ export const FLAG_SVGS = {
   ja: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23FFFFFF'/%3E%3Ccircle cx='15' cy='10' r='6' fill='%23BC002D'/%3E%3C/svg%3E`,
 
   // 🇰🇷 Güney Kore
-  ko: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23FFFFFF'/%3E%3Ccircle cx='15' cy='10' r='5' fill='%23CD2E3A'/%3E%3Cpath d='M15,5 A5,5 0 0,0 15,15 A2.5,2.5 0 0,1 15,10 A2.5,2.5 0 0,0 15,5' fill='%230047A0'/%3E%3C/svg%3E`
+  ko: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23FFFFFF'/%3E%3Ccircle cx='15' cy='10' r='5' fill='%23CD2E3A'/%3E%3Cpath d='M15,5 A5,5 0 0,0 15,15 A2.5,2.5 0 0,1 15,10 A2.5,2.5 0 0,0 15,5' fill='%230047A0'/%3E%3C/svg%3E`,
+
+  // 🇦🇿 Azerbaycan
+  az: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='6.66' y='0' fill='%2300B5E2'/%3E%3Crect width='30' height='6.66' y='6.66' fill='%23EF3340'/%3E%3Crect width='30' height='6.68' y='13.32' fill='%23509E2F'/%3E%3Ccircle cx='14' cy='10' r='2.8' fill='white'/%3E%3Ccircle cx='14.8' cy='10' r='2.3' fill='%23EF3340'/%3E%3Cpolygon points='17,10 18,9 18,11' fill='white'/%3E%3C/svg%3E`,
+
+  // 🇳🇱 Hollanda / Felemenkçe
+  nl: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='6.66' y='0' fill='%23AE1C28'/%3E%3Crect width='30' height='6.66' y='6.66' fill='%23FFFFFF'/%3E%3Crect width='30' height='6.68' y='13.32' fill='%2321468B'/%3E%3C/svg%3E`,
+
+  // 🇵🇱 Polonya / Lehçe
+  pl: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='10' y='0' fill='%23FFFFFF'/%3E%3Crect width='30' height='10' y='10' fill='%23DC143C'/%3E%3C/svg%3E`,
+
+  // 🇮🇳 Hindistan / Hintçe
+  hi: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='6.66' y='0' fill='%23FF9933'/%3E%3Crect width='30' height='6.66' y='6.66' fill='%23FFFFFF'/%3E%3Crect width='30' height='6.68' y='13.32' fill='%23128807'/%3E%3Ccircle cx='15' cy='10' r='2.2' fill='none' stroke='%23000080' stroke-width='0.6'/%3E%3C/svg%3E`,
+
+  // 🇸🇪 İsveç / İsveççe
+  sv: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23006AA7'/%3E%3Crect width='30' height='4' y='8' fill='%23FECC00'/%3E%3Crect width='4' height='20' x='9' fill='%23FECC00'/%3E%3C/svg%3E`,
+
+  // 🇺🇦 Ukrayna / Ukraynaca
+  uk: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='10' y='0' fill='%23005BBB'/%3E%3Crect width='30' height='10' y='10' fill='%23FFD500'/%3E%3C/svg%3E`,
+
+  // 🇮🇩 Endonezya / Endonezce
+  id: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='10' y='0' fill='%23FF0000'/%3E%3Crect width='30' height='10' y='10' fill='%23FFFFFF'/%3E%3C/svg%3E`,
+
+  // 🇬🇷 Yunanistan / Yunanca
+  el: `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%230D5EAF'/%3E%3Crect width='30' height='2.22' y='2.22' fill='white'/%3E%3Crect width='30' height='2.22' y='6.66' fill='white'/%3E%3Crect width='30' height='2.22' y='11.1' fill='white'/%3E%3Crect width='30' height='2.22' y='15.54' fill='white'/%3E%3Crect width='10' height='10' fill='%230D5EAF'/%3E%3Crect width='10' height='2' y='4' fill='white'/%3E%3Crect width='2' height='10' x='4' fill='white'/%3E%3C/svg%3E`
 };
 
 export const TARGET_LANG_ITEMS = [
@@ -58,5 +82,13 @@ export const TARGET_LANG_ITEMS = [
   { code: 'ar', nameTr: 'Arapça', nameEn: 'Arabic' },
   { code: 'zh', nameTr: 'Çince', nameEn: 'Chinese' },
   { code: 'ja', nameTr: 'Japonca', nameEn: 'Japanese' },
-  { code: 'ko', nameTr: 'Korece', nameEn: 'Korean' }
+  { code: 'ko', nameTr: 'Korece', nameEn: 'Korean' },
+  { code: 'az', nameTr: 'Azerbaycanca', nameEn: 'Azerbaijani' },
+  { code: 'nl', nameTr: 'Felemenkçe', nameEn: 'Dutch' },
+  { code: 'pl', nameTr: 'Lehçe', nameEn: 'Polish' },
+  { code: 'hi', nameTr: 'Hintçe', nameEn: 'Hindi' },
+  { code: 'sv', nameTr: 'İsveççe', nameEn: 'Swedish' },
+  { code: 'uk', nameTr: 'Ukraynaca', nameEn: 'Ukrainian' },
+  { code: 'id', nameTr: 'Endonezce', nameEn: 'Indonesian' },
+  { code: 'el', nameTr: 'Yunanca', nameEn: 'Greek' }
 ];

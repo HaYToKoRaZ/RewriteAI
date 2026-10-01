@@ -37,7 +37,15 @@ export class TextTransformService {
       ar: 'ARABIC (العَرَبِية)',
       zh: 'CHINESE (中文)',
       ja: 'JAPANESE (日本語)',
-      ko: 'KOREAN (한국어)'
+      ko: 'KOREAN (한국어)',
+      az: 'AZERBAIJANI (AZƏRBAYCANCA)',
+      nl: 'DUTCH (NEDERLANDS)',
+      pl: 'POLISH (POLSKI)',
+      hi: 'HINDI (हिन्दी)',
+      sv: 'SWEDISH (SVENSKA)',
+      uk: 'UKRAINIAN (УКРАЇНСЬКА)',
+      id: 'INDONESIAN (BAHASA INDONESIA)',
+      el: 'GREEK (ΕΛΛΗΝΙΚΑ)'
     };
 
     let langInstruction = '';

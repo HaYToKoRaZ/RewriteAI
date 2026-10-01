@@ -111,6 +111,14 @@ export const TRANSLATIONS = {
     langChinese: '🇨🇳 Çince',
     langJapanese: '🇯🇵 Japonca',
     langKorean: '🇰🇷 Korece',
+    langAzerbaijani: '🇦🇿 Azerbaycanca',
+    langDutch: '🇳🇱 Felemenkçe',
+    langPolish: '🇵🇱 Lehçe',
+    langHindi: '🇮🇳 Hintçe',
+    langSwedish: '🇸🇪 İsveççe',
+    langUkrainian: '🇺🇦 Ukraynaca',
+    langIndonesian: '🇮🇩 Endonezce',
+    langGreek: '🇬🇷 Yunanca',
     // Tonlar (Kartlar & Butonlar)
     tones: {
       fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
@@ -259,6 +267,14 @@ export const TRANSLATIONS = {
     langChinese: '🇨🇳 Chinese',
     langJapanese: '🇯🇵 Japanese',
     langKorean: '🇰🇷 Korean',
+    langAzerbaijani: '🇦🇿 Azerbaijani',
+    langDutch: '🇳🇱 Dutch',
+    langPolish: '🇵🇱 Polish',
+    langHindi: '🇮🇳 Hindi',
+    langSwedish: '🇸🇪 Swedish',
+    langUkrainian: '🇺🇦 Ukrainian',
+    langIndonesian: '🇮🇩 Indonesian',
+    langGreek: '🇬🇷 Greek',
     // Tones (Cards & Buttons)
     tones: {
       fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fixes errors' },
