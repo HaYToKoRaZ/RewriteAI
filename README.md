@@ -33,13 +33,13 @@
 ### 🛒 Supported Browsers & Store Links
 <p>
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/badge-chrome.svg" alt="Google Chrome" />
+    <img src="main/assets/badges/chrome.svg" alt="Google Chrome" height="34" />
   </a>
   <a href="https://microsoftedge.microsoft.com/addons/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/badge-edge.svg" alt="Microsoft Edge" />
+    <img src="main/assets/badges/edge.svg" alt="Microsoft Edge" height="34" />
   </a>
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/badge-helium.svg" alt="Helium Browser" />
+    <img src="main/assets/badges/helium.png" alt="Helium Browser" height="34" />
   </a>
 </p>
 
