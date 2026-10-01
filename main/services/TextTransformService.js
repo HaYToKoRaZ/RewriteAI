@@ -10,7 +10,7 @@ import { TONE_DEFINITIONS } from '../core/TonePrompts.js';
 import { Logger } from '../core/Logger.js';
 
 export class TextTransformService {
-  static async transform(text, toneId = 'fix_grammar', overrideModel = null) {
+  static async transform(text, toneId = 'fix_grammar', overrideModel = null, targetLanguage = 'auto') {
     if (!text || text.trim() === '') {
       throw new Error('Lütfen dönüştürülecek bir metin girin.');
     }
@@ -23,9 +23,21 @@ export class TextTransformService {
     };
 
     const toneConfig = TONE_DEFINITIONS[toneId] || TONE_DEFINITIONS.fix_grammar;
-    const prompt = `${toneConfig.prompt}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
 
-    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneConfig.name}`);
+    // Hedef Dil Yönergesi
+    let langInstruction = '';
+    if (targetLanguage === 'tr') {
+      langInstruction = 'Hedef Çıktı Dili: TÜRKÇE. Orijinal metin hangi dilde olursa olsun sonucu Türkçe olarak ve istenen tonda üret.';
+    } else if (targetLanguage === 'en') {
+      langInstruction = 'Target Output Language: ENGLISH. Regardless of the input language, produce the final rewritten result in English in the requested tone.';
+    } else {
+      // 'auto' veya belirtilmemiş: Orijinal dili titizlikle koru
+      langInstruction = 'DİL KURALI (ÇOK ÖNEMLİ): Çıktıyı MUTLAKA girdi metninin kendi orijinal dilinde üret. Girdi İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca yaz. Asla dili değiştirme veya çeviri yapma.';
+    }
+
+    const prompt = `${toneConfig.prompt}\n\n${langInstruction}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
+
+    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneConfig.name}, Dil: ${targetLanguage}`);
 
     let result = '';
 

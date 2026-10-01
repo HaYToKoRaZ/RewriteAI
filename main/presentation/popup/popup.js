@@ -6,6 +6,8 @@ import { detectLanguage, getT } from '../../core/i18n.js';
 document.addEventListener('DOMContentLoaded', async () => {
   // ── DOM ──
   const modelSelect = document.getElementById('popupModelSelect');
+  const targetLangSelect = document.getElementById('popupTargetLangSelect');
+  const lblTargetLang = document.getElementById('lblTargetLang');
   const keyWarningBox = document.getElementById('keyWarningBox');
   const keyWarningText = document.getElementById('keyWarningText');
   const warningSettingsBtn = document.getElementById('warningSettingsBtn');
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const langBtnEn = document.getElementById('langBtnEn');
 
   let selectedTone = 'fix_grammar';
+  let targetLang = 'auto';
 
   // ── Dil Başlatma ──
   let lang = await detectLanguage();
@@ -61,6 +64,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (currentVal) modelSelect.value = currentVal;
   }
 
+  function renderTargetLangOptions() {
+    if (!targetLangSelect) return;
+    const currentVal = targetLangSelect.value || targetLang;
+    targetLangSelect.innerHTML = `
+      <option value="auto">${t.autoLang || '🌐 Orijinal Dil (Oto)'}</option>
+      <option value="tr">${t.langTurkish || '🇹🇷 Türkçe'}</option>
+      <option value="en">${t.langEnglish || '🇬🇧 English'}</option>
+    `;
+    targetLangSelect.value = currentVal;
+  }
+
   function applyLanguage() {
     t = getT(lang);
 
@@ -68,21 +82,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     langBtnTr.classList.toggle('active', lang === 'tr');
     langBtnEn.classList.toggle('active', lang === 'en');
 
-    // Model çubuğu etiketi ve dinamik model listesi
+    // Model çubuğu ve hedef dil etiketi
     const modelBarLabel = document.querySelector('.model-bar-label');
     if (modelBarLabel) {
       modelBarLabel.textContent = t.modelLabelShort || (lang === 'en' ? 'AI Model:' : 'AI Modeli:');
     }
+    if (lblTargetLang) {
+      lblTargetLang.textContent = t.targetLangLabel || (lang === 'en' ? 'Output:' : 'Çıktı:');
+    }
     renderPopupModels();
+    renderTargetLangOptions();
 
-    // Ton Butonları (Kartları) İçeriği
+    // Ton Butonları (Açıklamasız, sadece başlık)
     toneCardBtns.forEach((btn) => {
       const toneKey = btn.getAttribute('data-tone');
       if (t.tones && t.tones[toneKey]) {
         const titleEl = btn.querySelector('strong');
-        const descEl = btn.querySelector('small');
         if (titleEl) titleEl.textContent = t.tones[toneKey].title;
-        if (descEl) descEl.textContent = t.tones[toneKey].desc;
       }
     });
 
@@ -185,6 +201,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // ── Hedef Çıktı Dili Değişimi (Kalıcı kaydet) ──
+  if (targetLangSelect) {
+    targetLangSelect.addEventListener('change', () => {
+      targetLang = targetLangSelect.value;
+      chrome.storage.local.set({ selectedTargetLanguage: targetLang });
+    });
+  }
+
   // ── Ayarları Yükle ──
   const settings = await StorageRepository.getSettings();
 
@@ -205,6 +229,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     modelSelect.value = settings.selectedModel;
   }
   checkModelKey(modelSelect.value);
+
+  // Kayıtlı hedef çıktı dili seçimi
+  chrome.storage.local.get({ selectedTargetLanguage: 'auto' }, (items) => {
+    if (items.selectedTargetLanguage) {
+      targetLang = items.selectedTargetLanguage;
+      if (targetLangSelect) targetLangSelect.value = targetLang;
+    }
+  });
 
   // Kayıtlı varsayılan ton seçimi
   if (settings.defaultTone) {
@@ -286,6 +318,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const curModel = modelSelect.value;
+    const curTargetLang = targetLangSelect ? targetLangSelect.value : targetLang;
     checkModelKey(curModel, async (hasKey) => {
       if (!hasKey) {
         setStatus(t.keyMissing || 'Model API anahtarı eksik!', 'error');
@@ -297,7 +330,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       setStatus(t.statusProcessing, '');
 
       try {
-        const result = await TextTransformService.transform(text, selectedTone, curModel);
+        const result = await TextTransformService.transform(text, selectedTone, curModel, curTargetLang);
         outputText.value = result;
         setStatus(t.statusDone, 'success');
 

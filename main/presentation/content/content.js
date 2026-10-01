@@ -87,13 +87,19 @@
       pageReplaceError: 'Sayfa metni doğrudan değiştirilemedi, lütfen kopyalayın.',
       triggerBtnTitle: 'RewriteAI ile Düzenle',
       contextInvalidated: 'Eklenti güncellendi veya yeniden yüklendi. Lütfen bu sekmeyi yenileyin (F5).',
+      targetLangLabel: 'Çıktı Dili:',
+      autoLang: '🌐 Orijinal Dil (Oto)',
+      langTurkish: '🇹🇷 Türkçe',
+      langEnglish: '🇬🇧 English',
       tones: {
-        fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
-        daily: { title: '💬 Günlük & Samimi', desc: 'Doğal konuşma dili' },
-        formal: { title: '💼 Resmi & Kurumsal', desc: 'Profesyonel üslup' },
-        slang: { title: '🔥 Argo & Sokak Ağzı', desc: 'Gençlik jargonu' },
-        academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
-        summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
+        fix_grammar: { title: '✍️ İmla & Dilbilgisi' },
+        daily: { title: '💬 Günlük & Samimi' },
+        formal: { title: '💼 Resmi & Kurumsal' },
+        slang: { title: '🔥 Argo & Sokak Ağzı' },
+        academic: { title: '🎓 Akademik & Ağır' },
+        gamer: { title: '🎮 Gamer' },
+        techie: { title: '💻 Teknoloji Kurdu' },
+        summarize: { title: '📌 Özetle' }
       },
       modelGroups: {
         gemini: '🆓 Google Gemini (Ücretsiz Tier)',
@@ -143,13 +149,19 @@
       pageReplaceError: 'Could not replace text directly in page, please copy manually.',
       triggerBtnTitle: 'Edit with RewriteAI',
       contextInvalidated: 'Extension context invalidated. Please reload this tab (F5).',
+      targetLangLabel: 'Output Language:',
+      autoLang: '🌐 Original Language (Auto)',
+      langTurkish: '🇹🇷 Turkish',
+      langEnglish: '🇬🇧 English',
       tones: {
-        fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fixes errors' },
-        daily: { title: '💬 Casual & Friendly', desc: 'Natural conversational' },
-        formal: { title: '💼 Formal & Corporate', desc: 'Professional style' },
-        slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
-        academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
-        summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
+        fix_grammar: { title: '✍️ Grammar & Spelling' },
+        daily: { title: '💬 Casual & Friendly' },
+        formal: { title: '💼 Formal & Corporate' },
+        slang: { title: '🔥 Slang & Street' },
+        academic: { title: '🎓 Academic & Formal' },
+        gamer: { title: '🎮 Gamer' },
+        techie: { title: '💻 Tech Geek' },
+        summarize: { title: '📌 Summarize' }
       },
       modelGroups: {
         gemini: '🆓 Google Gemini (Free Tier)',
@@ -206,6 +218,11 @@
           <span class="rewriteai-title" id="rewriteai-modal-title">RewriteAI Metin Düzenleyici</span>
         </div>
         <div class="rewriteai-header-controls">
+          <select id="rewriteai-modal-target-lang-select" class="rewriteai-select" title="Çıktı Dili">
+            <option value="auto">🌐 Orijinal Dil (Oto)</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="en">🇬🇧 English</option>
+          </select>
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
             <!-- Dinamik doldurulur -->
           </select>
@@ -225,29 +242,29 @@
         </div>
 
         <div class="rewriteai-tone-grid">
-          <button class="rewriteai-tone-btn active" data-tone="fix_grammar">
+          <button class="rewriteai-tone-btn active" data-tone="fix_grammar" type="button">
             <strong>✍️ İmla & Dilbilgisi</strong>
-            <small>Hataları düzeltir</small>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="daily">
+          <button class="rewriteai-tone-btn" data-tone="daily" type="button">
             <strong>💬 Günlük & Samimi</strong>
-            <small>Doğal konuşma dili</small>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="formal">
+          <button class="rewriteai-tone-btn" data-tone="formal" type="button">
             <strong>💼 Resmi & Kurumsal</strong>
-            <small>Profesyonel üslup</small>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="slang">
+          <button class="rewriteai-tone-btn" data-tone="slang" type="button">
             <strong>🔥 Argo & Sokak Ağzı</strong>
-            <small>Gençlik jargonu</small>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="academic">
+          <button class="rewriteai-tone-btn" data-tone="academic" type="button">
             <strong>🎓 Akademik & Ağır</strong>
-            <small>Bilimsel terminoloji</small>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="summarize">
+          <button class="rewriteai-tone-btn" data-tone="gamer" type="button">
+            <strong>🎮 Gamer</strong>
+          </button>
+          <button class="rewriteai-tone-btn" data-tone="techie" type="button">
+            <strong>💻 Teknoloji Kurdu</strong>
+          </button>
+          <button class="rewriteai-tone-btn" data-tone="summarize" type="button">
             <strong>📌 Özetle</strong>
-            <small>Kısa ve netleştir</small>
           </button>
         </div>
 
@@ -433,31 +450,36 @@
     }
     .rewriteai-tone-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
     }
     .rewriteai-tone-btn {
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 8px;
-      padding: 8px 10px;
+      padding: 9px 6px;
       color: #e2e8f0;
-      text-align: left;
+      text-align: center;
       cursor: pointer;
       transition: all 0.15s ease;
       display: flex;
-      flex-direction: column;
-      gap: 2px;
+      align-items: center;
+      justify-content: center;
     }
-    .rewriteai-tone-btn strong { font-size: 12px; }
-    .rewriteai-tone-btn small { font-size: 10px; color: #94a3b8; }
-    .rewriteai-tone-btn:hover { border-color: #38bdf8; background: #24344d; }
+    .rewriteai-tone-btn strong {
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rewriteai-tone-btn:hover { border-color: #38bdf8; background: #24344d; transform: translateY(-1px); }
     .rewriteai-tone-btn.active {
       border-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.15);
+      background: rgba(56, 189, 248, 0.18);
       color: #38bdf8;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
     }
-    .rewriteai-tone-btn.active small { color: #bae6fd; }
     #rewriteai-result-text {
       width: 100%;
       height: 160px;
@@ -646,8 +668,10 @@
   const replaceBtn = document.getElementById('rewriteai-replace-btn');
   const toneBtns = document.querySelectorAll('.rewriteai-tone-btn');
   const modelSelect = document.getElementById('rewriteai-modal-model-select');
+  const targetLangSelect = document.getElementById('rewriteai-modal-target-lang-select');
 
   let selectedTone = 'fix_grammar';
+  let targetLang = 'auto';
 
   toneBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -673,6 +697,17 @@
   const keyWarningTextEl = document.getElementById('rewriteai-key-warning-text');
   const openSettingsBtn = document.getElementById('rewriteai-open-settings-btn');
 
+  function renderModalTargetLang() {
+    if (!targetLangSelect) return;
+    const currentVal = targetLangSelect.value || targetLang;
+    targetLangSelect.innerHTML = `
+      <option value="auto">${t.autoLang || '🌐 Orijinal Dil (Oto)'}</option>
+      <option value="tr">${t.langTurkish || '🇹🇷 Türkçe'}</option>
+      <option value="en">${t.langEnglish || '🇬🇧 English'}</option>
+    `;
+    targetLangSelect.value = currentVal;
+  }
+
   // Modal Arayüz Dilini Güncelle
   function applyModalLanguage() {
     t = I18N[curLang] || I18N.tr;
@@ -696,17 +731,16 @@
     if (openSettingsBtn) openSettingsBtn.textContent = t.goToSettings;
     if (quotaLinkEl) quotaLinkEl.textContent = t.quotaPanel;
 
-    // Model Seçim Listesini dinamik doldur
+    // Model & Hedef Dil Seçim Listesini dinamik doldur
     renderModalModels();
+    renderModalTargetLang();
 
-    // Ton Butonları
+    // Ton Butonları (Açıklamasız, sadece başlık)
     toneBtns.forEach((btn) => {
       const toneKey = btn.getAttribute('data-tone');
       if (t.tones && t.tones[toneKey]) {
         const strongEl = btn.querySelector('strong');
-        const smallEl = btn.querySelector('small');
         if (strongEl) strongEl.textContent = t.tones[toneKey].title;
-        if (smallEl) smallEl.textContent = t.tones[toneKey].desc;
       }
     });
   }
@@ -871,6 +905,14 @@
         modelSelect.value = activeModel;
       }
 
+      // Kayıtlı hedef çıktı dili seçimi
+      safeStorageGet({ selectedTargetLanguage: 'auto' }, (langData) => {
+        if (langData && langData.selectedTargetLanguage) {
+          targetLang = langData.selectedTargetLanguage;
+          if (targetLangSelect) targetLangSelect.value = targetLang;
+        }
+      });
+
       if (items.defaultTone) {
         selectedTone = items.defaultTone;
         toneBtns.forEach((btn) => {
@@ -913,6 +955,14 @@
     });
   }
 
+  // Hedef çıktı dili kutudan değiştirilirse tercihi kalıcı olarak kaydet
+  if (targetLangSelect) {
+    targetLangSelect.addEventListener('change', () => {
+      targetLang = targetLangSelect.value;
+      safeStorageSet({ selectedTargetLanguage: targetLang });
+    });
+  }
+
   function closeModal() {
     modalOverlay.style.display = 'none';
   }
@@ -936,12 +986,14 @@
     statusMsg.textContent = t.statusProcessing;
 
     const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
+    const chosenTargetLang = targetLangSelect ? targetLangSelect.value : targetLang;
 
     safeSendMessage({
       type: 'TRANSFORM_TEXT',
       text: currentSelectedText,
       tone: selectedTone,
-      model: chosenModel
+      model: chosenModel,
+      targetLanguage: chosenTargetLang
     }, (response) => {
       applyBtn.disabled = false;
       applyBtn.textContent = t.transform;

@@ -97,6 +97,10 @@ export const TRANSLATIONS = {
     quotaTodaySuffix: '/ 1.500 istek (Bugün)',
     quotaRpm: '⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong>',
     quotaRpd: '📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong>',
+    targetLangLabel: 'Çıktı Dili:',
+    autoLang: '🌐 Orijinal Dil (Otomatik)',
+    langTurkish: '🇹🇷 Türkçe',
+    langEnglish: '🇬🇧 İngilizce',
     // Tonlar (Kartlar & Butonlar)
     tones: {
       fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
@@ -104,6 +108,8 @@ export const TRANSLATIONS = {
       formal: { title: '💼 Resmi & Kurumsal', desc: 'Profesyonel üslup' },
       slang: { title: '🔥 Argo & Sokak Ağzı', desc: 'Gençlik jargonu' },
       academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
+      gamer: { title: '🎮 Gamer & Espor', desc: 'Oyun dünyası ve oyuncu jargonu' },
+      techie: { title: '💻 Teknoloji Kurdu', desc: 'Geek, yazılım ve analitik dil' },
       summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
     },
     // AI Model Grupları & Modelleri
@@ -229,6 +235,10 @@ export const TRANSLATIONS = {
     quotaTodaySuffix: '/ 1,500 requests (Today)',
     quotaRpm: '⚡ Rate Limit (RPM): <strong>15 req/min</strong>',
     quotaRpd: '📅 Daily Limit (RPD): <strong>1,500 req/day</strong>',
+    targetLangLabel: 'Output Language:',
+    autoLang: '🌐 Original Language (Auto)',
+    langTurkish: '🇹🇷 Turkish',
+    langEnglish: '🇬🇧 English',
     // Tones (Cards & Buttons)
     tones: {
       fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fixes errors' },
@@ -236,6 +246,8 @@ export const TRANSLATIONS = {
       formal: { title: '💼 Formal & Corporate', desc: 'Professional style' },
       slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
       academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
+      gamer: { title: '🎮 Gamer & Esports', desc: 'Gaming culture and slang' },
+      techie: { title: '💻 Tech Geek', desc: 'Software and technology slang' },
       summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
     },
     // AI Model Groups & Models

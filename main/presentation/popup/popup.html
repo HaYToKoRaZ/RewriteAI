@@ -38,10 +38,20 @@
 
     <!-- Model Seçici & Bilgi Çubuğu -->
     <div class="model-bar">
-      <label for="popupModelSelect" class="model-bar-label">AI Modeli:</label>
-      <select id="popupModelSelect" class="popup-model-select" title="Yapay Zeka Modeli">
-        <!-- Dinamik olarak renderPopupModels() ile doldurulur -->
-      </select>
+      <div class="model-bar-item">
+        <label for="popupModelSelect" class="model-bar-label">AI Modeli:</label>
+        <select id="popupModelSelect" class="popup-model-select" title="Yapay Zeka Modeli">
+          <!-- Dinamik doldurulur -->
+        </select>
+      </div>
+      <div class="model-bar-item lang-bar-item">
+        <label for="popupTargetLangSelect" class="model-bar-label" id="lblTargetLang">Çıktı Dili:</label>
+        <select id="popupTargetLangSelect" class="popup-model-select" title="Hedef Çıktı Dili">
+          <option value="auto">🌐 Orijinal Dil (Oto)</option>
+          <option value="tr">🇹🇷 Türkçe</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
+      </div>
     </div>
 
     <!-- API Anahtarı Eksik Uyarısı (Model bazlı) -->
@@ -65,32 +75,32 @@
         <textarea id="inputText" placeholder="Metninizi buraya yazın veya yapıştırın..." spellcheck="false"></textarea>
       </div>
 
-      <!-- Ton Seçim Izgarası (Content Modal Gibi 6 Buton) -->
+      <!-- Ton Seçim Izgarası (Açıklamasız, Temiz ve Şık 8 Buton) -->
       <div class="tone-grid-container">
         <div class="tone-grid">
           <button class="tone-card-btn active" data-tone="fix_grammar" type="button">
             <strong>✍️ İmla & Dilbilgisi</strong>
-            <small>Hataları düzeltir</small>
           </button>
           <button class="tone-card-btn" data-tone="daily" type="button">
             <strong>💬 Günlük & Samimi</strong>
-            <small>Doğal konuşma dili</small>
           </button>
           <button class="tone-card-btn" data-tone="formal" type="button">
             <strong>💼 Resmi & Kurumsal</strong>
-            <small>Profesyonel üslup</small>
           </button>
           <button class="tone-card-btn" data-tone="slang" type="button">
             <strong>🔥 Argo & Sokak Ağzı</strong>
-            <small>Gençlik jargonu</small>
           </button>
           <button class="tone-card-btn" data-tone="academic" type="button">
             <strong>🎓 Akademik & Ağır</strong>
-            <small>Bilimsel terminoloji</small>
+          </button>
+          <button class="tone-card-btn" data-tone="gamer" type="button">
+            <strong>🎮 Gamer</strong>
+          </button>
+          <button class="tone-card-btn" data-tone="techie" type="button">
+            <strong>💻 Teknoloji Kurdu</strong>
           </button>
           <button class="tone-card-btn" data-tone="summarize" type="button">
             <strong>📌 Özetle</strong>
-            <small>Kısa ve netleştir</small>
           </button>
         </div>
       </div>

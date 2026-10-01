@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'TRANSFORM_TEXT') {
-    TextTransformService.transform(message.text, message.tone, message.model)
+    TextTransformService.transform(message.text, message.tone, message.model, message.targetLanguage || 'auto')
       .then((result) => {
         sendResponse({ success: true, result });
       })
