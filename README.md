@@ -93,11 +93,12 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 1. **Dual Interaction Modes:**
    - **In-Page Floating Modal:** Right-click any selected text across the web to summon an instant floating editor right where you read and write.
    - **Action Popup:** Accessible directly from your browser toolbar with real-time model switching and live preview.
-2. **12 Tailored Writing Tones:**
-   - 💼 *Professional* &nbsp;|&nbsp; 👔 *Formal* &nbsp;|&nbsp; ☕ *Casual* &nbsp;|&nbsp; ⚡ *Summarize* &nbsp;|&nbsp; 📖 *Elaborate*
-   - 🎨 *Creative* &nbsp;|&nbsp; 🎓 *Academic* &nbsp;|&nbsp; 💻 *Technical* &nbsp;|&nbsp; 📣 *Marketing* &nbsp;|&nbsp; 🔤 *Fix Grammar*
+2. **14+ Tailored Writing Tones & Expandable Drawer:**
+   - **Quick-Access Grid (4x2):** ✍️ *Fix Grammar* &nbsp;|&nbsp; 💬 *Casual* &nbsp;|&nbsp; 💼 *Formal* &nbsp;|&nbsp; 🔥 *Slang* &nbsp;|&nbsp; 🎮 *Gamer* &nbsp;|&nbsp; 💻 *Techie* &nbsp;|&nbsp; 📌 *Summarize* &nbsp;|&nbsp; ✨ *Others ▾*
+   - **Expandable Tone Drawer:** 🎓 *Academic & Heavy* &nbsp;|&nbsp; 🕊️ *Diplomatic 'No'* &nbsp;|&nbsp; 🧲 *Marketing & Viral Hook* &nbsp;|&nbsp; 💡 *Explain Like I'm 5 (ELI5)* &nbsp;|&nbsp; 🎯 *Persuasive & Sales* &nbsp;|&nbsp; 🎨 *Creative Story*
+   - **⚙️ Custom Tone & Prompt:** Define your own bespoke persona or instruction with any name in Options. Automatically adapts into any of the 20+ target output languages without needing prompt translation!
 3. **🌐 Smart Translation & Tone Adaptation (Transcreation in 20+ Languages):**
-   - Don't just translate words—speak in the exact tone needed! Write in your native language (e.g. Turkish) and let RewriteAI output fluent, native-level English, German, French, Spanish, Japanese, Arabic, and more in **Formal, Casual, Street Slang, Gamer or Academic** tones.
+   - Don't just translate words—speak in the exact tone needed! Write in your native language (e.g. Turkish) and let RewriteAI output fluent, native-level English, German, French, Spanish, Japanese, Arabic, and more in **Formal, Casual, Street Slang, Gamer, Academic or Custom** tones.
    - **Supported Output Languages (20+):** 🇹🇷 Turkish, 🇬🇧 English, 🇩🇪 German, 🇫🇷 French, 🇪🇸 Spanish, 🇮🇹 Italian, 🇵🇹 Portuguese, 🇷🇺 Russian, 🇸🇦 Arabic, 🇨🇳 Chinese, 🇯🇵 Japanese, 🇰🇷 Korean, 🇦🇿 Azerbaijani, 🇳🇱 Dutch, 🇵🇱 Polish, 🇮🇳 Hindi, 🇸🇪 Swedish, 🇺🇦 Ukrainian, 🇮🇩 Indonesian, 🇬🇷 Greek.
 4. **Multi-Model Support:**
    - **Google Gemini:** Gemini 3.5 Flash Lite, Gemini 3.8 Flash, Gemini 3.7 Flash
@@ -157,11 +158,12 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 1. **İki Farklı Çalışma Modu:**
    - **Content Modal (Sayfa İçi Kısayol Paneli):** Herhangi bir web sayfasında metin seçip sağ tıklayarak açabileceğiniz hafif, sayfa içi hızlı düzenleme penceresi.
    - **Popup Penceresi:** Eklenti simgesine tıklanarak açılan, model ve ton seçimi sunan kompakt arayüz.
-2. **12 Özelleştirilmiş Ton:**
-   - 💼 *Profesyonel* &nbsp;|&nbsp; 👔 *Resmi* &nbsp;|&nbsp; ☕ *Samimi* &nbsp;|&nbsp; ⚡ *Özet* &nbsp;|&nbsp; 📖 *Detaylı*
-   - 🎨 *Yaratıcı* &nbsp;|&nbsp; 🎓 *Akademik* &nbsp;|&nbsp; 💻 *Teknik* &nbsp;|&nbsp; 📣 *Pazarlama* &nbsp;|&nbsp; 🔤 *Düzelt (Yazım Kuralı)*
+2. **14+ Özelleştirilmiş Ton & Açılır Çekmece:**
+   - **Hızlı Erişim Kartları (4x2):** ✍️ *İmla* &nbsp;|&nbsp; 💬 *Günlük* &nbsp;|&nbsp; 💼 *Resmi* &nbsp;|&nbsp; 🔥 *Argo* &nbsp;|&nbsp; 🎮 *Gamer* &nbsp;|&nbsp; 💻 *Tekno* &nbsp;|&nbsp; 📌 *Özetle* &nbsp;|&nbsp; ✨ *Diğerleri ▾*
+   - **Genişletilebilir Ton Çekmecesi:** 🎓 *Akademik & Ağır* &nbsp;|&nbsp; 🕊️ *Nazik / Diplomatik Hayır* &nbsp;|&nbsp; 🧲 *Pazarlama & Viral Hook* &nbsp;|&nbsp; 💡 *Basitleştir (ELI5)* &nbsp;|&nbsp; 🎯 *İkna Edici & Satış* &nbsp;|&nbsp; 🎨 *Yaratıcı Hikaye*
+   - **⚙️ Özel Ton & Prompt Desteği:** Ayarlar sayfasından kendi promptunuzu ve ton adınızı tanımlayın. İstediğiniz dilde yazın, eklenti 20+ hedef dilde bile promptunuzu otomatik olarak o hedef dille uyumlu şekilde çalıştırır!
 3. **🌐 Akıllı Çeviri & Ton Uyarlaması (20+ Dünya Dilinde):**
-   - Sıradan çeviriciler gibi sadece kelime kelime çevirmez; metni seçtiğiniz tona büründürerek çevirir. Türkçe yazdığınız bir e-postayı tek tıkla **Kurumsal İngilizceye**, samimi bir mesajı **Sokak Ağzı Almancaya** veya teknik bir fikri **Akademik Fransızcaya** çevirip yazar.
+   - Sıradan çeviriciler gibi sadece kelime kelime çevirmez; metni seçtiğiniz tona büründürerek çevirir. Türkçe yazdığınız bir e-postayı tek tıkla **Kurumsal İngilizceye**, samimi bir mesajı **Sokak Ağzı Almancaya**, teknik bir fikri **Akademik Fransızcaya** veya **Özel Tonunuza** çevirip yazar.
    - **Desteklenen Çıktı Dilleri (20+):** 🇹🇷 Türkçe, 🇬🇧 İngilizce, 🇩🇪 Almanca, 🇫🇷 Fransızca, 🇪🇸 İspanyolca, 🇮🇹 İtalyanca, 🇵🇹 Portekizce, 🇷🇺 Rusça, 🇸🇦 Arapça, 🇨🇳 Çince, 🇯🇵 Japonca, 🇰🇷 Korece, 🇦🇿 Azerbaycanca, 🇳🇱 Felemenkçe, 🇵🇱 Lehçe, 🇮🇳 Hintçe, 🇸🇪 İsveççe, 🇺🇦 Ukraynaca, 🇮🇩 Endonezce, 🇬🇷 Yunanca.
 4. **Geniş Model Desteği:**
    - **Google Gemini:** Gemini 3.5 Flash Lite, Gemini 3.8 Flash, Gemini 3.7 Flash
