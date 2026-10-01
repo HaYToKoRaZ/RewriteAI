@@ -31,13 +31,13 @@
 <!-- Supported Browsers & Stores -->
 ### 🛒 Supported Browsers & Store Links
 <p>
-  <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
+  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" target="_blank">
     <img src="main/assets/badges/chrome.svg" alt="Google Chrome" height="34" />
   </a>
   <a href="https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf" target="_blank">
     <img src="main/assets/badges/edge.svg" alt="Microsoft Edge" height="34" />
   </a>
-  <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
+  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" target="_blank">
     <img src="main/assets/badges/helium.png" alt="Helium Browser" height="34" />
   </a>
 </p>
@@ -82,9 +82,9 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 | Browser / Platform | Status | Direct Download Link |
 | :--- | :---: | :--- |
 | <img src="main/assets/badges/github-icon.svg" width="20" height="20" style="vertical-align:middle;" /> **Latest Release (All Browsers)** | 📦 Latest ZIP | [Download from GitHub Releases](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
-| <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Official Store | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/rewriteai) |
+| <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Official Store | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep) |
 | <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Official Add-ons | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf) |
-| <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Store | [Install on Helium (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
+| <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Store | [Install on Helium (Chrome Store)](https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep) |
 
 ---
 
@@ -146,9 +146,9 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 | Tarayıcı / Platform | Durum | Doğrudan İndirme Linki |
 | :--- | :---: | :--- |
 | <img src="main/assets/badges/github-icon.svg" width="20" height="20" style="vertical-align:middle;" /> **Son Sürüm (Tüm Tarayıcılar)** | 📦 Güncel ZIP | [GitHub Releases Sayfasından İndir](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
-| <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Resmi Mağaza | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/rewriteai) |
+| <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Resmi Mağaza | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep) |
 | <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Resmi Eklenti | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf) |
-| <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Uyumlu | [Helium İçin Yükle (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
+| <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Uyumlu | [Helium İçin Yükle (Chrome Store)](https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep) |
 
 ---
 
