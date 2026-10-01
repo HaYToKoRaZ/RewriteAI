@@ -22,7 +22,7 @@
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
   <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank">
-    <img src="main/assets/badges/badge-downloads.svg" alt="Downloads 1,250+" />
+    <img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total.svg?style=for-the-badge&logo=github&label=DOWNLOADS&color=0284c7" alt="GitHub Releases Live Total Downloads" />
   </a>
   <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank">
     <img src="main/assets/badges/badge-ghpages.svg" alt="GitHub Pages" />
