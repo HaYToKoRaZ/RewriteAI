@@ -1,7 +1,6 @@
-# Arşiv, yedek ve dağıtım
-.agents/backup/
-.agents/dist/
-.agents/temp_backup_*
+# Yerel yönetim, anayasa ve betikler (.agents)
+.agents/
+
 *.7z
 *.zip
 *.tar.gz
