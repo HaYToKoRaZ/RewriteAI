@@ -26,14 +26,16 @@ export class ContextMenuService {
   }
 
   static async createMenus() {
-    const lang = await detectLanguage();
-    const t = getT(lang);
+    try {
+      const lang = await detectLanguage();
+      const t = getT(lang);
 
-    chrome.contextMenus.removeAll(() => {
+      await chrome.contextMenus.removeAll();
+
       // Doğrudan düzenleme penceresini açacak ana bağlam menüsü (seçili metin)
       chrome.contextMenus.create({
         id: this.ROOT_ID,
-        title: t.contextEdit || 'RewriteAI ile Düzenle...',
+        title: t.contextEdit || (lang === 'en' ? 'Edit with RewriteAI...' : 'RewriteAI ile Düzenle...'),
         contexts: ['selection']
       });
 
@@ -47,19 +49,21 @@ export class ContextMenuService {
       // Web sitesi linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_visit_site',
-        title: t.contextVisitSite || '🌐 RewriteAI Web Sitesini Aç',
+        title: t.contextVisitSite || (lang === 'en' ? '🌐 Open RewriteAI Website' : '🌐 RewriteAI Web Sitesini Aç'),
         contexts: ['action']
       });
 
       // Portal linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_open_portal',
-        title: t.contextOpenPortal || '🚀 RewriteAI Portalı',
+        title: t.contextOpenPortal || (lang === 'en' ? '🚀 RewriteAI Portal' : '🚀 RewriteAI Portalı'),
         contexts: ['action']
       });
 
-      Logger.log(`Sağ tık menüsü (${lang.toUpperCase()}) oluşturuldu.`);
-    });
+      Logger.log(`Sağ tık bağlam menüsü (${lang.toUpperCase()}) oluşturuldu: ${t.contextEdit}`);
+    } catch (err) {
+      Logger.error('Sağ tık menüsü oluşturulurken hata:', err);
+    }
   }
 
   static async handleMenuClick(info, tab) {
