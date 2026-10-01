@@ -1,51 +1,64 @@
 <div align="center">
 
-<img src="main/assets/icons/icon128.png" alt="RewriteAI Logo" width="100" height="100" />
+<img src="main/assets/icons/icon128.png" alt="RewriteAI Logo" width="110" height="110" />
 
 # RewriteAI 🪄
 
-### Çoklu Yapay Zeka Destekli Akıllı Metin Dönüştürme & Yazım Asistanı
+### Çoklu Yapay Zeka Destekli Akıllı Metin Düzenleme & Yazım Asistanı
 **Multi-LLM Powered Smart Text Rewriter, Formatter & Tone Enhancer Browser Extension**
 
 <p>
-  <strong>Hızlı Bağlam Menüsü · Hızlı Kısayol Modal · 12 Farklı Profesyonel Ton · Sıfır Veri Sızıntısı (100% Local Storage)</strong>
+  <strong>Hızlı Bağlam Menüsü · Kısayol Modal Paneli · 12 Farklı Profesyonel Ton · Sıfır Veri Sızıntısı (%100 Local)</strong>
 </p>
 
-[🌐 Web Sitesi & Dokümantasyon](https://haytokoraz.github.io/) · [🚀 Web Portalı](https://haytokoraz.github.io/) · [📦 Sürümler](https://github.com/HaYToKoRaZ/RewriteAI/releases)
+[🌐 Web Sitesi](https://haytokoraz.github.io/) · [🚀 Web Portalı](https://haytokoraz.github.io/) · [📦 Sürümler & İndir](https://github.com/HaYToKoRaZ/RewriteAI/releases)
 
 ---
 
-<!-- Versiyon, Lisans ve İndirme Rozetleri (Yerel Repo Varlıkları) -->
+<!-- Temel Bilgi ve Durum Rozetleri -->
 <p>
   <img src="main/assets/badges/version.svg" alt="Version v1.2.8" />
-  <img src="main/assets/badges/license-mit.svg" alt="License MIT" />
-  <img src="main/assets/badges/manifest-v3.svg" alt="Manifest V3" />
+  <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
+  <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
-  <img src="main/assets/badges/downloads.svg" alt="Downloads 1,250+" />
+  <img src="main/assets/badges/badge-downloads.svg" alt="Downloads 1,250+" />
+  <a href="https://haytokoraz.github.io/" target="_blank">
+    <img src="main/assets/badges/badge-ghpages.svg" alt="GitHub Pages" />
+  </a>
 </p>
 
-<!-- Desteklenen Tarayıcılar -->
+<!-- Desteklenen Tarayıcılar (Mağaza Linkleri) -->
+### 🛒 Desteklenen Tarayıcılar & Mağazalar
 <p>
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/chrome-supported.svg" alt="Google Chrome Destekli" />
+    <img src="main/assets/badges/badge-chrome.svg" alt="Google Chrome" />
   </a>
   <a href="https://microsoftedge.microsoft.com/addons/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/edge-supported.svg" alt="Microsoft Edge Destekli" />
+    <img src="main/assets/badges/badge-edge.svg" alt="Microsoft Edge" />
   </a>
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
-    <img src="main/assets/badges/helium-supported.svg" alt="Helium Browser Destekli" />
+    <img src="main/assets/badges/badge-helium.svg" alt="Helium Browser" />
   </a>
 </p>
 
-<!-- Desteklenen Yapay Zeka Sağlayıcıları / Modelleri -->
+<!-- Desteklenen Yapay Zeka Modelleri -->
+### 🧠 Desteklenen Yapay Zeka Sağlayıcıları
 <p>
-  <img src="main/assets/badges/model-gemini.svg" alt="Gemini" />
-  <img src="main/assets/badges/model-openai.svg" alt="OpenAI" />
-  <img src="main/assets/badges/model-claude.svg" alt="Claude" />
-  <img src="main/assets/badges/model-groq.svg" alt="Groq" />
-  <img src="main/assets/badges/model-deepseek.svg" alt="DeepSeek" />
+  <img src="main/assets/badges/badge-gemini.svg" alt="Google Gemini" />
+  <img src="main/assets/badges/badge-chatgpt.svg" alt="OpenAI ChatGPT" />
+  <img src="main/assets/badges/badge-claude.svg" alt="Claude" />
+  <img src="main/assets/badges/badge-groq.svg" alt="Groq" />
+  <img src="main/assets/badges/badge-deepseek.svg" alt="DeepSeek" />
   <img src="main/assets/badges/model-cohere.svg" alt="Cohere" />
-  <img src="main/assets/badges/model-huggingface.svg" alt="HuggingFace" />
+  <img src="main/assets/badges/badge-huggingface.svg" alt="HuggingFace" />
+</p>
+
+<!-- Teknoloji Yığını -->
+### 🛠️ Teknoloji Mimarisi
+<p>
+  <img src="main/assets/badges/badge-javascript.svg" alt="JavaScript ES Modules" />
+  <img src="main/assets/badges/badge-html5.svg" alt="HTML5" />
+  <img src="main/assets/badges/badge-css3.svg" alt="CSS3" />
 </p>
 
 <br>
@@ -57,15 +70,15 @@
 ## 🇹🇷 Türkçe Açıklama
 
 ### 📌 RewriteAI Nedir?
-**RewriteAI**, web sayfalarında seçtiğiniz herhangi bir metni tek tıkla yeniden yazmanızı, özetlemenizi, profesyonelleştirmenizi veya farklı tonlara dönüştürmenizi sağlayan yeni nesil, modüler bir tarayıcı uzantısıdır.
+**RewriteAI**, internette gezinirken herhangi bir web sayfasında seçtiğiniz metinleri tek tıkla yeniden yazmanızı, düzeltmenizi, özetlemenizi veya 12 farklı tona dönüştürmenizi sağlayan yeni nesil, modüler bir tarayıcı uzantısıdır.
 
-Tüm metin işleme doğrudan tarayıcınız ile resmi AI API uç noktaları arasında gerçekleşir. Kendi API anahtarınızı girersiniz, anahtarlarınız ve verileriniz **asla üçüncü parti bir sunucuya gitmez**, yalnızca tarayıcınızın güvenli yerel deposunda saklanır.
+Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları arasında gerçekleşir. Kendi API anahtarınızı girersiniz; anahtarlarınız ve verileriniz **asla üçüncü taraf bir sunucuya gitmez**, yalnızca tarayıcınızın güvenli yerel deposunda (`chrome.storage.local`) saklanır.
 
 ---
 
 ### 🛒 Mağaza İndirme Bağlantıları
 
-| Mağaza / Tarayıcı | Durum | Bağlantı |
+| Tarayıcı / Mağaza | Durum | Mağaza Linki |
 | :--- | :---: | :--- |
 | **Google Chrome** | 🟢 Yayında | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/rewriteai) |
 | **Microsoft Edge** | 🟢 Yayında | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
@@ -76,11 +89,11 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API uç noktaları aras
 ### ✨ Öne Çıkan Özellikler
 
 1. **İki Farklı Çalışma Modu:**
-   - **Content Modal (Sayfa İçi Hızlı Panel):** Herhangi bir web sayfasında metin seçip sağ tıklayarak açabileceğiniz hafif, sayfa içi hızlı düzenleme penceresi.
+   - **Content Modal (Sayfa İçi Kısayol Paneli):** Herhangi bir web sayfasında metin seçip sağ tıklayarak açabileceğiniz hafif, sayfa içi hızlı düzenleme penceresi.
    - **Popup Penceresi:** Eklenti simgesine tıklanarak açılan, model ve ton seçimi sunan kompakt arayüz.
 2. **12 Özelleştirilmiş Ton:**
    - 💼 *Profesyonel* &nbsp;|&nbsp; 👔 *Resmi* &nbsp;|&nbsp; ☕ *Samimi* &nbsp;|&nbsp; ⚡ *Özet* &nbsp;|&nbsp; 📖 *Detaylı*
-   - 🎨 *Yaratıcı* &nbsp;|&nbsp;  akademisyen *Akademik* &nbsp;|&nbsp; 💻 *Teknik* &nbsp;|&nbsp; 📣 *Pazarlama* &nbsp;|&nbsp; 🔤 *Düzelt (Yazım Kuralı)*
+   - 🎨 *Yaratıcı* &nbsp;|&nbsp; 🎓 *Akademik* &nbsp;|&nbsp; 💻 *Teknik* &nbsp;|&nbsp; 📣 *Pazarlama* &nbsp;|&nbsp; 🔤 *Düzelt (Yazım Kuralı)*
 3. **Geniş Model Desteği:**
    - **Google Gemini:** Gemini 2.5 Flash, 2.5 Pro, 2.0 Flash, 1.5 Pro
    - **OpenAI:** GPT-4o, GPT-4o Mini
@@ -94,14 +107,14 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API uç noktaları aras
 
 ---
 
-### 🚀 Kurulum & Geliştirici Modu (Manuel Yükleme)
+### 🚀 Manuel Kurulum (Geliştirici Modu)
 
 1. Bu depoyu indirin veya klonlayın:
    ```bash
    git clone https://github.com/HaYToKoRaZ/RewriteAI.git
    ```
 2. Tarayıcınızda uzantılar sayfasını açın:
-   - **Chrome:** `chrome://extensions/`
+   - **Chrome / Helium:** `chrome://extensions/`
    - **Edge:** `edge://extensions/`
 3. Sağ üstteki **"Geliştirici Modu" (Developer Mode)** anahtarını açın.
 4. **"Paketlenmemiş Öğe Yükle" (Load unpacked)** butonuna tıklayın.
@@ -123,7 +136,7 @@ Engineered with Manifest V3 and pure ES Modules, all API communication runs stri
 
 ### 🛒 Store Links
 
-| Store / Browser | Status | Link |
+| Browser / Store | Status | Store Link |
 | :--- | :---: | :--- |
 | **Google Chrome** | 🟢 Live | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/rewriteai) |
 | **Microsoft Edge** | 🟢 Live | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
