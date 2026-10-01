@@ -11,7 +11,7 @@
   <strong>In-Page Quick Modal · Action Popup · 12 Distinct Writing Tones · Zero Data Leakage (100% Local Storage)</strong>
 </p>
 
-[🌐 Official Website](https://haytokoraz.github.io/RewriteAI/) · [🚀 Web Portal](https://haytokoraz.github.io/) · [📦 Releases & Download](https://github.com/HaYToKoRaZ/RewriteAI/releases)
+[🌐 Official Website](https://haytokoraz.github.io/RewriteAI/) · [🔒 Privacy Policy](https://haytokoraz.github.io/RewriteAI/privacy.html) · [🚀 Web Portal](https://haytokoraz.github.io/) · [📦 Releases & Download](https://github.com/HaYToKoRaZ/RewriteAI/releases)
 
 ---
 
