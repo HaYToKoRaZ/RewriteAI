@@ -488,6 +488,117 @@ body {
   color: #bae6fd;
 }
 
+/* ── More Tones Drawer (Açılır Çekmece) ── */
+.tone-more-btn {
+  background: rgba(30, 41, 59, 0.7);
+  border-style: dashed;
+}
+
+.tone-more-btn.open {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.more-tones-drawer {
+  display: none;
+  margin-top: 6px;
+  background: #0b1325;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.more-tones-drawer.open {
+  display: block;
+  animation: drawerSlide 0.18s ease-out;
+}
+
+@keyframes drawerSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.more-tones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.more-tone-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  width: 100%;
+}
+
+.more-tone-item:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.more-tone-item.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+}
+
+.more-tone-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.more-tone-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.more-tone-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.more-tone-desc {
+  font-size: 0.67rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-tone-item {
+  position: relative;
+}
+
+.edit-custom-hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.edit-custom-hint:hover {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+}
+
 /* ── Main Content ── */
 .main-content {
   flex: 1;

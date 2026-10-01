@@ -69,6 +69,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (lblShowBubble) lblShowBubble.textContent = t.showBubbleLabel;
     if (helperShowBubble) helperShowBubble.textContent = t.showBubbleHelper;
 
+    // Özel Ton Yapılandırması
+    const customToneTitleEl = document.getElementById('customToneTitle');
+    const customToneDescEl = document.getElementById('customToneDesc');
+    const lblCustomToneTitleInput = document.getElementById('lblCustomToneTitleInput');
+    const lblCustomTonePromptInput = document.getElementById('lblCustomTonePromptInput');
+    const customTonePromptInput = document.getElementById('customTonePromptInput');
+    if (customToneTitleEl) customToneTitleEl.textContent = t.customToneSettingsTitle || '🎭 Özel Ton Yapılandırması (Custom Prompt)';
+    if (customToneDescEl) customToneDescEl.textContent = t.customToneSettingsDesc || 'Kendinize özel bir ton ve yazım kuralı tanımlayın.';
+    if (lblCustomToneTitleInput) lblCustomToneTitleInput.textContent = t.lblCustomToneTitle || 'Özel Ton Adı:';
+    if (lblCustomTonePromptInput) lblCustomTonePromptInput.textContent = t.lblCustomTonePrompt || 'Özel Prompt / Yönerge:';
+    if (customTonePromptInput) customTonePromptInput.placeholder = t.customTonePlaceholder || 'Metnin nasıl dönüştürülmesini istediğinizi yazın...';
+
     // API Anahtarları Bölümü
     const apiKeysTitleEl = document.getElementById('apiKeysTitle');
     const apiKeysDescEl = document.getElementById('apiKeysDesc');
@@ -271,6 +283,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   autoCopyCheckbox.checked = !!settings.autoCopy;
   showSelectionBubbleCheckbox.checked = !!settings.showSelectionBubble;
 
+  const customToneTitleInput = document.getElementById('customToneTitleInput');
+  const customTonePromptInput = document.getElementById('customTonePromptInput');
+  if (customToneTitleInput) {
+    customToneTitleInput.value = settings.customToneTitle || (lang === 'en' ? 'My Custom Tone' : 'Benim Tonum');
+  }
+  if (customTonePromptInput) {
+    customTonePromptInput.value = settings.customTonePrompt || (lang === 'en' 
+      ? 'Rewrite the following text with utmost courtesy, clarity, diplomatic elegance and constructive language.'
+      : 'Aşağıdaki metni son derece nazik, diplomatik, çözüme odaklı ve kurumsal bir müşteri ilişkileri uzmanı gibi yeniden ifade et. Gereksiz polemikten kaçın, pozitif ve yapıcı bir dil kullan.');
+  }
+
   // Kota ve kullanım istatistiğini seçili modele göre göster
   async function updateOptionsQuota() {
     const curModel = selectedModelSelect.value;
@@ -303,6 +326,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       ...updatedKeys,
       selectedModel: selectedModelSelect.value,
       defaultTone: defaultToneSelect.value,
+      customToneTitle: customToneTitleInput ? customToneTitleInput.value.trim() : (settings.customToneTitle || 'Benim Tonum'),
+      customTonePrompt: customTonePromptInput ? customTonePromptInput.value.trim() : (settings.customTonePrompt || ''),
       autoCopy: autoCopyCheckbox.checked,
       showSelectionBubble: showSelectionBubbleCheckbox.checked
     };
@@ -321,6 +346,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   defaultToneSelect.addEventListener('change', () => {
     autoSave(t.toneSavedToast || 'Varsayılan ton kaydedildi');
   });
+
+  // Özel Ton değişince kaydet
+  if (customToneTitleInput) {
+    customToneTitleInput.addEventListener('change', () => {
+      autoSave(lang === 'en' ? 'Custom tone title saved' : 'Özel ton adı kaydedildi');
+    });
+  }
+  if (customTonePromptInput) {
+    customTonePromptInput.addEventListener('change', () => {
+      autoSave(lang === 'en' ? 'Custom tone prompt saved' : 'Özel ton yönergesi kaydedildi');
+    });
+  }
 
   // Switch/Checkbox değişince anında kaydet
   autoCopyCheckbox.addEventListener('change', () => {

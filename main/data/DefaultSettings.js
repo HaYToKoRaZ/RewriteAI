@@ -8,6 +8,8 @@ export const DEFAULT_SETTINGS = {
   deepseekApiKey: '',
   selectedModel: 'gemini-3.5-flash-lite',
   defaultTone: 'fix_grammar',
+  customToneTitle: 'Benim Tonum',
+  customTonePrompt: 'Aşağıdaki metni son derece nazik, diplomatik, çözüme odaklı ve kurumsal bir müşteri ilişkileri uzmanı gibi yeniden ifade et. Gereksiz polemikten kaçın, pozitif ve yapıcı bir dil kullan.',
   autoCopy: false,
   showNotifications: true,
   showSelectionBubble: false,

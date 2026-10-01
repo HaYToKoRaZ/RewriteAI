@@ -14,7 +14,7 @@
       <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank" rel="noopener" class="brand" title="RewriteAI Web Sitesini Aç">
         <img src="../../assets/icons/icon32.png" alt="Logo" class="logo-small">
         <span class="brand-title">RewriteAI</span>
-        <span class="brand-version" id="brandVersion">v2.1</span>
+        <span class="brand-version" id="brandVersion">v2.2</span>
       </a>
       <div class="header-actions">
         <!-- Dil Seçici -->
@@ -34,7 +34,7 @@
     <!-- API Uyarısı -->
     <div id="apiAlert" class="alert-box hidden">
       <span id="apiAlertText">API anahtarınızı girmediniz.</span>
-      <button id="goToOptionsBtn" class="link-btn" id="apiAlertBtn">Ayarla</button>
+      <button id="goToOptionsBtn" class="link-btn">Ayarla</button>
     </div>
 
     <!-- Model Seçici & Bilgi Çubuğu -->
@@ -89,8 +89,10 @@
       </div>
 
       <!-- Ton Seçim Izgarası -->
+      <!-- Ton Seçim Izgarası -->
       <div class="tone-grid-container">
         <div class="tone-grid">
+          <!-- 1. Satır: İmla, Günlük, Resmi, Argo -->
           <button class="tone-card-btn active" data-tone="fix_grammar" type="button" title="✍️ İmla &amp; Dilbilgisi">
             <span class="tone-emoji">✍️</span>
             <strong>İmla</strong>
@@ -107,10 +109,8 @@
             <span class="tone-emoji">🔥</span>
             <strong>Argo</strong>
           </button>
-          <button class="tone-card-btn" data-tone="academic" type="button" title="🎓 Akademik &amp; Ağır">
-            <span class="tone-emoji">🎓</span>
-            <strong>Akademik</strong>
-          </button>
+
+          <!-- 2. Satır: Gamer, Tekno, Özetle, Diğerleri ▾ -->
           <button class="tone-card-btn" data-tone="gamer" type="button" title="🎮 Gamer">
             <span class="tone-emoji">🎮</span>
             <strong>Gamer</strong>
@@ -123,6 +123,66 @@
             <span class="tone-emoji">📌</span>
             <strong>Özetle</strong>
           </button>
+          <button class="tone-card-btn tone-more-btn" id="moreTonesToggleBtn" type="button" title="Daha fazla ton seçeneği">
+            <span class="tone-emoji" id="moreTonesBtnIcon">✨</span>
+            <strong id="moreTonesBtnLabel">Diğerleri ▾</strong>
+          </button>
+        </div>
+
+        <!-- Diğer Tonlar Çekmecesi (Drawer) -->
+        <div class="more-tones-drawer" id="moreTonesDrawer">
+          <div class="more-tones-list">
+            <button class="more-tone-item" data-tone="academic" type="button">
+              <span class="more-tone-icon">🎓</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">Akademik &amp; Ağır</span>
+                <span class="more-tone-desc">Bilimsel terminoloji</span>
+              </div>
+            </button>
+            <button class="more-tone-item" data-tone="diplomatic" type="button">
+              <span class="more-tone-icon">🕊️</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">Nazik / Diplomatik Hayır</span>
+                <span class="more-tone-desc">Zarifçe reddetme &amp; kırmama</span>
+              </div>
+            </button>
+            <button class="more-tone-item" data-tone="marketing" type="button">
+              <span class="more-tone-icon">🧲</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">Pazarlama &amp; Viral Hook</span>
+                <span class="more-tone-desc">Sosyal medya &amp; dikkat çekici</span>
+              </div>
+            </button>
+            <button class="more-tone-item" data-tone="eli5" type="button">
+              <span class="more-tone-icon">💡</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">Basitleştir (5 Yaşında)</span>
+                <span class="more-tone-desc">Herkesin anlayacağı sadelik</span>
+              </div>
+            </button>
+            <button class="more-tone-item" data-tone="persuasive" type="button">
+              <span class="more-tone-icon">🎯</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">İkna Edici &amp; Satış</span>
+                <span class="more-tone-desc">Argüman ve fayda odaklı</span>
+              </div>
+            </button>
+            <button class="more-tone-item" data-tone="creative" type="button">
+              <span class="more-tone-icon">🎨</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name">Yaratıcı Hikaye</span>
+                <span class="more-tone-desc">Betimleyici ve akıcı kurgu</span>
+              </div>
+            </button>
+            <button class="more-tone-item custom-tone-item" data-tone="custom" type="button">
+              <span class="more-tone-icon">⚙️</span>
+              <div class="more-tone-info">
+                <span class="more-tone-name" id="drawerCustomToneName">Benim Tonum</span>
+                <span class="more-tone-desc">Kişisel özel yönerge</span>
+              </div>
+              <span class="edit-custom-hint" id="editCustomHint" title="Ayarlardan Düzenle">⚙️</span>
+            </button>
+          </div>
         </div>
       </div>
 

@@ -12,7 +12,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const keyWarningBox = document.getElementById('keyWarningBox');
   const keyWarningText = document.getElementById('keyWarningText');
   const warningSettingsBtn = document.getElementById('warningSettingsBtn');
-  const toneCardBtns = document.querySelectorAll('.tone-card-btn');
+  const toneCardBtns = document.querySelectorAll('.tone-card-btn:not(#moreTonesToggleBtn)');
+  const moreTonesToggleBtn = document.getElementById('moreTonesToggleBtn');
+  const moreTonesBtnLabel = document.getElementById('moreTonesBtnLabel');
+  const moreTonesBtnIcon = document.getElementById('moreTonesBtnIcon');
+  const moreTonesDrawer = document.getElementById('moreTonesDrawer');
+  const moreToneItems = document.querySelectorAll('.more-tone-item');
+  const drawerCustomToneName = document.getElementById('drawerCustomToneName');
+  const editCustomHint = document.getElementById('editCustomHint');
+
   const inputText = document.getElementById('inputText');
   const outputText = document.getElementById('outputText');
   const transformBtn = document.getElementById('transformBtn');
@@ -131,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.stopPropagation();
         targetLang = it.code;
         if (targetLangSelect) targetLangSelect.value = targetLang;
-        chrome.storage.local.set({ selectedTargetLanguage: targetLang });
+        StorageRepository.saveTargetLanguage(targetLang);
         updateCustomDropdownUI(targetLang);
         customLangDropdown && customLangDropdown.classList.remove('open');
       });
@@ -188,7 +196,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       const toneKey = btn.getAttribute('data-tone');
       if (t.tones && t.tones[toneKey]) {
         const titleEl = btn.querySelector('strong');
-        if (titleEl) titleEl.textContent = t.tones[toneKey].title;
+        if (titleEl) {
+          // Başlıktan emojiyi veya uzun kısmı ayır
+          const fullTitle = t.tones[toneKey].title;
+          const cleanTitle = fullTitle.replace(/^[^\wğüşıöçĞÜŞİÖÇa-zA-Z0-9]+/, '').split('&')[0].trim();
+          titleEl.textContent = cleanTitle || fullTitle;
+        }
+      }
+    });
+
+    if (moreTonesBtnLabel && !moreTonesToggleBtn.classList.contains('active-custom')) {
+      moreTonesBtnLabel.textContent = t.moreTonesBtn || (lang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+    }
+
+    // Çekmece içi tonlar
+    moreToneItems.forEach((item) => {
+      const toneKey = item.getAttribute('data-tone');
+      if (toneKey === 'custom') return;
+      if (t.tones && t.tones[toneKey]) {
+        const nameEl = item.querySelector('.more-tone-name');
+        const descEl = item.querySelector('.more-tone-desc');
+        if (nameEl) nameEl.textContent = t.tones[toneKey].title;
+        if (descEl) descEl.textContent = t.tones[toneKey].desc;
       }
     });
 
@@ -218,42 +247,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   [langBtnTr, langBtnEn].forEach((btn) => {
     btn.addEventListener('click', async () => {
       lang = btn.dataset.lang;
-      await chrome.storage.local.set({ uiLanguage: lang });
+      await StorageRepository.saveUiLanguage(lang);
       applyLanguage();
     });
   });
 
   // ── Sağlayıcı ve Anahtar Kontrol Fonksiyonu ──
   function checkModelKey(modelId, callback) {
-    let providerName = 'Google Gemini';
-    let keyStorageName = 'apiKey';
-
-    if (modelId.startsWith('gemini')) {
-      providerName = 'Google Gemini';
-      keyStorageName = 'apiKey';
-    } else if (modelId.startsWith('llama')) {
-      providerName = 'Groq';
-      keyStorageName = 'groqApiKey';
-    } else if (modelId.startsWith('command')) {
-      providerName = 'Cohere';
-      keyStorageName = 'cohereApiKey';
-    } else if (modelId.includes('Qwen') || modelId.includes('/')) {
-      providerName = 'Hugging Face';
-      keyStorageName = 'hfApiKey';
-    } else if (modelId.startsWith('gpt')) {
-      providerName = 'OpenAI';
-      keyStorageName = 'openaiApiKey';
-    } else if (modelId.startsWith('claude')) {
-      providerName = 'Anthropic Claude';
-      keyStorageName = 'anthropicApiKey';
-    } else if (modelId.startsWith('deepseek')) {
-      providerName = 'DeepSeek';
-      keyStorageName = 'deepseekApiKey';
-    }
-
-    chrome.storage.local.get([keyStorageName], (data) => {
-      const hasKey = !!(data[keyStorageName] && data[keyStorageName].trim());
+    const providerNames = {
+      apiKey: 'Google Gemini', groqApiKey: 'Groq', cohereApiKey: 'Cohere',
+      hfApiKey: 'Hugging Face', openaiApiKey: 'OpenAI',
+      anthropicApiKey: 'Anthropic Claude', deepseekApiKey: 'DeepSeek'
+    };
+    StorageRepository.getApiKeyForModel(modelId).then(({ keyName, value }) => {
+      const hasKey = !!(value && value.trim());
       if (!hasKey) {
+        const providerName = providerNames[keyName] || 'AI';
         keyWarningText.textContent = `⚠️ ${providerName} API Anahtarı girilmemiş!`;
         keyWarningBox.classList.remove('hidden');
       } else {
@@ -266,7 +275,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ── Model Değişimi (Hem ayarları günceller hem uyarıyı tazeler) ──
   modelSelect.addEventListener('change', () => {
     const newModel = modelSelect.value;
-    chrome.storage.local.set({ selectedModel: newModel }, () => {
+    StorageRepository.saveSelectedModel(newModel).then(() => {
       checkModelKey(newModel, (hasKey) => {
         if (hasKey) {
           setStatus(t.statusDefaultModelUpdated || '✓ Varsayılan model güncellendi', 'success');
@@ -277,10 +286,79 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // ── Ton Çekmecesi (Diğerleri ▾) Açma/Kapama ──
+  if (moreTonesToggleBtn && moreTonesDrawer) {
+    moreTonesToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = moreTonesDrawer.classList.toggle('open');
+      moreTonesToggleBtn.classList.toggle('drawer-open', isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (moreTonesDrawer.classList.contains('open') && !moreTonesDrawer.contains(e.target) && !moreTonesToggleBtn.contains(e.target)) {
+        moreTonesDrawer.classList.remove('open');
+        moreTonesToggleBtn.classList.remove('drawer-open');
+      }
+    });
+  }
+
+  // ── Çekmece İçi Ton Seçimi ──
+  moreToneItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('#editCustomHint')) return; // Düzenle butonuna basıldıysa tetikleme
+      const toneKey = item.getAttribute('data-tone');
+      selectedTone = toneKey;
+
+      // Ana gridteki butonların aktifliğini kaldır
+      toneCardBtns.forEach((b) => b.classList.remove('active'));
+      moreToneItems.forEach((b) => b.classList.remove('active'));
+      item.classList.add('active');
+
+      // "Diğerleri ▾" butonunu aktif yap ve ikon/başlığını seçilen tona göre güncelle
+      if (moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.add('active', 'active-custom');
+        const iconSpan = item.querySelector('.more-tone-icon');
+        const nameSpan = item.querySelector('.more-tone-name');
+        if (iconSpan && moreTonesBtnIcon) moreTonesBtnIcon.textContent = iconSpan.textContent;
+        if (nameSpan && moreTonesBtnLabel) {
+          const shortName = nameSpan.textContent.split('&')[0].split('/')[0].trim();
+          moreTonesBtnLabel.textContent = `${shortName} ▾`;
+        }
+      }
+
+      // Çekmeceyi kapat
+      if (moreTonesDrawer) {
+        moreTonesDrawer.classList.remove('open');
+        moreTonesToggleBtn.classList.remove('drawer-open');
+      }
+
+      // Kullanıcının metni varsa ve işlem çalışmıyorsa direkt dönüştür
+      if (inputText.value.trim() && !transformBtn.disabled) {
+        runTransformation();
+      }
+    });
+  });
+
+  // ── Özel Ton Düzenle İpucuna Tıklama (Ayarlar sayfasını aç) ──
+  if (editCustomHint) {
+    editCustomHint.addEventListener('click', (e) => {
+      e.stopPropagation();
+      chrome.tabs.create({ url: chrome.runtime.getURL('presentation/options/options.html#customToneCard') });
+    });
+  }
+
   // ── Ton Butonları Tıklama (Aktif yap + Metin varsa anında dönüştür) ──
   toneCardBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       toneCardBtns.forEach((b) => b.classList.remove('active'));
+      moreToneItems.forEach((b) => b.classList.remove('active'));
+      if (moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.remove('active', 'active-custom');
+        if (moreTonesBtnIcon) moreTonesBtnIcon.textContent = '✨';
+        if (moreTonesBtnLabel) moreTonesBtnLabel.textContent = t.moreTonesBtn || (lang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+      }
+      if (moreTonesDrawer) moreTonesDrawer.classList.remove('open');
+
       btn.classList.add('active');
       selectedTone = btn.getAttribute('data-tone');
 
@@ -295,7 +373,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (targetLangSelect) {
     targetLangSelect.addEventListener('change', () => {
       targetLang = targetLangSelect.value;
-      chrome.storage.local.set({ selectedTargetLanguage: targetLang });
+      StorageRepository.saveTargetLanguage(targetLang);
     });
   }
 
@@ -321,26 +399,62 @@ document.addEventListener('DOMContentLoaded', async () => {
   checkModelKey(modelSelect.value);
 
   // Kayıtlı hedef çıktı dili seçimi
-  chrome.storage.local.get({ selectedTargetLanguage: 'auto' }, (items) => {
-    if (items.selectedTargetLanguage) {
-      targetLang = items.selectedTargetLanguage;
-      if (targetLangSelect) targetLangSelect.value = targetLang;
-      updateCustomDropdownUI(targetLang);
-    }
-  });
+  const savedTargetLang = await StorageRepository.getTargetLanguage();
+  if (savedTargetLang) {
+    targetLang = savedTargetLang;
+    if (targetLangSelect) targetLangSelect.value = targetLang;
+    updateCustomDropdownUI(targetLang);
+  }
 
   // Kayıtlı Twitter modu
-  chrome.storage.local.get({ twitterMode: false }, (items) => {
-    twitterMode = !!items.twitterMode;
-    applyTwitterUI();
-  });
+  twitterMode = await StorageRepository.getTwitterMode();
+  applyTwitterUI();
+
+  // Özel Ton Başlığını UI'a Yansıt
+  if (drawerCustomToneName && settings.customToneTitle) {
+    drawerCustomToneName.textContent = settings.customToneTitle;
+  }
+
+  // Ton Seçimini Geri Yükle Yardımcısı
+  function applyActiveToneUI(tone) {
+    selectedTone = tone;
+    let foundInMainGrid = false;
+    toneCardBtns.forEach((btn) => {
+      const match = btn.getAttribute('data-tone') === selectedTone;
+      btn.classList.toggle('active', match);
+      if (match) foundInMainGrid = true;
+    });
+
+    if (foundInMainGrid) {
+      if (moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.remove('active', 'active-custom');
+        if (moreTonesBtnIcon) moreTonesBtnIcon.textContent = '✨';
+        if (moreTonesBtnLabel) moreTonesBtnLabel.textContent = t.moreTonesBtn || (lang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+      }
+      moreToneItems.forEach((b) => b.classList.remove('active'));
+    } else {
+      let matchedDrawerItem = null;
+      moreToneItems.forEach((b) => {
+        const match = b.getAttribute('data-tone') === selectedTone;
+        b.classList.toggle('active', match);
+        if (match) matchedDrawerItem = b;
+      });
+      if (matchedDrawerItem && moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.add('active', 'active-custom');
+        const iconSpan = matchedDrawerItem.querySelector('.more-tone-icon');
+        const nameSpan = matchedDrawerItem.querySelector('.more-tone-name');
+        if (iconSpan && moreTonesBtnIcon) moreTonesBtnIcon.textContent = iconSpan.textContent;
+        if (nameSpan && moreTonesBtnLabel) {
+          const shortName = nameSpan.textContent.split('&')[0].split('/')[0].trim();
+          moreTonesBtnLabel.textContent = `${shortName} ▾`;
+        }
+      }
+    }
+  }
 
   // Kayıtlı varsayılan ton seçimi
   if (settings.defaultTone) {
-    selectedTone = settings.defaultTone;
-    toneCardBtns.forEach((btn) => {
-      btn.classList.toggle('active', btn.getAttribute('data-tone') === selectedTone);
-    });
+    applyActiveToneUI(settings.defaultTone);
   }
 
   // Son oturumdan metni geri yükle
@@ -348,10 +462,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (lastState.lastInputText) inputText.value = lastState.lastInputText;
   if (lastState.lastOutputText) outputText.value = lastState.lastOutputText;
   if (lastState.lastTone) {
-    selectedTone = lastState.lastTone;
-    toneCardBtns.forEach((btn) => {
-      btn.classList.toggle('active', btn.getAttribute('data-tone') === selectedTone);
-    });
+    applyActiveToneUI(lastState.lastTone);
   }
 
   // Dili uygula
@@ -396,7 +507,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (twitterModeBtn) {
     twitterModeBtn.addEventListener('click', () => {
       twitterMode = !twitterMode;
-      chrome.storage.local.set({ twitterMode });
+      StorageRepository.saveTwitterMode(twitterMode);
       applyTwitterUI();
       if (twitterMode && outputText.value) {
         updateOutputCharCounter(outputText.value);
@@ -486,9 +597,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           await navigator.clipboard.writeText(result);
           setStatus(t.statusCopied, 'success');
         }
-
-        // Son durumu kaydet
-        await StorageRepository.saveLastResult(text, result, selectedTone);
       } catch (err) {
         setStatus(t.statusError, 'error');
         outputText.value = `Hata: ${err.message}`;

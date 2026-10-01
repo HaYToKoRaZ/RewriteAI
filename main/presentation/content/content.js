@@ -159,15 +159,22 @@
       langIndonesian: '🇮🇩 Endonezce',
       langGreek: '🇬🇷 Yunanca',
       tones: {
-        fix_grammar: { title: '✍️ İmla & Dilbilgisi' },
-        daily: { title: '💬 Günlük & Samimi' },
-        formal: { title: '💼 Resmi & Kurumsal' },
-        slang: { title: '🔥 Argo & Sokak Ağzı' },
-        academic: { title: '🎓 Akademik & Ağır' },
-        gamer: { title: '🎮 Gamer' },
-        techie: { title: '💻 Teknoloji Kurdu' },
-        summarize: { title: '📌 Özetle' }
+        fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
+        daily: { title: '💬 Günlük & Samimi', desc: 'Doğal konuşma dili' },
+        formal: { title: '💼 Resmi & Kurumsal', desc: 'Profesyonel üslup' },
+        slang: { title: '🔥 Argo & Sokak Ağzı', desc: 'Gençlik jargonu' },
+        academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
+        gamer: { title: '🎮 Gamer & Espor', desc: 'Oyun dünyası ve oyuncu jargonu' },
+        techie: { title: '💻 Teknoloji Kurdu', desc: 'Geek, yazılım ve analitik dil' },
+        summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' },
+        diplomatic: { title: '🕊️ Nazik / Diplomatik Hayır', desc: 'Zarifçe reddetme & kırmama' },
+        marketing: { title: '🧲 Pazarlama & Viral Hook', desc: 'Sosyal medya & dikkat çekici' },
+        eli5: { title: '💡 Basitleştir (5 Yaşında)', desc: 'Herkesin anlayacağı sadelik' },
+        persuasive: { title: '🎯 İkna Edici & Satış', desc: 'Argüman ve fayda odaklı' },
+        creative: { title: '🎨 Yaratıcı Hikaye', desc: 'Betimleyici ve akıcı kurgu' },
+        custom: { title: '⚙️ Özel Tonum', desc: 'Ayarlardan belirlenen kişisel ton' }
       },
+      moreTonesBtn: '✨ Diğerleri ▾',
       modelGroups: {
         gemini: '🆓 Google Gemini (Ücretsiz Tier)',
         groq: '⚡ Groq (Ücretsiz & Işık Hızında)',
@@ -239,15 +246,22 @@
       langIndonesian: '🇮🇩 Indonesian',
       langGreek: '🇬🇷 Greek',
       tones: {
-        fix_grammar: { title: '✍️ Grammar & Spelling' },
-        daily: { title: '💬 Casual & Friendly' },
-        formal: { title: '💼 Formal & Corporate' },
-        slang: { title: '🔥 Slang & Street' },
-        academic: { title: '🎓 Academic & Formal' },
-        gamer: { title: '🎮 Gamer' },
-        techie: { title: '💻 Tech Geek' },
-        summarize: { title: '📌 Summarize' }
+        fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fix errors' },
+        daily: { title: '💬 Casual & Friendly', desc: 'Natural speech' },
+        formal: { title: '💼 Formal & Corporate', desc: 'Professional tone' },
+        slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
+        academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
+        gamer: { title: '🎮 Gamer & Esports', desc: 'Gaming world jargon' },
+        techie: { title: '💻 Tech Geek', desc: 'Geek, software & analytical' },
+        summarize: { title: '📌 Summarize', desc: 'Short and clear' },
+        diplomatic: { title: '🕊️ Diplomatic No', desc: 'Politely decline & set boundaries' },
+        marketing: { title: '🧲 Marketing & Viral Hook', desc: 'Social media & attention-grabbing' },
+        eli5: { title: '💡 Simplify (ELI5)', desc: 'Simple enough for anyone' },
+        persuasive: { title: '🎯 Persuasive & Sales', desc: 'Argument and benefit focused' },
+        creative: { title: '🎨 Creative Story', desc: 'Descriptive and fluent narrative' },
+        custom: { title: '⚙️ My Custom Tone', desc: 'Personal tone set in settings' }
       },
+      moreTonesBtn: '✨ Others ▾',
       modelGroups: {
         gemini: '🆓 Google Gemini (Free Tier)',
         groq: '⚡ Groq (Free & Ultra Fast)',
@@ -356,10 +370,6 @@
             <span class="rewriteai-tone-emoji">🔥</span>
             <strong>Argo</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="academic" type="button" title="🎓 Akademik &amp; Ağır">
-            <span class="rewriteai-tone-emoji">🎓</span>
-            <strong>Akademik</strong>
-          </button>
           <button class="rewriteai-tone-btn" data-tone="gamer" type="button" title="🎮 Gamer">
             <span class="rewriteai-tone-emoji">🎮</span>
             <strong>Gamer</strong>
@@ -372,6 +382,69 @@
             <span class="rewriteai-tone-emoji">📌</span>
             <strong>Özetle</strong>
           </button>
+          <button class="rewriteai-tone-btn rewriteai-tone-more-btn" id="rewriteai-more-tones-toggle-btn" type="button" title="Diğer Tonlar &amp; Özel Ton">
+            <span class="rewriteai-tone-emoji" id="rewriteai-more-tones-icon">✨</span>
+            <strong id="rewriteai-more-tones-label">Diğerleri ▾</strong>
+          </button>
+        </div>
+
+        <!-- Açılır Ton Çekmecesi (Akordiyon / Drawer) -->
+        <div id="rewriteai-more-tones-drawer" class="rewriteai-more-tones-drawer">
+          <div class="rewriteai-more-tones-header">
+            <span id="rewriteai-more-tones-header-text">✨ Diğer Tonlar ve Özel Şablon</span>
+          </div>
+          <div class="rewriteai-more-tones-list">
+            <button type="button" class="rewriteai-more-tone-item" data-tone="academic">
+              <span class="rewriteai-more-tone-icon">🎓</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">Akademik &amp; Ağır</span>
+                <span class="rewriteai-more-tone-desc">Bilimsel, metodolojik ve ağırbaşlı üslup</span>
+              </div>
+            </button>
+            <button type="button" class="rewriteai-more-tone-item" data-tone="diplomatic">
+              <span class="rewriteai-more-tone-icon">🕊️</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">Nazik / Diplomatik Hayır</span>
+                <span class="rewriteai-more-tone-desc">Kırmadan, profesyonelce sınır çizen ve hayır diyen ton</span>
+              </div>
+            </button>
+            <button type="button" class="rewriteai-more-tone-item" data-tone="marketing">
+              <span class="rewriteai-more-tone-icon">𝧲</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">Pazarlama &amp; Viral Hook</span>
+                <span class="rewriteai-more-tone-desc">Dikkat çeken, merak uyandıran ve tıklatan reklam kancası</span>
+              </div>
+            </button>
+            <button type="button" class="rewriteai-more-tone-item" data-tone="eli5">
+              <span class="rewriteai-more-tone-icon">💡</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">Basitleştir (ELI5)</span>
+                <span class="rewriteai-more-tone-desc">5 yaşında birine anlatır gibi sade ve anlaşılır</span>
+              </div>
+            </button>
+            <button type="button" class="rewriteai-more-tone-item" data-tone="persuasive">
+              <span class="rewriteai-more-tone-icon">🎯</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">İkna Edici &amp; Satış</span>
+                <span class="rewriteai-more-tone-desc">Eyleme geçirici, güven veren ve net argümanlar sunan dil</span>
+              </div>
+            </button>
+            <button type="button" class="rewriteai-more-tone-item" data-tone="creative">
+              <span class="rewriteai-more-tone-icon">🎨</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name">Yaratıcı Hikaye</span>
+                <span class="rewriteai-more-tone-desc">Edebi, betimleyici ve zengin anlatım</span>
+              </div>
+            </button>
+            <div class="rewriteai-more-tone-item rewriteai-custom-tone-item" data-tone="custom" role="button">
+              <span class="rewriteai-more-tone-icon">⚙️</span>
+              <div class="rewriteai-more-tone-text">
+                <span class="rewriteai-more-tone-name" id="rewriteai-modal-custom-tone-name">Özel Tonum</span>
+                <span class="rewriteai-more-tone-desc">Ayarlar sayfasında belirlediğiniz kişiselleştirilmiş prompt</span>
+              </div>
+              <span class="rewriteai-edit-custom-hint" id="rewriteai-edit-custom-hint" title="Ayarlarda düzenle">Düzenle ⚙️</span>
+            </div>
+          </div>
         </div>
 
         <div class="rewriteai-field">
@@ -777,6 +850,124 @@
       color: #38bdf8;
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
     }
+    .rewriteai-tone-more-btn.drawer-open {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.25);
+    }
+    .rewriteai-tone-more-btn.active-custom {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+    }
+    /* Çekmece (Drawer) */
+    .rewriteai-more-tones-drawer {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px;
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      animation: rewriteai-fade 0.15s ease-out;
+      margin-top: 2px;
+    }
+    .rewriteai-more-tones-drawer.open {
+      display: flex;
+    }
+    .rewriteai-more-tones-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 2px 4px 6px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .rewriteai-more-tones-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 190px;
+      overflow-y: auto;
+    }
+    .rewriteai-more-tone-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: #131b2e;
+      border: 1px solid #1e293b;
+      border-radius: 7px;
+      color: #f1f5f9;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: all 0.15s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .rewriteai-more-tone-item:hover {
+      background: #1e2a47;
+      border-color: #38bdf8;
+      transform: translateX(2px);
+    }
+    .rewriteai-more-tone-item.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.25);
+    }
+    .rewriteai-more-tone-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .rewriteai-more-tone-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+      flex: 1;
+    }
+    .rewriteai-more-tone-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .rewriteai-more-tone-desc {
+      font-size: 10.5px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rewriteai-custom-tone-item {
+      border: 1px dashed #f59e0b;
+      background: rgba(245, 158, 11, 0.06);
+    }
+    .rewriteai-custom-tone-item:hover {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: #fbbf24;
+    }
+    .rewriteai-custom-tone-item.active {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: #fbbf24;
+    }
+    .rewriteai-edit-custom-hint {
+      font-size: 10px;
+      font-weight: 600;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.18);
+      padding: 3px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .rewriteai-edit-custom-hint:hover {
+      background: rgba(245, 158, 11, 0.3);
+    }
     /* Twitter Modu Satırı */
     .rewriteai-twitter-bar {
       display: flex;
@@ -1049,7 +1240,7 @@
   const applyBtn = document.getElementById('rewriteai-apply-btn');
   const copyBtn = document.getElementById('rewriteai-copy-btn');
   const replaceBtn = document.getElementById('rewriteai-replace-btn');
-  const toneBtns = document.querySelectorAll('.rewriteai-tone-btn');
+  const toneBtns = document.querySelectorAll('.rewriteai-tone-btn:not(#rewriteai-more-tones-toggle-btn)');
   const modelSelect = document.getElementById('rewriteai-modal-model-select');
   const targetLangSelect = document.getElementById('rewriteai-modal-target-lang-select');
 
@@ -1083,7 +1274,8 @@
       else if (len > 240) charCountEl.classList.add('near-limit');
       else if (len > 0) charCountEl.classList.add('ok-count');
     } else {
-      charCountEl.textContent = `${len} karakter`;
+      const charLabel = curLang === 'en' ? 'characters' : 'karakter';
+      charCountEl.textContent = `${len} ${charLabel}`;
       if (len > 0) charCountEl.classList.add('ok-count');
     }
   }
@@ -1103,9 +1295,87 @@
     });
   }
 
+  const moreTonesToggleBtn = document.getElementById('rewriteai-more-tones-toggle-btn');
+  const moreTonesIcon = document.getElementById('rewriteai-more-tones-icon');
+  const moreTonesLabel = document.getElementById('rewriteai-more-tones-label');
+  const moreTonesDrawer = document.getElementById('rewriteai-more-tones-drawer');
+  const moreToneItems = document.querySelectorAll('.rewriteai-more-tone-item');
+  const modalCustomToneName = document.getElementById('rewriteai-modal-custom-tone-name');
+  const editCustomHint = document.getElementById('rewriteai-edit-custom-hint');
+
+  // Çekmeceyi Aç / Kapat
+  if (moreTonesToggleBtn && moreTonesDrawer) {
+    moreTonesToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = moreTonesDrawer.classList.toggle('open');
+      moreTonesToggleBtn.classList.toggle('drawer-open', isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (moreTonesDrawer.classList.contains('open') && !moreTonesDrawer.contains(e.target) && !moreTonesToggleBtn.contains(e.target)) {
+        moreTonesDrawer.classList.remove('open');
+        moreTonesToggleBtn.classList.remove('drawer-open');
+      }
+    });
+  }
+
+  // Çekmece İçi Ton Seçimi
+  moreToneItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('#rewriteai-edit-custom-hint')) return;
+      const toneKey = item.getAttribute('data-tone');
+      selectedTone = toneKey;
+
+      toneBtns.forEach((b) => b.classList.remove('active'));
+      moreToneItems.forEach((b) => b.classList.remove('active'));
+      item.classList.add('active');
+
+      if (moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.add('active', 'active-custom');
+        const iconSpan = item.querySelector('.rewriteai-more-tone-icon');
+        const nameSpan = item.querySelector('.rewriteai-more-tone-name');
+        if (iconSpan && moreTonesIcon) moreTonesIcon.textContent = iconSpan.textContent;
+        if (nameSpan && moreTonesLabel) {
+          const shortName = nameSpan.textContent.split('&')[0].split('/')[0].trim();
+          moreTonesLabel.textContent = `${shortName} ▾`;
+        }
+      }
+
+      if (moreTonesDrawer) {
+        moreTonesDrawer.classList.remove('open');
+        moreTonesToggleBtn.classList.remove('drawer-open');
+      }
+
+      // Metin varsa anında dönüştür
+      const hasText = (previewBox && previewBox.value.trim()) || currentSelectedText;
+      if (hasText && !applyBtn.disabled) {
+        resultBox.value = '';
+        copyBtn.disabled = true;
+        replaceBtn.disabled = true;
+        applyBtn.click();
+      }
+    });
+  });
+
+  // Özel Tonu Düzenle Butonu (Ayarları aç)
+  if (editCustomHint) {
+    editCustomHint.addEventListener('click', (e) => {
+      e.stopPropagation();
+      safeSendMessage({ type: 'OPEN_OPTIONS' });
+    });
+  }
+
   toneBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       toneBtns.forEach((b) => b.classList.remove('active'));
+      moreToneItems.forEach((b) => b.classList.remove('active'));
+      if (moreTonesToggleBtn) {
+        moreTonesToggleBtn.classList.remove('active', 'active-custom');
+        if (moreTonesIcon) moreTonesIcon.textContent = '✨';
+        if (moreTonesLabel) moreTonesLabel.textContent = t.moreTonesBtn || (curLang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+      }
+      if (moreTonesDrawer) moreTonesDrawer.classList.remove('open');
+
       btn.classList.add('active');
       selectedTone = btn.getAttribute('data-tone');
 
@@ -1225,7 +1495,7 @@
       try {
         modalVerEl.textContent = `v${chrome.runtime.getManifest().version}`;
       } catch {
-        modalVerEl.textContent = 'v2.1';
+        modalVerEl.textContent = 'v2.2';
       }
     }
     if (triggerBtn) triggerBtn.title = t.triggerBtnTitle;
@@ -1248,12 +1518,43 @@
     renderModalModels();
     renderModalTargetLang();
 
-    // Ton Butonları (Açıklamasız, sadece başlık)
+    // Ton Butonları (Açıklamasız, sadece başlık — popup.js ile aynı cleanTitle mantığı)
     toneBtns.forEach((btn) => {
       const toneKey = btn.getAttribute('data-tone');
       if (t.tones && t.tones[toneKey]) {
         const strongEl = btn.querySelector('strong');
-        if (strongEl) strongEl.textContent = t.tones[toneKey].title;
+        if (strongEl) {
+          const fullTitle = t.tones[toneKey].title;
+          const cleanTitle = fullTitle.replace(/^[^\wğüşıöçĞÜŞİÖÇa-zA-Z0-9]+/, '').split('&')[0].trim();
+          strongEl.textContent = cleanTitle || fullTitle;
+        }
+      }
+    });
+
+    if (moreTonesLabel && !moreTonesToggleBtn.classList.contains('active-custom')) {
+      moreTonesLabel.textContent = t.moreTonesBtn || (curLang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+    }
+
+    // Çekmece başlığı
+    const drawerHeaderEl = document.getElementById('rewriteai-more-tones-header-text');
+    if (drawerHeaderEl) {
+      drawerHeaderEl.textContent = curLang === 'en' ? '✨ More Tones & Custom Template' : '✨ Diğer Tonlar ve Özel Şablon';
+    }
+
+    // editCustomHint butonu
+    if (editCustomHint) {
+      editCustomHint.textContent = curLang === 'en' ? 'Edit ⚙️' : 'Düzenle ⚙️';
+    }
+
+    // Çekmece içi tonlar
+    moreToneItems.forEach((item) => {
+      const toneKey = item.getAttribute('data-tone');
+      if (toneKey === 'custom') return;
+      if (t.tones && t.tones[toneKey]) {
+        const nameEl = item.querySelector('.rewriteai-more-tone-name');
+        const descEl = item.querySelector('.rewriteai-more-tone-desc');
+        if (nameEl) nameEl.textContent = t.tones[toneKey].title;
+        if (descEl) descEl.textContent = t.tones[toneKey].desc;
       }
     });
   }
@@ -1436,15 +1737,47 @@
         }
       });
 
+      // Özel Ton Başlığını Yansıt
+      safeStorageGet({ customToneTitle: 'Benim Tonum' }, (customData) => {
+        if (customData && customData.customToneTitle && modalCustomToneName) {
+          modalCustomToneName.textContent = customData.customToneTitle;
+        }
+      });
+
       if (items.defaultTone) {
         selectedTone = items.defaultTone;
+        let foundInMainGrid = false;
         toneBtns.forEach((btn) => {
-          if (btn.getAttribute('data-tone') === selectedTone) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
+          const match = btn.getAttribute('data-tone') === selectedTone;
+          btn.classList.toggle('active', match);
+          if (match) foundInMainGrid = true;
         });
+
+        if (foundInMainGrid) {
+          if (moreTonesToggleBtn) {
+            moreTonesToggleBtn.classList.remove('active', 'active-custom');
+            if (moreTonesIcon) moreTonesIcon.textContent = '✨';
+            if (moreTonesLabel) moreTonesLabel.textContent = t.moreTonesBtn || (curLang === 'en' ? 'Others ▾' : 'Diğerleri ▾');
+          }
+          moreToneItems.forEach((b) => b.classList.remove('active'));
+        } else {
+          let matchedDrawerItem = null;
+          moreToneItems.forEach((b) => {
+            const match = b.getAttribute('data-tone') === selectedTone;
+            b.classList.toggle('active', match);
+            if (match) matchedDrawerItem = b;
+          });
+          if (matchedDrawerItem && moreTonesToggleBtn) {
+            moreTonesToggleBtn.classList.add('active', 'active-custom');
+            const iconSpan = matchedDrawerItem.querySelector('.rewriteai-more-tone-icon');
+            const nameSpan = matchedDrawerItem.querySelector('.rewriteai-more-tone-name');
+            if (iconSpan && moreTonesIcon) moreTonesIcon.textContent = iconSpan.textContent;
+            if (nameSpan && moreTonesLabel) {
+              const shortName = nameSpan.textContent.split('&')[0].split('/')[0].trim();
+              moreTonesLabel.textContent = `${shortName} ▾`;
+            }
+          }
+        }
       }
 
       updateModalQuota();

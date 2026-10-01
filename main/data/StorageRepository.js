@@ -81,4 +81,51 @@ export class StorageRepository {
       });
     });
   }
+
+  static async saveUiLanguage(lang) {
+    return this.saveSettings({ uiLanguage: lang });
+  }
+
+  static async saveSelectedModel(modelId) {
+    return this.saveSettings({ selectedModel: modelId });
+  }
+
+  static async getTargetLanguage() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get({ selectedTargetLanguage: 'auto' }, (items) => {
+        resolve(items.selectedTargetLanguage || 'auto');
+      });
+    });
+  }
+
+  static async saveTargetLanguage(langCode) {
+    return this.saveSettings({ selectedTargetLanguage: langCode });
+  }
+
+  static async getTwitterMode() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get({ twitterMode: false }, (items) => {
+        resolve(!!items.twitterMode);
+      });
+    });
+  }
+
+  static async saveTwitterMode(enabled) {
+    return this.saveSettings({ twitterMode: enabled });
+  }
+
+  static async getApiKeyForModel(modelId) {
+    let keyName = 'apiKey';
+    if (modelId.startsWith('llama')) keyName = 'groqApiKey';
+    else if (modelId.startsWith('command')) keyName = 'cohereApiKey';
+    else if (modelId.includes('Qwen') || modelId.includes('/')) keyName = 'hfApiKey';
+    else if (modelId.startsWith('gpt')) keyName = 'openaiApiKey';
+    else if (modelId.startsWith('claude')) keyName = 'anthropicApiKey';
+    else if (modelId.startsWith('deepseek')) keyName = 'deepseekApiKey';
+    return new Promise((resolve) => {
+      chrome.storage.local.get([keyName], (data) => {
+        resolve({ keyName, value: data[keyName] || '' });
+      });
+    });
+  }
 }

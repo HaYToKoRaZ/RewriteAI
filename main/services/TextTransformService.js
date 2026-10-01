@@ -22,7 +22,15 @@ export class TextTransformService {
       provider: 'gemini'
     };
 
-    const toneConfig = TONE_DEFINITIONS[toneId] || TONE_DEFINITIONS.fix_grammar;
+    let toneConfig = TONE_DEFINITIONS[toneId] || TONE_DEFINITIONS.fix_grammar;
+    let basePrompt = toneConfig.prompt;
+
+    if (toneId === 'custom') {
+      const customPrompt = (settings.customTonePrompt && settings.customTonePrompt.trim())
+        ? settings.customTonePrompt.trim()
+        : 'Aşağıdaki metni son derece nazik, diplomatik, çözüme odaklı ve kurumsal bir müşteri ilişkileri uzmanı gibi yeniden ifade et. Gereksiz polemikten kaçın, pozitif ve yapıcı bir dil kullan.';
+      basePrompt = `${customPrompt}\n\nYalnızca dönüştürülmüş nihai metni döndür, herhangi bir açıklama, önsöz veya tırnak işareti ekleme.`;
+    }
 
     // Hedef Dil Yönergesi
     const LANG_MAP = {
@@ -62,9 +70,9 @@ export class TextTransformService {
       ? '\n\nTWITTER/X MODU (KESİNLİKLE UYULMALI): Ürettiğin metnin toplam uzunluğu, boşluklar ve noktalama dahil olmak üzere 280 karakteri ASLA geçmemelidir. Bu en yüksek öncelikli kuraldır. Gerekirse metni kısalt, gereksiz sözcükleri çıkar; ancak ana mesajı koru.'
       : '';
 
-    const prompt = `${toneConfig.prompt}\n\n${langInstruction}${twitterInstruction}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
+    const prompt = `${basePrompt}\n\n${langInstruction}${twitterInstruction}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
 
-    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneConfig.name}, Dil: ${targetLanguage}, Twitter: ${twitterMode}`);
+    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneId}, Dil: ${targetLanguage}, Twitter: ${twitterMode}`);
 
     let result = '';
 

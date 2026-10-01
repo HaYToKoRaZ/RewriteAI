@@ -31,41 +31,70 @@
     </header>
 
     <main class="card">
-      <!-- 1. Model Seçimi -->
-      <div class="form-group">
-        <label for="selectedModel" id="lblModelSelect">Yapay Zeka Modeli</label>
-        <select id="selectedModel">
-          <!-- Dinamik doldurulacak -->
-        </select>
-        <small class="helper-text" id="helperModelSelect">
-          💡 İstediğiniz sağlayıcının modelini seçebilirsiniz. Seçtiğiniz modele ait API anahtarının aşağıdaki panelde girilmiş olduğundan emin olun.
-        </small>
+      <!-- Üst Ayarlar: 2 Sütunlu Izgara (Model ve Ton) -->
+      <div class="options-top-grid">
+        <!-- 1. Model Seçimi -->
+        <div class="form-group">
+          <label for="selectedModel" id="lblModelSelect">Yapay Zeka Modeli</label>
+          <select id="selectedModel">
+            <!-- Dinamik doldurulacak -->
+          </select>
+          <small class="helper-text" id="helperModelSelect">
+            💡 İstediğiniz sağlayıcının modelini seçebilirsiniz. Seçtiğiniz modele ait API anahtarının aşağıdaki panelde girilmiş olduğundan emin olun.
+          </small>
+        </div>
+
+        <!-- 2. Varsayılan Ton -->
+        <div class="form-group">
+          <label for="defaultTone" id="lblDefaultTone">Varsayılan Ton</label>
+          <select id="defaultTone">
+            <!-- Dinamik doldurulacak -->
+          </select>
+          <small class="helper-text" id="helperDefaultTone">
+            🎯 Metin seçildiğinde veya eklenti açıldığında öncelikli aktif olacak ton.
+          </small>
+        </div>
       </div>
 
-      <!-- 2. Varsayılan Ton -->
-      <div class="form-group">
-        <label for="defaultTone" id="lblDefaultTone">Varsayılan Ton</label>
-        <select id="defaultTone">
-          <!-- Dinamik doldurulacak -->
-        </select>
+      <!-- 3. Tercihler (Yan Yana Switch Kutuları) -->
+      <div class="options-prefs-grid">
+        <div class="form-group checkbox-group pref-item-box">
+          <label class="switch-label">
+            <input type="checkbox" id="autoCopy">
+            <span class="switch-slider"></span>
+            <span id="lblAutoCopy">Dönüştürme tamamlandığında sonucu otomatik panoya kopyala</span>
+          </label>
+        </div>
+
+        <div class="form-group checkbox-group pref-item-box">
+          <label class="switch-label">
+            <input type="checkbox" id="showSelectionBubble">
+            <span class="switch-slider"></span>
+            <span id="lblShowBubble">Metin seçildiğinde hızlı düzenleme butonunu (ikonu) göster</span>
+          </label>
+          <small class="helper-text" id="helperShowBubble">Kapalı olduğunda yalnızca sağ tıklayıp "RewriteAI ile Düzenle" menüsünü kullanarak pencereyi açabilirsiniz.</small>
+        </div>
       </div>
 
-      <!-- 3. Tercihler -->
-      <div class="form-group checkbox-group">
-        <label class="switch-label">
-          <input type="checkbox" id="autoCopy">
-          <span class="switch-slider"></span>
-          <span id="lblAutoCopy">Dönüştürme tamamlandığında sonucu otomatik panoya kopyala</span>
-        </label>
-      </div>
+      <hr class="divider">
 
-      <div class="form-group checkbox-group">
-        <label class="switch-label">
-          <input type="checkbox" id="showSelectionBubble">
-          <span class="switch-slider"></span>
-          <span id="lblShowBubble">Metin seçildiğinde hızlı düzenleme butonunu (ikonu) göster</span>
-        </label>
-        <small class="helper-text" id="helperShowBubble">Kapalı olduğunda yalnızca sağ tıklayıp "RewriteAI ile Düzenle" menüsünü kullanarak pencereyi açabilirsiniz.</small>
+      <!-- 3.5 Özel Ton Yapılandırması (Custom Prompt) -->
+      <div class="custom-tone-card" id="customToneCard">
+        <h3 class="section-title" id="customToneTitle">🎭 Özel Ton Yapılandırması (Custom Prompt)</h3>
+        <p class="section-desc" id="customToneDesc">Kendinize özel bir ton ve yazım kuralı tanımlayın. "✨ Diğerleri" menüsünden "⚙️ Özel Tonum" seçildiğinde bu kural uygulanır.</p>
+        
+        <div class="form-group" style="margin-top: 14px;">
+          <label for="customToneTitleInput" id="lblCustomToneTitleInput">Özel Ton Adı:</label>
+          <input type="text" id="customToneTitleInput" class="input-text" placeholder="Örn: Benim Tonum, Avukat Modu, vb." style="margin-top:4px;">
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label for="customTonePromptInput" id="lblCustomTonePromptInput">Özel Prompt / Yönerge:</label>
+          <textarea id="customTonePromptInput" class="custom-prompt-textarea" rows="4" placeholder="Metnin nasıl dönüştürülmesini istediğinizi yazın..."></textarea>
+          <small class="helper-text" id="helperCustomTonePrompt">
+            💡 <strong>Otomatik Çoklu Dil Uyumlu:</strong> Hangi dilde yazarsanız yazın; eklentide Almanca, Fransızca, Japonca vb. seçtiğinizde yapay zeka bu kuralınızı o yabancı dile otomatik olarak uygular.
+          </small>
+        </div>
       </div>
 
       <hr class="divider">
@@ -75,217 +104,219 @@
         <h3 class="section-title" id="apiKeysTitle">🔑 Yapay Zeka API Anahtarları / Tokenleri</h3>
         <p class="section-desc" id="apiKeysDesc">Kullanmak istediğiniz servisin anahtarını buraya girmeniz yeterlidir. En az bir tanesini girmeniz tavsiye edilir.</p>
 
-        <!-- 1. Google Gemini -->
-        <div class="provider-box" data-provider-id="apiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18">
-                <!-- Google Gemini Yıldız İkonu (Gradient) -->
-                <path fill="#4285F4" d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z"/>
-              </svg>
-              <strong>Google Gemini</strong>
-              <span class="free-badge" id="badge-gemini">Ücretsiz Tier</span>
-            </div>
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="provider-link" id="link-gemini">Ücretsiz Anahtar Al ↗</a>
-          </div>
-
-          <!-- Tanımlı Token Durum Alanı (Güvenlikli) -->
-          <div class="token-saved-status hidden" id="status-apiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-apiKey">Token Kayıtlı ve Güvende</span>
-            </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="apiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
-          </div>
-
-          <!-- Token Giriş Alanı (Henüz girilmemişken gösterilir) -->
-          <div class="input-wrapper" id="input-wrap-apiKey">
-            <input type="password" id="apiKey" placeholder="AIzaSy... (Gemini Anahtarı)" autocomplete="off">
-          </div>
-
-          <!-- Google Kota ve Kullanım Takip Kartı (Doğrudan Google Key'in Altında) -->
-          <div class="quota-card">
-            <div class="quota-header">
-              <span class="quota-title" id="quotaTitle">📊 Google Gemini Kota Kullanımı</span>
-              <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link" id="quotaOfficialLink">
-                AI Studio Resmi Panel ↗
-              </a>
-            </div>
-            <div class="quota-body">
-              <div class="quota-stat">
-                <span class="quota-number" id="dailyUsageCount">0</span>
-                <span class="quota-limit" id="quotaLimitText">/ 1.500 istek (Bugün)</span>
+        <div class="providers-grid">
+          <!-- 1. Google Gemini -->
+          <div class="provider-box provider-box-full" data-provider-id="apiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18">
+                  <!-- Google Gemini Yıldız İkonu (Gradient) -->
+                  <path fill="#4285F4" d="M12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24Z"/>
+                </svg>
+                <strong>Google Gemini</strong>
+                <span class="free-badge" id="badge-gemini">Ücretsiz Tier</span>
               </div>
-              <div class="quota-progress-bg">
-                <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="provider-link" id="link-gemini">Ücretsiz Anahtar Al ↗</a>
+            </div>
+
+            <!-- Tanımlı Token Durum Alanı (Güvenlikli) -->
+            <div class="token-saved-status hidden" id="status-apiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-apiKey">Token Kayıtlı ve Güvende</span>
               </div>
-              <div class="quota-specs">
-                <span id="quotaRpmText">⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
-                <span id="quotaRpdText">📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="apiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+            </div>
+
+            <!-- Token Giriş Alanı (Henüz girilmemişken gösterilir) -->
+            <div class="input-wrapper" id="input-wrap-apiKey">
+              <input type="password" id="apiKey" placeholder="AIzaSy... (Gemini Anahtarı)" autocomplete="off">
+            </div>
+
+            <!-- Google Kota ve Kullanım Takip Kartı (Doğrudan Google Key'in Altında) -->
+            <div class="quota-card">
+              <div class="quota-header">
+                <span class="quota-title" id="quotaTitle">📊 Google Gemini Kota Kullanımı</span>
+                <a href="https://aistudio.google.com/app/rate-limit" target="_blank" rel="noopener" class="quota-link" id="quotaOfficialLink">
+                  AI Studio Resmi Panel ↗
+                </a>
+              </div>
+              <div class="quota-body">
+                <div class="quota-stat">
+                  <span class="quota-number" id="dailyUsageCount">0</span>
+                  <span class="quota-limit" id="quotaLimitText">/ 1.500 istek (Bugün)</span>
+                </div>
+                <div class="quota-progress-bg">
+                  <div id="quotaProgressBar" class="quota-progress-bar" style="width: 0%;"></div>
+                </div>
+                <div class="quota-specs">
+                  <span id="quotaRpmText">⚡ Dakikalık Limit (RPM): <strong>15 istek/dk</strong></span>
+                  <span id="quotaRpdText">📅 Günlük Limit (RPD): <strong>1.500 istek/gün</strong></span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 2. Groq Cloud -->
-        <div class="provider-box" data-provider-id="groqApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#F55036">
-                <!-- Groq Turuncu Yıldırım / G İkonu -->
-                <path d="M13 2L3 14h7v8l10-12h-7l3-8z"/>
-              </svg>
-              <strong>Groq Cloud</strong>
-              <span class="free-badge" id="badge-groq">Ücretsiz & Ultra Hızlı</span>
+          <!-- 2. Groq Cloud -->
+          <div class="provider-box" data-provider-id="groqApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#F55036">
+                  <!-- Groq Turuncu Yıldırım / G İkonu -->
+                  <path d="M13 2L3 14h7v8l10-12h-7l3-8z"/>
+                </svg>
+                <strong>Groq Cloud</strong>
+                <span class="free-badge" id="badge-groq">Ücretsiz & Ultra Hızlı</span>
+              </div>
+              <a href="https://console.groq.com/keys" target="_blank" rel="noopener" class="provider-link" id="link-groq">Ücretsiz Anahtar Al ↗</a>
             </div>
-            <a href="https://console.groq.com/keys" target="_blank" rel="noopener" class="provider-link" id="link-groq">Ücretsiz Anahtar Al ↗</a>
-          </div>
 
-          <div class="token-saved-status hidden" id="status-groqApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-groqApiKey">Token Kayıtlı ve Güvende</span>
+            <div class="token-saved-status hidden" id="status-groqApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-groqApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="groqApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="groqApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
-          </div>
 
-          <div class="input-wrapper" id="input-wrap-groqApiKey">
-            <input type="password" id="groqApiKey" placeholder="gsk_... (Groq Anahtarı)" autocomplete="off">
-          </div>
-        </div>
-
-        <!-- 3. Cohere -->
-        <div class="provider-box" data-provider-id="cohereApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#39594C">
-                <!-- Cohere Mercan/Koyu Yeşil Geometrik İkon -->
-                <circle cx="12" cy="12" r="10" fill="#D45D55"/>
-                <circle cx="12" cy="12" r="6" fill="#F9F6F0"/>
-                <circle cx="12" cy="12" r="3" fill="#39594C"/>
-              </svg>
-              <strong>Cohere</strong>
-              <span class="free-badge" id="badge-cohere">Ücretsiz Trial</span>
+            <div class="input-wrapper" id="input-wrap-groqApiKey">
+              <input type="password" id="groqApiKey" placeholder="gsk_... (Groq Anahtarı)" autocomplete="off">
             </div>
-            <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener" class="provider-link" id="link-cohere">Ücretsiz Trial Al ↗</a>
           </div>
 
-          <div class="token-saved-status hidden" id="status-cohereApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-cohereApiKey">Token Kayıtlı ve Güvende</span>
+          <!-- 3. Cohere -->
+          <div class="provider-box" data-provider-id="cohereApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#39594C">
+                  <!-- Cohere Mercan/Koyu Yeşil Geometrik İkon -->
+                  <circle cx="12" cy="12" r="10" fill="#D45D55"/>
+                  <circle cx="12" cy="12" r="6" fill="#F9F6F0"/>
+                  <circle cx="12" cy="12" r="3" fill="#39594C"/>
+                </svg>
+                <strong>Cohere</strong>
+                <span class="free-badge" id="badge-cohere">Ücretsiz Trial</span>
+              </div>
+              <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener" class="provider-link" id="link-cohere">Ücretsiz Trial Al ↗</a>
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="cohereApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
-          </div>
 
-          <div class="input-wrapper" id="input-wrap-cohereApiKey">
-            <input type="password" id="cohereApiKey" placeholder="Cohere API Anahtarı..." autocomplete="off">
-          </div>
-        </div>
-
-        <!-- 4. Hugging Face -->
-        <div class="provider-box" data-provider-id="hfApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <span style="font-size:16px;line-height:1;">🤗</span>
-              <strong>Hugging Face</strong>
-              <span class="free-badge" id="badge-hf">Ücretsiz Token</span>
+            <div class="token-saved-status hidden" id="status-cohereApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-cohereApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="cohereApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
             </div>
-            <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener" class="provider-link" id="link-hf">Ücretsiz Token Al ↗</a>
-          </div>
 
-          <div class="token-saved-status hidden" id="status-hfApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-hfApiKey">Token Kayıtlı ve Güvende</span>
+            <div class="input-wrapper" id="input-wrap-cohereApiKey">
+              <input type="password" id="cohereApiKey" placeholder="Cohere API Anahtarı..." autocomplete="off">
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="hfApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
           </div>
 
-          <div class="input-wrapper" id="input-wrap-hfApiKey">
-            <input type="password" id="hfApiKey" placeholder="hf_... (Read Token)" autocomplete="off">
-          </div>
-        </div>
-
-        <!-- 5. OpenAI -->
-        <div class="provider-box" data-provider-id="openaiApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#10A37F">
-                <!-- OpenAI Girdap / Spiral Logo -->
-                <path d="M21.5 9.5a5.5 5.5 0 0 0-.48-4.66 5.6 5.6 0 0 0-4.9-2.84 5.5 5.5 0 0 0-3.34 1.13A5.5 5.5 0 0 0 4.14 4.5a5.55 5.55 0 0 0-.64 5.43 5.5 5.5 0 0 0-1.5 5.27 5.55 5.55 0 0 0 3.32 4.13 5.5 5.5 0 0 0 5.46 2.54 5.5 5.5 0 0 0 3.34-1.13 5.5 5.5 0 0 0 8.64-1.37 5.55 5.55 0 0 0 .64-5.43 5.5 5.5 0 0 0 1.5-5.27z"/>
-              </svg>
-              <strong>OpenAI</strong>
-              <span class="paid-badge" id="badge-openai">ChatGPT / Bakiye</span>
+          <!-- 4. Hugging Face -->
+          <div class="provider-box" data-provider-id="hfApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <span style="font-size:16px;line-height:1;">🤗</span>
+                <strong>Hugging Face</strong>
+                <span class="free-badge" id="badge-hf">Ücretsiz Token</span>
+              </div>
+              <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener" class="provider-link" id="link-hf">Ücretsiz Token Al ↗</a>
             </div>
-            <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" class="provider-link" id="link-openai">OpenAI Paneli ↗</a>
-          </div>
 
-          <div class="token-saved-status hidden" id="status-openaiApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-openaiApiKey">Token Kayıtlı ve Güvende</span>
+            <div class="token-saved-status hidden" id="status-hfApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-hfApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="hfApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="openaiApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
-          </div>
 
-          <div class="input-wrapper" id="input-wrap-openaiApiKey">
-            <input type="password" id="openaiApiKey" placeholder="sk-... (OpenAI Anahtarı)" autocomplete="off">
-          </div>
-        </div>
-
-        <!-- 6. Anthropic Claude -->
-        <div class="provider-box" data-provider-id="anthropicApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#D97757">
-                <!-- Anthropic Claude Toprak Rengi / A İkonu -->
-                <circle cx="12" cy="12" r="10" fill="#D97757"/>
-                <path d="M7 17l5-10 5 10M9 13h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <strong>Anthropic Claude</strong>
-              <span class="paid-badge" id="badge-claude">Hesap Bakiyesi</span>
+            <div class="input-wrapper" id="input-wrap-hfApiKey">
+              <input type="password" id="hfApiKey" placeholder="hf_... (Read Token)" autocomplete="off">
             </div>
-            <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" class="provider-link" id="link-claude">Claude Paneli ↗</a>
           </div>
 
-          <div class="token-saved-status hidden" id="status-anthropicApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-anthropicApiKey">Token Kayıtlı ve Güvende</span>
+          <!-- 5. OpenAI -->
+          <div class="provider-box" data-provider-id="openaiApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#10A37F">
+                  <!-- OpenAI Girdap / Spiral Logo -->
+                  <path d="M21.5 9.5a5.5 5.5 0 0 0-.48-4.66 5.6 5.6 0 0 0-4.9-2.84 5.5 5.5 0 0 0-3.34 1.13A5.5 5.5 0 0 0 4.14 4.5a5.55 5.55 0 0 0-.64 5.43 5.5 5.5 0 0 0-1.5 5.27 5.55 5.55 0 0 0 3.32 4.13 5.5 5.5 0 0 0 5.46 2.54 5.5 5.5 0 0 0 3.34-1.13 5.5 5.5 0 0 0 8.64-1.37 5.55 5.55 0 0 0 .64-5.43 5.5 5.5 0 0 0 1.5-5.27z"/>
+                </svg>
+                <strong>OpenAI</strong>
+                <span class="paid-badge" id="badge-openai">ChatGPT / Bakiye</span>
+              </div>
+              <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" class="provider-link" id="link-openai">OpenAI Paneli ↗</a>
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="anthropicApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
-          </div>
 
-          <div class="input-wrapper" id="input-wrap-anthropicApiKey">
-            <input type="password" id="anthropicApiKey" placeholder="sk-ant-... (Claude Anahtarı)" autocomplete="off">
-          </div>
-        </div>
-
-        <!-- 7. DeepSeek -->
-        <div class="provider-box" data-provider-id="deepseekApiKey">
-          <div class="provider-box-header">
-            <div class="provider-title-group">
-              <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#4D6BFE">
-                <!-- DeepSeek Mavi Balina İkonu -->
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-2.48 0-4.5-2.02-4.5-4.5S10.52 7.5 13 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/>
-              </svg>
-              <strong>DeepSeek</strong>
-              <span class="paid-badge" id="badge-deepseek">Ekonomik Bakiye</span>
+            <div class="token-saved-status hidden" id="status-openaiApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-openaiApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="openaiApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
             </div>
-            <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener" class="provider-link" id="link-deepseek">DeepSeek Paneli ↗</a>
-          </div>
 
-          <div class="token-saved-status hidden" id="status-deepseekApiKey">
-            <div class="saved-info">
-              <span class="saved-icon">🔒</span>
-              <span class="saved-text" id="saved-text-deepseekApiKey">Token Kayıtlı ve Güvende</span>
+            <div class="input-wrapper" id="input-wrap-openaiApiKey">
+              <input type="password" id="openaiApiKey" placeholder="sk-... (OpenAI Anahtarı)" autocomplete="off">
             </div>
-            <button type="button" class="btn-danger-outline delete-token-btn" data-target="deepseekApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
           </div>
 
-          <div class="input-wrapper" id="input-wrap-deepseekApiKey">
-            <input type="password" id="deepseekApiKey" placeholder="sk-... (DeepSeek Anahtarı)" autocomplete="off">
+          <!-- 6. Anthropic Claude -->
+          <div class="provider-box" data-provider-id="anthropicApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#D97757">
+                  <!-- Anthropic Claude Toprak Rengi / A İkonu -->
+                  <circle cx="12" cy="12" r="10" fill="#D97757"/>
+                  <path d="M7 17l5-10 5 10M9 13h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <strong>Anthropic Claude</strong>
+                <span class="paid-badge" id="badge-claude">Hesap Bakiyesi</span>
+              </div>
+              <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" class="provider-link" id="link-claude">Claude Paneli ↗</a>
+            </div>
+
+            <div class="token-saved-status hidden" id="status-anthropicApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-anthropicApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="anthropicApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+            </div>
+
+            <div class="input-wrapper" id="input-wrap-anthropicApiKey">
+              <input type="password" id="anthropicApiKey" placeholder="sk-ant-... (Claude Anahtarı)" autocomplete="off">
+            </div>
+          </div>
+
+          <!-- 7. DeepSeek -->
+          <div class="provider-box" data-provider-id="deepseekApiKey">
+            <div class="provider-box-header">
+              <div class="provider-title-group">
+                <svg class="provider-favicon" viewBox="0 0 24 24" width="18" height="18" fill="#4D6BFE">
+                  <!-- DeepSeek Mavi Balina İkonu -->
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c-2.48 0-4.5-2.02-4.5-4.5S10.52 7.5 13 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/>
+                </svg>
+                <strong>DeepSeek</strong>
+                <span class="paid-badge" id="badge-deepseek">Ekonomik Bakiye</span>
+              </div>
+              <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noopener" class="provider-link" id="link-deepseek">DeepSeek Paneli ↗</a>
+            </div>
+
+            <div class="token-saved-status hidden" id="status-deepseekApiKey">
+              <div class="saved-info">
+                <span class="saved-icon">🔒</span>
+                <span class="saved-text" id="saved-text-deepseekApiKey">Token Kayıtlı ve Güvende</span>
+              </div>
+              <button type="button" class="btn-danger-outline delete-token-btn" data-target="deepseekApiKey" title="Kayıtlı Tokenı Sil">🗑️ Sil</button>
+            </div>
+
+            <div class="input-wrapper" id="input-wrap-deepseekApiKey">
+              <input type="password" id="deepseekApiKey" placeholder="sk-... (DeepSeek Anahtarı)" autocomplete="off">
+            </div>
           </div>
         </div>
       </div>

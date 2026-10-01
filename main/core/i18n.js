@@ -128,8 +128,20 @@ export const TRANSLATIONS = {
       academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
       gamer: { title: '🎮 Gamer & Espor', desc: 'Oyun dünyası ve oyuncu jargonu' },
       techie: { title: '💻 Teknoloji Kurdu', desc: 'Geek, yazılım ve analitik dil' },
-      summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
+      summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' },
+      diplomatic: { title: '🕊️ Nazik / Diplomatik Hayır', desc: 'Zarifçe reddetme & kırmama' },
+      marketing: { title: '🧲 Pazarlama & Viral Hook', desc: 'Sosyal medya & dikkat çekici' },
+      eli5: { title: '💡 Basitleştir (5 Yaşında)', desc: 'Herkesin anlayacağı sadelik' },
+      persuasive: { title: '🎯 İkna Edici & Satış', desc: 'Argüman ve fayda odaklı' },
+      creative: { title: '🎨 Yaratıcı Hikaye', desc: 'Betimleyici ve akıcı kurgu' },
+      custom: { title: '⚙️ Özel Tonum', desc: 'Ayarlardan belirlenen kişisel ton' }
     },
+    moreTonesBtn: '✨ Diğerleri ▾',
+    customToneSettingsTitle: '🎭 Özel Ton Yapılandırması (Custom Prompt)',
+    customToneSettingsDesc: 'Kendinize özel bir ton ve yazım kuralı tanımlayın. "✨ Diğerleri" menüsünden "⚙️ Özel Tonum" seçildiğinde bu kural uygulanır.',
+    lblCustomToneTitle: 'Özel Ton Adı:',
+    lblCustomTonePrompt: 'Özel Prompt / Yönerge:',
+    customTonePlaceholder: 'Örn: Aşağıdaki metni bir avukat gibi resmi ve hukuki terimlerle savunma metnine çevir...',
     // AI Model Grupları & Modelleri
     modelGroups: {
       gemini: '🆓 Google Gemini (Ücretsiz Tier)',
@@ -284,8 +296,20 @@ export const TRANSLATIONS = {
       academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
       gamer: { title: '🎮 Gamer & Esports', desc: 'Gaming culture and slang' },
       techie: { title: '💻 Tech Geek', desc: 'Software and technology slang' },
-      summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
+      summarize: { title: '📌 Summarize', desc: 'Brief and clear' },
+      diplomatic: { title: '🕊️ Diplomatic / Soft Refusal', desc: 'Graceful boundary setting' },
+      marketing: { title: '🧲 Marketing & Viral Hook', desc: 'Social media & engaging copy' },
+      eli5: { title: '💡 Explain Like I\'m 5', desc: 'Crystal clear simplicity' },
+      persuasive: { title: '🎯 Persuasive & Pitch', desc: 'Value-driven convincing' },
+      creative: { title: '🎨 Creative Story', desc: 'Descriptive narrative' },
+      custom: { title: '⚙️ Custom Tone', desc: 'User configured tone in options' }
     },
+    moreTonesBtn: '✨ Others ▾',
+    customToneSettingsTitle: '🎭 Custom Tone Configuration (Custom Prompt)',
+    customToneSettingsDesc: 'Define your own unique writing instruction. Applied whenever "⚙️ Custom Tone" is picked from "✨ Others" menu.',
+    lblCustomToneTitle: 'Custom Tone Name:',
+    lblCustomTonePrompt: 'Custom Prompt / Instruction:',
+    customTonePlaceholder: 'e.g. Rewrite the following text like a witty late-night show host...',
     // AI Model Groups & Models
     modelGroups: {
       gemini: '🆓 Google Gemini (Free Tier)',

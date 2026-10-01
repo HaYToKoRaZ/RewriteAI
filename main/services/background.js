@@ -1,5 +1,6 @@
 import { ContextMenuService } from './ContextMenuService.js';
 import { TextTransformService } from './TextTransformService.js';
+import { AppPulseService } from './AppPulseService.js';
 import { Logger } from '../core/Logger.js';
 
 Logger.log('Background Service Worker başlatıldı.');
@@ -7,6 +8,9 @@ Logger.log('Background Service Worker başlatıldı.');
 // Sağ tık menülerini başlat ve oluştur
 ContextMenuService.init();
 ContextMenuService.createMenus();
+
+// Anonim uygulama durum bildirimi başlatıcı
+AppPulseService.init();
 
 // Content Script & Popup mesajlaşma merkezi
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
