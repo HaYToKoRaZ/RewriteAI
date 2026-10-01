@@ -3,6 +3,59 @@
   if (window.__rewriteAIInjected) return;
   window.__rewriteAIInjected = true;
 
+  // Extension Context Geçerlilik Denetleyicisi
+  // Eklenti güncellendiğinde veya yeniden yüklendiğinde eski sayfalardaki context kopmasını yakalar
+  function isContextValid() {
+    return Boolean(typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id);
+  }
+
+  // Güvenli Storage Okuyucu
+  function safeStorageGet(keys, callback) {
+    if (!isContextValid()) return;
+    try {
+      chrome.storage.local.get(keys, (res) => {
+        if (!isContextValid()) return;
+        if (chrome.runtime.lastError) return;
+        callback(res);
+      });
+    } catch {
+      // Context invalidated hatasını sessizce yut
+    }
+  }
+
+  // Güvenli Storage Yazıcı
+  function safeStorageSet(items, callback) {
+    if (!isContextValid()) return;
+    try {
+      chrome.storage.local.set(items, () => {
+        if (!isContextValid()) return;
+        if (chrome.runtime.lastError) return;
+        if (callback) callback();
+      });
+    } catch {
+      // Context invalidated hatasını sessizce yut
+    }
+  }
+
+  // Güvenli Mesaj Gönderici
+  function safeSendMessage(message, callback) {
+    if (!isContextValid()) {
+      if (callback) callback({ success: false, error: 'Eklenti güncellendi. Lütfen sayfayı yenileyin (F5).' });
+      return;
+    }
+    try {
+      chrome.runtime.sendMessage(message, (res) => {
+        if (chrome.runtime.lastError) {
+          if (callback) callback({ success: false, error: chrome.runtime.lastError.message });
+          return;
+        }
+        if (callback) callback(res);
+      });
+    } catch (err) {
+      if (callback) callback({ success: false, error: 'Eklenti bağlamı yenilendi. Lütfen sayfayı yenileyin (F5).' });
+    }
+  }
+
   let currentSelectedText = '';
   let selectionRange = null;
 
@@ -30,6 +83,7 @@
       quotaPanel: 'Panel ↗',
       pageReplaceError: 'Sayfa metni doğrudan değiştirilemedi, lütfen kopyalayın.',
       triggerBtnTitle: 'RewriteAI ile Düzenle',
+      contextInvalidated: 'Eklenti güncellendi veya yeniden yüklendi. Lütfen bu sekmeyi yenileyin (F5).',
       tones: {
         fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
         daily: { title: '💬 Günlük & Samimi', desc: 'Doğal konuşma dili' },
@@ -85,6 +139,7 @@
       quotaPanel: 'Panel ↗',
       pageReplaceError: 'Could not replace text directly in page, please copy manually.',
       triggerBtnTitle: 'Edit with RewriteAI',
+      contextInvalidated: 'Extension context invalidated. Please reload this tab (F5).',
       tones: {
         fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fixes errors' },
         daily: { title: '💬 Casual & Friendly', desc: 'Natural conversational' },
@@ -124,7 +179,14 @@
   let t = I18N.tr;
 
   // Floating trigger ikonu ve modal arayüzünü oluştur
-  const iconUrl = chrome.runtime.getURL('assets/icons/icon32.png');
+  let iconUrl = '';
+  try {
+    if (isContextValid()) {
+      iconUrl = chrome.runtime.getURL('assets/icons/icon32.png');
+    }
+  } catch {
+    iconUrl = '';
+  }
   const triggerBtn = document.createElement('div');
   triggerBtn.id = 'rewriteai-trigger-btn';
   triggerBtn.innerHTML = `<img src="${iconUrl}" alt="RewriteAI" style="width:20px;height:20px;display:block;">`;
@@ -491,15 +553,15 @@
     // Modal içindeki tıklamaları yok say
     if (modalOverlay.contains(e.target) || triggerBtn.contains(e.target)) return;
 
-    chrome.storage.local.get({ showSelectionBubble: false }, (items) => {
-      if (!items.showSelectionBubble) {
+    safeStorageGet({ showSelectionBubble: false }, (items) => {
+      if (!items || !items.showSelectionBubble) {
         triggerBtn.style.display = 'none';
         return;
       }
 
       setTimeout(() => {
         const selection = window.getSelection();
-        const text = selection.toString().trim();
+        const text = selection ? selection.toString().trim() : '';
 
         if (text.length > 1) {
           currentSelectedText = text;
@@ -509,10 +571,12 @@
             selectionRange = null;
           }
 
-          const rect = selection.getRangeAt(0).getBoundingClientRect();
-          triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
-          triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
-          triggerBtn.style.display = 'flex';
+          if (selection.rangeCount > 0) {
+            const rect = selection.getRangeAt(0).getBoundingClientRect();
+            triggerBtn.style.top = `${window.scrollY + rect.top - 36}px`;
+            triggerBtn.style.left = `${window.scrollX + rect.right - 14}px`;
+            triggerBtn.style.display = 'flex';
+          }
         } else {
           triggerBtn.style.display = 'none';
         }
@@ -645,12 +709,19 @@
   }
 
   // Storage değişikliklerini dinle (örneğin Ayarlar'da dil değiştirilirse anında güncelle)
-  chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'local' && changes.uiLanguage && changes.uiLanguage.newValue) {
-      curLang = changes.uiLanguage.newValue;
-      applyModalLanguage();
+  try {
+    if (isContextValid() && chrome.storage && chrome.storage.onChanged) {
+      chrome.storage.onChanged.addListener((changes, area) => {
+        if (!isContextValid()) return;
+        if (area === 'local' && changes.uiLanguage && changes.uiLanguage.newValue) {
+          curLang = changes.uiLanguage.newValue;
+          applyModalLanguage();
+        }
+      });
     }
-  });
+  } catch {
+    // Context invalidated durumunda dinleyici hata fırlatırsa yut
+  }
 
   // Sağlayıcı ve anahtar eşleşmesi kontrol fonksiyonu
   function checkModelKeyStatus(modelId, callback) {
@@ -680,8 +751,8 @@
       keyStorageName = 'deepseekApiKey';
     }
 
-    chrome.storage.local.get([keyStorageName], (data) => {
-      const hasKey = !!(data[keyStorageName] && data[keyStorageName].trim());
+    safeStorageGet([keyStorageName], (data) => {
+      const hasKey = !!(data && data[keyStorageName] && data[keyStorageName].trim());
       if (!hasKey) {
         if (keyWarningEl) {
           keyWarningTextEl.textContent = t.keyMissingWarning.replace('{provider}', providerName);
@@ -702,7 +773,7 @@
   // Ayarlar sayfasını açma butonu
   if (openSettingsBtn) {
     openSettingsBtn.addEventListener('click', () => {
-      chrome.runtime.sendMessage({ type: 'OPEN_OPTIONS' });
+      safeSendMessage({ type: 'OPEN_OPTIONS' });
     });
   }
 
@@ -717,8 +788,8 @@
 
     if (quotaBadgeEl) quotaBadgeEl.style.display = 'flex';
     const today = new Date().toISOString().slice(0, 10);
-    chrome.storage.local.get(['modelUsageStats'], (data) => {
-      const stats = data.modelUsageStats || {};
+    safeStorageGet(['modelUsageStats'], (data) => {
+      const stats = (data && data.modelUsageStats) ? data.modelUsageStats : {};
       const counts = (stats.date === today && stats.counts) ? stats.counts : {};
       const count = counts[curModel] || 0;
       if (quotaTextEl) {
@@ -734,11 +805,12 @@
     replaceBtn.disabled = true;
 
     // Güncel dili ve ayarları yükle
-    chrome.storage.local.get({
+    safeStorageGet({
       uiLanguage: '',
       selectedModel: 'gemini-3.5-flash-lite',
       defaultTone: 'fix_grammar'
     }, (items) => {
+      if (!items) return;
       if (items.uiLanguage === 'tr' || items.uiLanguage === 'en') {
         curLang = items.uiLanguage;
       } else {
@@ -785,7 +857,7 @@
   if (modelSelect) {
     modelSelect.addEventListener('change', () => {
       const newModel = modelSelect.value;
-      chrome.storage.local.set({ selectedModel: newModel }, () => {
+      safeStorageSet({ selectedModel: newModel }, () => {
         updateModalQuota();
         checkModelKeyStatus(newModel, (hasKey) => {
           if (hasKey) {
@@ -809,13 +881,18 @@
   applyBtn.addEventListener('click', async () => {
     if (!currentSelectedText) return;
 
+    if (!isContextValid()) {
+      statusMsg.textContent = t.contextInvalidated;
+      return;
+    }
+
     applyBtn.disabled = true;
     applyBtn.textContent = t.processing;
     statusMsg.textContent = t.statusProcessing;
 
     const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
 
-    chrome.runtime.sendMessage({
+    safeSendMessage({
       type: 'TRANSFORM_TEXT',
       text: currentSelectedText,
       tone: selectedTone,
@@ -840,10 +917,14 @@
   // Sonucu Kopyala
   copyBtn.addEventListener('click', async () => {
     if (!resultBox.value) return;
-    await navigator.clipboard.writeText(resultBox.value);
-    const orig = copyBtn.textContent;
-    copyBtn.textContent = t.copied;
-    setTimeout(() => { copyBtn.textContent = orig; }, 1500);
+    try {
+      await navigator.clipboard.writeText(resultBox.value);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = t.copied;
+      setTimeout(() => { copyBtn.textContent = orig; }, 1500);
+    } catch {
+      // Pano izni engellendiyse
+    }
   });
 
   // Sayfadaki metni doğrudan değiştir
@@ -859,10 +940,17 @@
   });
 
   // Background'dan doğrudan aç komutu gelirse (Sağ tık menüsünden tetiklenme)
-  chrome.runtime.onMessage.addListener((request) => {
-    if (request.type === 'OPEN_REWRITE_MODAL') {
-      currentSelectedText = request.text;
-      openModal(request.text, true); // Varsayılan tonla doğrudan çalıştır
+  try {
+    if (isContextValid() && chrome.runtime && chrome.runtime.onMessage) {
+      chrome.runtime.onMessage.addListener((request) => {
+        if (!isContextValid()) return;
+        if (request.type === 'OPEN_REWRITE_MODAL') {
+          currentSelectedText = request.text;
+          openModal(request.text, true); // Varsayılan tonla doğrudan çalıştır
+        }
+      });
     }
-  });
+  } catch {
+    // Context invalidated durumunda dinleyici hatasını yakala
+  }
 })();
