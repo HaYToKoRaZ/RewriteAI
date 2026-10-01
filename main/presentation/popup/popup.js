@@ -1,11 +1,14 @@
 import { StorageRepository } from '../../data/StorageRepository.js';
-import { TONE_DEFINITIONS } from '../../core/TonePrompts.js';
 import { TextTransformService } from '../../services/TextTransformService.js';
 import { detectLanguage, getT } from '../../core/i18n.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // ── DOM ──
-  const toneSelect = document.getElementById('toneSelect');
+  const modelSelect = document.getElementById('popupModelSelect');
+  const keyWarningBox = document.getElementById('keyWarningBox');
+  const keyWarningText = document.getElementById('keyWarningText');
+  const warningSettingsBtn = document.getElementById('warningSettingsBtn');
+  const toneCardBtns = document.querySelectorAll('.tone-card-btn');
   const inputText = document.getElementById('inputText');
   const outputText = document.getElementById('outputText');
   const transformBtn = document.getElementById('transformBtn');
@@ -20,11 +23,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnText = document.getElementById('transformBtnText');
   const charCount = document.getElementById('charCount');
   const statusInfo = document.getElementById('statusInfo');
-  const toneLabelEl = document.getElementById('toneLabelEl');
   const inputPanelLabel = document.getElementById('inputPanelLabel');
   const outputPanelLabel = document.getElementById('outputPanelLabel');
   const langBtnTr = document.getElementById('langBtnTr');
   const langBtnEn = document.getElementById('langBtnEn');
+
+  let selectedTone = 'fix_grammar';
 
   // ── Dil Başlatma ──
   let lang = await detectLanguage();
@@ -38,23 +42,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     langBtnEn.classList.toggle('active', lang === 'en');
 
     // Metinleri güncelle
-    toneLabelEl.textContent = t.toneLabel;
     inputPanelLabel.textContent = t.originalText;
     outputPanelLabel.textContent = t.convertedText;
-    btnText.textContent = t.convertBtn;
+    btnText.textContent = t.transform || '⚡ Dönüştür';
     pasteBtn.innerHTML = t.paste;
     clearBtn.innerHTML = t.clear;
     copyBtn.innerHTML = t.copyResult;
     charCount.textContent = t.charCount(inputText.value.length);
     apiAlertText.textContent = t.apiMissingAlert;
     if (goToOptionsBtn) goToOptionsBtn.textContent = t.setupBtn;
+    if (warningSettingsBtn) warningSettingsBtn.textContent = t.goToSettings || '⚙️ Ayarlara Git';
 
     // Placeholder
     inputText.placeholder = t.statusEnterText;
     outputText.placeholder = t.resultPlaceholder;
 
     // Status
-    const cur = statusInfo.textContent;
     if (!transformBtn.disabled) {
       statusInfo.textContent = t.statusReady;
     }
@@ -69,16 +72,75 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // ── Ton seçeneklerini doldur ──
-  toneSelect.innerHTML = '';
-  Object.values(TONE_DEFINITIONS).forEach((tone) => {
-    const opt = document.createElement('option');
-    opt.value = tone.id;
-    opt.textContent = tone.name;
-    toneSelect.appendChild(opt);
+  // ── Sağlayıcı ve Anahtar Kontrol Fonksiyonu ──
+  function checkModelKey(modelId, callback) {
+    let providerName = 'Google Gemini';
+    let keyStorageName = 'apiKey';
+
+    if (modelId.startsWith('gemini')) {
+      providerName = 'Google Gemini';
+      keyStorageName = 'apiKey';
+    } else if (modelId.startsWith('llama')) {
+      providerName = 'Groq';
+      keyStorageName = 'groqApiKey';
+    } else if (modelId.startsWith('command')) {
+      providerName = 'Cohere';
+      keyStorageName = 'cohereApiKey';
+    } else if (modelId.includes('Qwen') || modelId.includes('/')) {
+      providerName = 'Hugging Face';
+      keyStorageName = 'hfApiKey';
+    } else if (modelId.startsWith('gpt')) {
+      providerName = 'OpenAI';
+      keyStorageName = 'openaiApiKey';
+    } else if (modelId.startsWith('claude')) {
+      providerName = 'Anthropic Claude';
+      keyStorageName = 'anthropicApiKey';
+    } else if (modelId.startsWith('deepseek')) {
+      providerName = 'DeepSeek';
+      keyStorageName = 'deepseekApiKey';
+    }
+
+    chrome.storage.local.get([keyStorageName], (data) => {
+      const hasKey = !!(data[keyStorageName] && data[keyStorageName].trim());
+      if (!hasKey) {
+        keyWarningText.textContent = `⚠️ ${providerName} API Anahtarı girilmemiş!`;
+        keyWarningBox.classList.remove('hidden');
+      } else {
+        keyWarningBox.classList.add('hidden');
+      }
+      if (callback) callback(hasKey);
+    });
+  }
+
+  // ── Model Değişimi (Hem ayarları günceller hem uyarıyı tazeler) ──
+  modelSelect.addEventListener('change', () => {
+    const newModel = modelSelect.value;
+    chrome.storage.local.set({ selectedModel: newModel }, () => {
+      checkModelKey(newModel, (hasKey) => {
+        if (hasKey) {
+          setStatus(t.statusDefaultModelUpdated || '✓ Varsayılan model güncellendi', 'success');
+        } else {
+          setStatus('Uyarı: Model API anahtarı eksik!', 'error');
+        }
+      });
+    });
   });
 
-  // ── Ayarları yükle ──
+  // ── Ton Butonları Tıklama (Aktif yap + Metin varsa anında dönüştür) ──
+  toneCardBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      toneCardBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedTone = btn.getAttribute('data-tone');
+
+      // Kullanıcının metni varsa ve işlem çalışmıyorsa direkt dönüştür
+      if (inputText.value.trim() && !transformBtn.disabled) {
+        runTransformation();
+      }
+    });
+  });
+
+  // ── Ayarları Yükle ──
   const settings = await StorageRepository.getSettings();
 
   const hasAnyKey = !!(
@@ -93,15 +155,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   apiAlert.classList.toggle('hidden', hasAnyKey);
 
+  // Kayıtlı model seçimi
+  if (settings.selectedModel) {
+    modelSelect.value = settings.selectedModel;
+  }
+  checkModelKey(modelSelect.value);
+
+  // Kayıtlı varsayılan ton seçimi
   if (settings.defaultTone) {
-    toneSelect.value = settings.defaultTone;
+    selectedTone = settings.defaultTone;
+    toneCardBtns.forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-tone') === selectedTone);
+    });
   }
 
   // Son oturumdan metni geri yükle
   const lastState = await StorageRepository.getLastResult();
   if (lastState.lastInputText) inputText.value = lastState.lastInputText;
   if (lastState.lastOutputText) outputText.value = lastState.lastOutputText;
-  if (lastState.lastTone) toneSelect.value = lastState.lastTone;
+  if (lastState.lastTone) {
+    selectedTone = lastState.lastTone;
+    toneCardBtns.forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-tone') === selectedTone);
+    });
+  }
 
   // Dili uygula
   applyLanguage();
@@ -117,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
   openOptionsBtn.addEventListener('click', openOptions);
   if (goToOptionsBtn) goToOptionsBtn.addEventListener('click', openOptions);
+  if (warningSettingsBtn) warningSettingsBtn.addEventListener('click', openOptions);
 
   // ── Panodan yapıştır ──
   pasteBtn.addEventListener('click', async () => {
@@ -154,39 +232,50 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // ── Dönüştür ──
-  transformBtn.addEventListener('click', async () => {
+  // ── Dönüştürme Yürütücüsü ──
+  async function runTransformation() {
     const text = inputText.value.trim();
     if (!text) {
       setStatus(t.statusEnterText, 'error');
       return;
     }
 
-    setLoading(true);
-    setStatus(t.statusProcessing, '');
-
-    try {
-      const toneId = toneSelect.value;
-      const result = await TextTransformService.transform(text, toneId);
-      outputText.value = result;
-      setStatus(t.statusDone, 'success');
-
-      // Otomatik kopyalama
-      const currentSettings = await StorageRepository.getSettings();
-      if (currentSettings.autoCopy) {
-        await navigator.clipboard.writeText(result);
-        setStatus(t.statusCopied, 'success');
+    const curModel = modelSelect.value;
+    checkModelKey(curModel, async (hasKey) => {
+      if (!hasKey) {
+        setStatus(t.keyMissing || 'Model API anahtarı eksik!', 'error');
+        outputText.value = '⚠️ Lütfen seçtiğiniz model için eklenti ayarlarından API anahtarınızı girin.';
+        return;
       }
 
-      // Son durumu kaydet
-      await StorageRepository.saveLastResult(text, result, toneId);
-    } catch (err) {
-      setStatus(t.statusError, 'error');
-      outputText.value = `Hata: ${err.message}`;
-    } finally {
-      setLoading(false);
-    }
-  });
+      setLoading(true);
+      setStatus(t.statusProcessing, '');
+
+      try {
+        const result = await TextTransformService.transform(text, selectedTone, curModel);
+        outputText.value = result;
+        setStatus(t.statusDone, 'success');
+
+        // Otomatik kopyalama
+        const currentSettings = await StorageRepository.getSettings();
+        if (currentSettings.autoCopy) {
+          await navigator.clipboard.writeText(result);
+          setStatus(t.statusCopied, 'success');
+        }
+
+        // Son durumu kaydet
+        await StorageRepository.saveLastResult(text, result, selectedTone);
+      } catch (err) {
+        setStatus(t.statusError, 'error');
+        outputText.value = `Hata: ${err.message}`;
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
+
+  // ── Dönüştür Butonu ──
+  transformBtn.addEventListener('click', runTransformation);
 
   // ── Yardımcılar ──
   function setLoading(isLoading) {
@@ -196,7 +285,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       btnText.textContent = t.processing;
     } else {
       loader.classList.add('hidden');
-      btnText.textContent = t.convertBtn;
+      btnText.textContent = t.transform || '⚡ Dönüştür';
     }
   }
 
