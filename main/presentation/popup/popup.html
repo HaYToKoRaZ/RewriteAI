@@ -60,6 +60,20 @@
       <button id="warningSettingsBtn" class="warning-settings-btn" type="button">⚙️ Ayarlara Git</button>
     </div>
 
+    <!-- Twitter Modu Çubuğu -->
+    <div class="twitter-bar" id="twitterBar">
+      <button id="twitterModeBtn" class="twitter-toggle" type="button">
+        <span class="twitter-x-icon">𝕏</span>
+        <span id="twitterModeLabel">Twitter / X Modu</span>
+      </button>
+      <div class="twitter-right">
+        <span class="twitter-limit-hint" id="twitterLimitHint">≤ 280 karakter</span>
+        <div class="toggle-pill" id="twitterTogglePill">
+          <div class="toggle-thumb"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Ana İçerik -->
     <main class="main-content">
 
@@ -75,32 +89,40 @@
         <textarea id="inputText" placeholder="Metninizi buraya yazın veya yapıştırın..." spellcheck="false"></textarea>
       </div>
 
-      <!-- Ton Seçim Izgarası (Açıklamasız, Temiz ve Şık 8 Buton) -->
+      <!-- Ton Seçim Izgarası -->
       <div class="tone-grid-container">
         <div class="tone-grid">
-          <button class="tone-card-btn active" data-tone="fix_grammar" type="button">
-            <strong>✍️ İmla & Dilbilgisi</strong>
+          <button class="tone-card-btn active" data-tone="fix_grammar" type="button" title="✍️ İmla &amp; Dilbilgisi">
+            <span class="tone-emoji">✍️</span>
+            <strong>İmla</strong>
           </button>
-          <button class="tone-card-btn" data-tone="daily" type="button">
-            <strong>💬 Günlük & Samimi</strong>
+          <button class="tone-card-btn" data-tone="daily" type="button" title="💬 Günlük &amp; Samimi">
+            <span class="tone-emoji">💬</span>
+            <strong>Günlük</strong>
           </button>
-          <button class="tone-card-btn" data-tone="formal" type="button">
-            <strong>💼 Resmi & Kurumsal</strong>
+          <button class="tone-card-btn" data-tone="formal" type="button" title="💼 Resmi &amp; Kurumsal">
+            <span class="tone-emoji">💼</span>
+            <strong>Resmi</strong>
           </button>
-          <button class="tone-card-btn" data-tone="slang" type="button">
-            <strong>🔥 Argo & Sokak Ağzı</strong>
+          <button class="tone-card-btn" data-tone="slang" type="button" title="🔥 Argo &amp; Sokak Ağzı">
+            <span class="tone-emoji">🔥</span>
+            <strong>Argo</strong>
           </button>
-          <button class="tone-card-btn" data-tone="academic" type="button">
-            <strong>🎓 Akademik & Ağır</strong>
+          <button class="tone-card-btn" data-tone="academic" type="button" title="🎓 Akademik &amp; Ağır">
+            <span class="tone-emoji">🎓</span>
+            <strong>Akademik</strong>
           </button>
-          <button class="tone-card-btn" data-tone="gamer" type="button">
-            <strong>🎮 Gamer</strong>
+          <button class="tone-card-btn" data-tone="gamer" type="button" title="🎮 Gamer">
+            <span class="tone-emoji">🎮</span>
+            <strong>Gamer</strong>
           </button>
-          <button class="tone-card-btn" data-tone="techie" type="button">
-            <strong>💻 Teknoloji Kurdu</strong>
+          <button class="tone-card-btn" data-tone="techie" type="button" title="💻 Teknoloji Kurdu">
+            <span class="tone-emoji">💻</span>
+            <strong>Tekno</strong>
           </button>
-          <button class="tone-card-btn" data-tone="summarize" type="button">
-            <strong>📌 Özetle</strong>
+          <button class="tone-card-btn" data-tone="summarize" type="button" title="📌 Özetle">
+            <span class="tone-emoji">📌</span>
+            <strong>Özetle</strong>
           </button>
         </div>
       </div>
@@ -118,6 +140,9 @@
           </div>
         </div>
         <textarea id="outputText" placeholder="Dönüştürülen metin burada belirecek..." readonly></textarea>
+        <div class="output-char-bar" id="outputCharBar">
+          <span id="outputCharCount">0 karakter</span>
+        </div>
       </div>
 
     </main>

@@ -10,7 +10,8 @@ export const DEFAULT_SETTINGS = {
   defaultTone: 'fix_grammar',
   autoCopy: false,
   showNotifications: true,
-  showSelectionBubble: false
+  showSelectionBubble: false,
+  twitterMode: false
 };
 
 export const AVAILABLE_MODELS = [

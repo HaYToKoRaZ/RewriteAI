@@ -10,7 +10,7 @@ import { TONE_DEFINITIONS } from '../core/TonePrompts.js';
 import { Logger } from '../core/Logger.js';
 
 export class TextTransformService {
-  static async transform(text, toneId = 'fix_grammar', overrideModel = null, targetLanguage = 'auto') {
+  static async transform(text, toneId = 'fix_grammar', overrideModel = null, targetLanguage = 'auto', twitterMode = false) {
     if (!text || text.trim() === '') {
       throw new Error('Lütfen dönüştürülecek bir metin girin.');
     }
@@ -35,9 +35,14 @@ export class TextTransformService {
       langInstruction = 'DİL KURALI (ÇOK ÖNEMLİ): Çıktıyı MUTLAKA girdi metninin kendi orijinal dilinde üret. Girdi İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca yaz. Asla dili değiştirme veya çeviri yapma.';
     }
 
-    const prompt = `${toneConfig.prompt}\n\n${langInstruction}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
+    // Twitter / X karakter kısıtı
+    const twitterInstruction = twitterMode
+      ? '\n\nTWITTER/X MODU (KESİNLİKLE UYULMALI): Ürettiğin metnin toplam uzunluğu, boşluklar ve noktalama dahil olmak üzere 280 karakteri ASLA geçmemelidir. Bu en yüksek öncelikli kuraldır. Gerekirse metni kısalt, gereksiz sözcükleri çıkar; ancak ana mesajı koru.'
+      : '';
 
-    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneConfig.name}, Dil: ${targetLanguage}`);
+    const prompt = `${toneConfig.prompt}\n\n${langInstruction}${twitterInstruction}\n\nİşlenecek Metin:\n"""\n${text}\n"""`;
+
+    Logger.log(`Metin işleniyor... Model: ${activeModelId} (${modelMeta.provider}), Ton: ${toneConfig.name}, Dil: ${targetLanguage}, Twitter: ${twitterMode}`);
 
     let result = '';
 

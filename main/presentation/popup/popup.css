@@ -277,41 +277,54 @@ body {
 
 .warning-settings-btn:hover { background: #dc2626; }
 
-/* ── Tone Cards Grid (Content Modal Design) ── */
+/* ── Tone Cards Grid ── */
 .tone-grid-container {
   flex-shrink: 0;
+  padding: 0 14px 6px;
 }
 
 .tone-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 5px;
 }
 
 .tone-card-btn {
   background: var(--panel-bg);
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  padding: 8px 6px;
+  padding: 8px 4px 6px;
   color: #e2e8f0;
   text-align: center;
   cursor: pointer;
   transition: all 0.15s ease;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 3px;
   font-family: inherit;
   outline: none;
   user-select: none;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.tone-emoji {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: block;
 }
 
 .tone-card-btn strong {
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 700;
   color: #f1f5f9;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: block;
+  width: 100%;
 }
 
 .tone-card-btn small {
@@ -489,6 +502,132 @@ textarea::placeholder { color: #2d3f57; }
 
 #statusInfo.success { color: var(--success); }
 #statusInfo.error { color: #f87171; }
+
+/* ── Twitter / X Modu Çubuğu ── */
+.twitter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  background: var(--panel-alt);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.twitter-bar.twitter-active {
+  background: rgba(29, 155, 240, 0.08);
+  border-bottom-color: rgba(29, 155, 240, 0.3);
+}
+
+.twitter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-soft);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.twitter-bar.twitter-active .twitter-toggle {
+  color: #1d9bf0;
+}
+
+.twitter-x-icon {
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  font-style: normal;
+}
+
+.twitter-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.twitter-limit-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.twitter-bar.twitter-active .twitter-limit-hint {
+  opacity: 1;
+  color: #1d9bf0;
+}
+
+/* Toggle Pill */
+.toggle-pill {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--border-light);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.twitter-bar.twitter-active .toggle-pill {
+  background: #1d9bf0;
+}
+
+.toggle-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+}
+
+.twitter-bar.twitter-active .toggle-thumb {
+  transform: translateX(16px);
+}
+
+/* Output Karakter Sayacı */
+.output-char-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 3px 10px;
+  background: var(--input-bg);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.output-char-bar.hidden { display: none; }
+
+#outputCharCount {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: 'Inter', monospace;
+  transition: color 0.15s;
+}
+
+#outputCharCount.over-limit {
+  color: #f87171;
+}
+
+#outputCharCount.near-limit {
+  color: #fbbf24;
+}
+
+#outputCharCount.under-limit {
+  color: var(--success);
+}
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }

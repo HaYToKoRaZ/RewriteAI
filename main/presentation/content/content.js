@@ -238,39 +238,64 @@
 
         <div class="rewriteai-field">
           <label id="rewriteai-lbl-selected">Seçilen Metin:</label>
-          <div id="rewriteai-preview-text" class="rewriteai-text-box"></div>
+          <textarea id="rewriteai-preview-text" class="rewriteai-preview-textarea" spellcheck="true"></textarea>
+        </div>
+
+        <!-- Twitter Modu Satırı -->
+        <div class="rewriteai-twitter-bar" id="rewriteai-twitter-bar">
+          <button id="rewriteai-twitter-btn" class="rewriteai-twitter-toggle" type="button">
+            <span class="rewriteai-x-icon">𝕏</span>
+            <span>Twitter / X Modu</span>
+          </button>
+          <div class="rewriteai-twitter-right">
+            <span class="rewriteai-limit-hint" id="rewriteai-limit-hint">≤ 280 karakter</span>
+            <div class="rewriteai-toggle-pill" id="rewriteai-toggle-pill">
+              <div class="rewriteai-toggle-thumb"></div>
+            </div>
+          </div>
         </div>
 
         <div class="rewriteai-tone-grid">
-          <button class="rewriteai-tone-btn active" data-tone="fix_grammar" type="button">
-            <strong>✍️ İmla & Dilbilgisi</strong>
+          <button class="rewriteai-tone-btn active" data-tone="fix_grammar" type="button" title="✍️ İmla &amp; Dilbilgisi">
+            <span class="rewriteai-tone-emoji">✍️</span>
+            <strong>İmla</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="daily" type="button">
-            <strong>💬 Günlük & Samimi</strong>
+          <button class="rewriteai-tone-btn" data-tone="daily" type="button" title="💬 Günlük &amp; Samimi">
+            <span class="rewriteai-tone-emoji">💬</span>
+            <strong>Günlük</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="formal" type="button">
-            <strong>💼 Resmi & Kurumsal</strong>
+          <button class="rewriteai-tone-btn" data-tone="formal" type="button" title="💼 Resmi &amp; Kurumsal">
+            <span class="rewriteai-tone-emoji">💼</span>
+            <strong>Resmi</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="slang" type="button">
-            <strong>🔥 Argo & Sokak Ağzı</strong>
+          <button class="rewriteai-tone-btn" data-tone="slang" type="button" title="🔥 Argo &amp; Sokak Ağzı">
+            <span class="rewriteai-tone-emoji">🔥</span>
+            <strong>Argo</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="academic" type="button">
-            <strong>🎓 Akademik & Ağır</strong>
+          <button class="rewriteai-tone-btn" data-tone="academic" type="button" title="🎓 Akademik &amp; Ağır">
+            <span class="rewriteai-tone-emoji">🎓</span>
+            <strong>Akademik</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="gamer" type="button">
-            <strong>🎮 Gamer</strong>
+          <button class="rewriteai-tone-btn" data-tone="gamer" type="button" title="🎮 Gamer">
+            <span class="rewriteai-tone-emoji">🎮</span>
+            <strong>Gamer</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="techie" type="button">
-            <strong>💻 Teknoloji Kurdu</strong>
+          <button class="rewriteai-tone-btn" data-tone="techie" type="button" title="💻 Teknoloji Kurdu">
+            <span class="rewriteai-tone-emoji">💻</span>
+            <strong>Tekno</strong>
           </button>
-          <button class="rewriteai-tone-btn" data-tone="summarize" type="button">
-            <strong>📌 Özetle</strong>
+          <button class="rewriteai-tone-btn" data-tone="summarize" type="button" title="📌 Özetle">
+            <span class="rewriteai-tone-emoji">📌</span>
+            <strong>Özetle</strong>
           </button>
         </div>
 
         <div class="rewriteai-field">
           <label id="rewriteai-lbl-result">Dönüştürülen Sonuç:</label>
           <textarea id="rewriteai-result-text" placeholder="Dönüşüm sonucunuz burada belirecek..." readonly></textarea>
+          <div class="rewriteai-char-bar" id="rewriteai-char-bar">
+            <span id="rewriteai-char-count">0 karakter</span>
+          </div>
         </div>
       </div>
 
@@ -437,9 +462,10 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .rewriteai-text-box {
-      max-height: 90px;
-      overflow-y: auto;
+    .rewriteai-preview-textarea {
+      width: 100%;
+      height: 90px;
+      max-height: 120px;
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 8px;
@@ -447,31 +473,52 @@
       font-size: 13px;
       line-height: 1.4;
       color: #cbd5e1;
+      resize: vertical;
+      box-sizing: border-box;
+      outline: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      transition: border-color 0.15s;
     }
+    .rewriteai-preview-textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56,189,248,0.12);
+    }
+    .rewriteai-preview-textarea::placeholder { color: #2d3f57; }
     .rewriteai-tone-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
+      gap: 6px;
     }
     .rewriteai-tone-btn {
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 8px;
-      padding: 9px 6px;
+      padding: 8px 4px 6px;
       color: #e2e8f0;
       text-align: center;
       cursor: pointer;
       transition: all 0.15s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 3px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .rewriteai-tone-emoji {
+      font-size: 1.05rem;
+      line-height: 1;
+      display: block;
     }
     .rewriteai-tone-btn strong {
-      font-size: 11.5px;
+      font-size: 0.64rem;
       font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: block;
+      width: 100%;
     }
     .rewriteai-tone-btn:hover { border-color: #38bdf8; background: #24344d; transform: translateY(-1px); }
     .rewriteai-tone-btn.active {
@@ -480,6 +527,92 @@
       color: #38bdf8;
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
     }
+    /* Twitter Modu Satırı */
+    .rewriteai-twitter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      background: #0f1d30;
+      border: 1px solid #1e3a52;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .rewriteai-twitter-bar.twitter-active {
+      background: rgba(29, 155, 240, 0.1);
+      border-color: rgba(29, 155, 240, 0.4);
+    }
+    .rewriteai-twitter-toggle {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 0;
+      transition: color 0.15s;
+    }
+    .rewriteai-twitter-bar.twitter-active .rewriteai-twitter-toggle { color: #1d9bf0; }
+    .rewriteai-x-icon { font-size: 15px; font-weight: 900; line-height: 1; }
+    .rewriteai-twitter-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rewriteai-limit-hint {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .rewriteai-twitter-bar.twitter-active .rewriteai-limit-hint { opacity: 1; color: #1d9bf0; }
+    .rewriteai-toggle-pill {
+      width: 34px;
+      height: 18px;
+      border-radius: 9px;
+      background: #334155;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .rewriteai-twitter-bar.twitter-active .rewriteai-toggle-pill { background: #1d9bf0; }
+    .rewriteai-toggle-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+    }
+    .rewriteai-twitter-bar.twitter-active .rewriteai-toggle-thumb { transform: translateX(16px); }
+    /* Karakter Sayacı */
+    .rewriteai-char-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 3px 8px;
+      background: #020617;
+      border: 1px solid #334155;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+    }
+    #rewriteai-char-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      transition: color 0.15s;
+    }
+    #rewriteai-char-count.over-limit { color: #f87171; }
+    #rewriteai-char-count.near-limit { color: #fbbf24; }
+    #rewriteai-char-count.ok-count { color: #34d399; }
     #rewriteai-result-text {
       width: 100%;
       height: 160px;
@@ -672,6 +805,53 @@
 
   let selectedTone = 'fix_grammar';
   let targetLang = 'auto';
+  let modalTwitterMode = false;
+
+  // Twitter modu DOM ref'leri
+  const twitterBarEl = document.getElementById('rewriteai-twitter-bar');
+  const twitterBtnEl = document.getElementById('rewriteai-twitter-btn');
+  const twitterPillEl = document.getElementById('rewriteai-toggle-pill');
+  const charCountEl = document.getElementById('rewriteai-char-count');
+
+  // Twitter modu UI güncelleme
+  function applyModalTwitterUI() {
+    if (modalTwitterMode) {
+      twitterBarEl && twitterBarEl.classList.add('twitter-active');
+    } else {
+      twitterBarEl && twitterBarEl.classList.remove('twitter-active');
+    }
+  }
+
+  // Karakter sayacı güncelle
+  function updateModalCharCount(text) {
+    if (!charCountEl) return;
+    const len = (text || '').length;
+    charCountEl.className = '';
+    if (modalTwitterMode) {
+      charCountEl.textContent = `${len} / 280`;
+      if (len > 280) charCountEl.classList.add('over-limit');
+      else if (len > 240) charCountEl.classList.add('near-limit');
+      else if (len > 0) charCountEl.classList.add('ok-count');
+    } else {
+      charCountEl.textContent = `${len} karakter`;
+      if (len > 0) charCountEl.classList.add('ok-count');
+    }
+  }
+
+  // Toggle
+  if (twitterBtnEl) {
+    twitterBtnEl.addEventListener('click', () => {
+      modalTwitterMode = !modalTwitterMode;
+      safeStorageSet({ twitterMode: modalTwitterMode });
+      applyModalTwitterUI();
+      updateModalCharCount(resultBox ? resultBox.value : '');
+    });
+  }
+  if (twitterPillEl) {
+    twitterPillEl.addEventListener('click', () => {
+      if (twitterBtnEl) twitterBtnEl.click();
+    });
+  }
 
   toneBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -680,7 +860,8 @@
       selectedTone = btn.getAttribute('data-tone');
 
       // Metin varsa ve dönüştürme çalışmıyorsa otomatik başlat
-      if (currentSelectedText && !applyBtn.disabled) {
+      const hasText = (previewBox && previewBox.value.trim()) || currentSelectedText;
+      if (hasText && !applyBtn.disabled) {
         // Sonucu temizle ve anında dönüştür
         resultBox.value = '';
         copyBtn.disabled = true;
@@ -878,7 +1059,7 @@
   }
 
   function openModal(text, autoRun = false) {
-    previewBox.textContent = text;
+    previewBox.value = text;
     resultBox.value = '';
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
@@ -910,6 +1091,15 @@
         if (langData && langData.selectedTargetLanguage) {
           targetLang = langData.selectedTargetLanguage;
           if (targetLangSelect) targetLangSelect.value = targetLang;
+        }
+      });
+
+      // Twitter modu yükle
+      safeStorageGet({ twitterMode: false }, (twData) => {
+        if (twData) {
+          modalTwitterMode = !!twData.twitterMode;
+          applyModalTwitterUI();
+          updateModalCharCount('');
         }
       });
 
@@ -974,7 +1164,9 @@
 
   // Dönüştürme İsteği (Background üzerinden çalıştırma)
   applyBtn.addEventListener('click', async () => {
-    if (!currentSelectedText) return;
+    // Kullanıcının düzenlediği metin öncelikli; düzenlenmemişse orijinal seçim
+    const textToTransform = (previewBox && previewBox.value.trim()) || currentSelectedText;
+    if (!textToTransform) return;
 
     if (!isContextValid()) {
       statusMsg.textContent = t.contextInvalidated;
@@ -990,10 +1182,11 @@
 
     safeSendMessage({
       type: 'TRANSFORM_TEXT',
-      text: currentSelectedText,
+      text: textToTransform,
       tone: selectedTone,
       model: chosenModel,
-      targetLanguage: chosenTargetLang
+      targetLanguage: chosenTargetLang,
+      twitterMode: modalTwitterMode
     }, (response) => {
       applyBtn.disabled = false;
       applyBtn.textContent = t.transform;
@@ -1003,6 +1196,7 @@
         copyBtn.disabled = false;
         replaceBtn.disabled = false;
         statusMsg.textContent = t.statusDone;
+        updateModalCharCount(response.result);
         updateModalQuota();
       } else {
         const err = response?.error || 'Bilinmeyen bir hata oluştu.';

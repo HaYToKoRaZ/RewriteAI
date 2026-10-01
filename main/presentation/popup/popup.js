@@ -30,9 +30,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const outputPanelLabel = document.getElementById('outputPanelLabel');
   const langBtnTr = document.getElementById('langBtnTr');
   const langBtnEn = document.getElementById('langBtnEn');
+  const twitterModeBtn = document.getElementById('twitterModeBtn');
+  const twitterBar = document.getElementById('twitterBar');
+  const twitterTogglePill = document.getElementById('twitterTogglePill');
+  const twitterLimitHint = document.getElementById('twitterLimitHint');
+  const outputCharBar = document.getElementById('outputCharBar');
+  const outputCharCount = document.getElementById('outputCharCount');
 
   let selectedTone = 'fix_grammar';
   let targetLang = 'auto';
+  let twitterMode = false;
 
   // ── Dil Başlatma ──
   let lang = await detectLanguage();
@@ -238,6 +245,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // Kayıtlı Twitter modu
+  chrome.storage.local.get({ twitterMode: false }, (items) => {
+    twitterMode = !!items.twitterMode;
+    applyTwitterUI();
+  });
+
   // Kayıtlı varsayılan ton seçimi
   if (settings.defaultTone) {
     selectedTone = settings.defaultTone;
@@ -260,10 +273,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Dili uygula
   applyLanguage();
 
-  // ── Karakter sayımı ──
+  // ── Karakter sayımı (giriş) ──
   inputText.addEventListener('input', () => {
     charCount.textContent = t.charCount(inputText.value.length);
   });
+
+  // ── Twitter Modu UI Güncelleme ──
+  function applyTwitterUI() {
+    if (twitterMode) {
+      twitterBar.classList.add('twitter-active');
+    } else {
+      twitterBar.classList.remove('twitter-active');
+    }
+    // Sayac her zaman görünür, sadece içeriği güncelle
+    updateOutputCharCounter(outputText.value);
+  }
+
+  // ── Output karakter sayacı güncelle ──
+  function updateOutputCharCounter(text) {
+    const len = (text || '').length;
+    outputCharCount.className = '';
+    if (twitterMode) {
+      outputCharCount.textContent = `${len} / 280`;
+      if (len > 280) {
+        outputCharCount.classList.add('over-limit');
+      } else if (len > 240) {
+        outputCharCount.classList.add('near-limit');
+      } else if (len > 0) {
+        outputCharCount.classList.add('under-limit');
+      }
+    } else {
+      outputCharCount.textContent = `${len} karakter`;
+      if (len > 0) outputCharCount.classList.add('under-limit');
+    }
+  }
+
+  // ── Twitter Modu Toggle ──
+  if (twitterModeBtn) {
+    twitterModeBtn.addEventListener('click', () => {
+      twitterMode = !twitterMode;
+      chrome.storage.local.set({ twitterMode });
+      applyTwitterUI();
+      if (twitterMode && outputText.value) {
+        updateOutputCharCounter(outputText.value);
+      }
+    });
+  }
+  if (twitterTogglePill) {
+    twitterTogglePill.addEventListener('click', () => {
+      twitterModeBtn.click();
+    });
+  }
 
   // ── Ayarlar açma ──
   const openOptions = () => {
@@ -330,9 +390,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       setStatus(t.statusProcessing, '');
 
       try {
-        const result = await TextTransformService.transform(text, selectedTone, curModel, curTargetLang);
+        const result = await TextTransformService.transform(text, selectedTone, curModel, curTargetLang, twitterMode);
         outputText.value = result;
         setStatus(t.statusDone, 'success');
+        // Output karakter sayacı
+        if (twitterMode) updateOutputCharCounter(result);
 
         // Otomatik kopyalama
         const currentSettings = await StorageRepository.getSettings();
