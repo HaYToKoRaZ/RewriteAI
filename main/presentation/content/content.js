@@ -454,6 +454,15 @@
       toneBtns.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       selectedTone = btn.getAttribute('data-tone');
+
+      // Metin varsa ve dönüştürme çalışmıyorsa otomatik başlat
+      if (currentSelectedText && !applyBtn.disabled) {
+        // Sonucu temizle ve anında dönüştür
+        resultBox.value = '';
+        copyBtn.disabled = true;
+        replaceBtn.disabled = true;
+        applyBtn.click();
+      }
     });
   });
 
