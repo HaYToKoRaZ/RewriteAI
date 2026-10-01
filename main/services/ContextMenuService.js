@@ -69,12 +69,12 @@ export class ContextMenuService {
   static async handleMenuClick(info, tab) {
     // Web sitesi ve portal linkleri
     if (info.menuItemId === 'rewriteai_visit_site') {
-      chrome.tabs.create({ url: 'https://rewriteai.app' });
+      chrome.tabs.create({ url: 'https://haytokoraz.github.io/' });
       return;
     }
 
     if (info.menuItemId === 'rewriteai_open_portal') {
-      chrome.tabs.create({ url: 'https://rewriteai.app/portal' });
+      chrome.tabs.create({ url: 'https://haytokoraz.github.io/' });
       return;
     }
 
