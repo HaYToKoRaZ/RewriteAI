@@ -15,10 +15,10 @@
 
 ---
 
-<!-- Status & Information Badges (Local Repo Assets + Live Dynamic Badges) -->
+<!-- Status & Information Badges (Local Repo Assets) -->
 <p>
   <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank">
-    <img src="https://img.shields.io/github/v/release/HaYToKoRaZ/RewriteAI?style=for-the-badge&logo=github&label=VERSION&color=10b981" alt="GitHub Latest Release Version" />
+    <img src="main/assets/badges/version.svg" alt="Version v1.3.1" />
   </a>
   <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
