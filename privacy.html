@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - RewriteAI</title>
+  <meta name="description" content="RewriteAI Browser Extension Privacy Policy - 100% Client-Side, Zero Telemetry.">
+  <link rel="icon" type="image/png" href="assets/icons/icon32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .policy-container {
+      max-width: 860px;
+      margin: 120px auto 60px;
+      padding: 0 24px;
+    }
+    .policy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    .policy-card h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .policy-date {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 28px;
+    }
+    .policy-card h2 {
+      font-size: 1.35rem;
+      color: var(--text-primary);
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .policy-card p, .policy-card li {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-size: 0.98rem;
+      margin-bottom: 12px;
+    }
+    .policy-card ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .highlight-box {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 4px 8px 8px 4px;
+      margin: 20px 0;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .back-btn:hover {
+      transform: translateX(-4px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-glow-orb bg-orb-1"></div>
+  <div class="bg-glow-orb bg-orb-2"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo-brand">
+        <img src="assets/icons/icon48.png" alt="RewriteAI Logo">
+        <span class="logo-title">RewriteAI</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-btn" style="padding: 8px 18px; font-size: 0.9rem;">
+          🏠 Ana Sayfa / Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="policy-container">
+    <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+
+    <div class="policy-card">
+      <h1>Gizlilik Politikası (Privacy Policy)</h1>
+      <div class="policy-date">Son Güncelleme / Last Updated: 01.10.2026 · Versiyon 1.3.0</div>
+
+      <div class="highlight-box">
+        <p style="margin: 0; color: #bae6fd; font-weight: 500;">
+          🔒 <strong>Özet Taahhüt:</strong> RewriteAI, gizliliğinize %100 saygı duyar. Eklentimiz hiçbir kişisel verinizi, gezinme geçmişinizi veya API anahtarınızı kendi sunucularına <strong>TOPLAMAZ, KAYDETMEZ ve ÜÇÜNCÜ TARAFLARLA PAYLAŞMAZ</strong>.
+        </p>
+      </div>
+
+      <h2>1. Veri Toplama ve Depolama (Data Collection & Storage)</h2>
+      <p>
+        RewriteAI tamamen istemci taraflı (client-side) çalışan bir tarayıcı uzantısıdır. Eklentiyi kullanabilmek için girdiğiniz yapay zeka API anahtarları (Google Gemini, OpenAI, Claude, Groq vb.) yalnızca tarayıcınızın kendi güvenli yerel depolama alanında (<code>chrome.storage.local</code>) şifreli olarak barındırılır.
+      </p>
+
+      <h2>2. Metin İşleme ve Yapay Zeka Sağlayıcıları</h2>
+      <p>
+        Web sayfalarında seçtiğiniz ve dönüştürmek istediğiniz metinler yalnızca dönüşüm anında sizin tercih ettiğiniz resmi AI sağlayıcısının API uç noktasına (örneğin <code>generativelanguage.googleapis.com</code> veya <code>api.openai.com</code>) doğrudan gönderilir:
+      </p>
+      <ul>
+        <li>Herhangi bir aracı veya proxy sunucu kullanılmaz.</li>
+        <li>Metinleriniz hiçbir ara veritabanına kaydedilmez.</li>
+        <li>İşlenen metin doğrudan tarayıcınıza döner ve sayfaya uygulanır.</li>
+      </ul>
+
+      <h2>3. İzinler ve Amacı (Permissions Used)</h2>
+      <ul>
+        <li><strong>storage:</strong> Tercihlerinizi ve API anahtarlarınızı tarayıcınızda yerel olarak saklamak için.</li>
+        <li><strong>contextMenus:</strong> Web sayfalarında metin seçtiğinizde sağ tık menüsünde RewriteAI seçeneklerini sunmak için.</li>
+        <li><strong>clipboardRead / clipboardWrite:</strong> Dönüştürülen metni panoya tek tıkla kopyalayabilmeniz veya yapıştırabilmeniz için.</li>
+        <li><strong>activeTab / scripting:</strong> Seçili metni otomatik algılayıp sayfa içinde hızlı dönüştürme kutusu (Content Modal) açabilmek için.</li>
+      </ul>
+
+      <h2>4. Üçüncü Taraf Hizmetleri (Third-Party Services)</h2>
+      <p>
+        Eklenti, kullanıcının seçtiği yapay zeka modelleriyle doğrudan iletişim kurar. Bu sağlayıcıların kendi gizlilik sözleşmeleri geçerlidir:
+      </p>
+      <ul>
+        <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--primary);">Google Privacy Policy</a></li>
+        <li><a href="https://openai.com/privacy/" target="_blank" rel="noopener" style="color:var(--primary);">OpenAI Privacy Policy</a></li>
+        <li><a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener" style="color:var(--primary);">Groq Privacy Policy</a></li>
+        <li><a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener" style="color:var(--primary);">Anthropic Privacy Policy</a></li>
+      </ul>
+
+      <h2>5. İletişim (Contact)</h2>
+      <p>
+        Gizlilik politikamız veya eklentiyle ilgili herhangi bir sorunuz olursa GitHub üzerinden iletişime geçebilirsiniz:
+      </p>
+      <p>
+        📂 GitHub: <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener" style="color:var(--primary);">https://github.com/HaYToKoRaZ/RewriteAI</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer" style="margin-top: 60px;">
+    <div class="container">
+      <p>© 2026 RewriteAI. Açık kaynak kodlu ve gizlilik odaklı tarayıcı eklentisi.</p>
+      <p style="margin-top:8px;">
+        <a href="index.html">Ana Sayfa</a> • 
+        <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener">GitHub</a> • 
+        <a href="privacy.html" style="color:var(--primary);">Privacy Policy</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

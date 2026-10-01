@@ -220,6 +220,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Privacy Policy Modal Logic
+  const openPrivacyModal = document.getElementById('openPrivacyModal');
+  const closePrivacyModal = document.getElementById('closePrivacyModal');
+  const privacyModal = document.getElementById('privacyModal');
+
+  if (openPrivacyModal && privacyModal) {
+    openPrivacyModal.addEventListener('click', (e) => {
+      // Eğer kullanıcı ctrl/cmd ile tıklamadıysa sayfadan ayrılmadan modal aç
+      if (!e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        privacyModal.classList.add('open');
+      }
+    });
+  }
+
+  if (closePrivacyModal && privacyModal) {
+    closePrivacyModal.addEventListener('click', () => {
+      privacyModal.classList.remove('open');
+    });
+
+    privacyModal.addEventListener('click', (e) => {
+      if (e.target === privacyModal) {
+        privacyModal.classList.remove('open');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && privacyModal.classList.contains('open')) {
+        privacyModal.classList.remove('open');
+      }
+    });
+  }
+
   // Detect user's browser language on first load
   const browserLang = (navigator.language || navigator.userLanguage || 'tr').toLowerCase();
   applyLanguage(browserLang.startsWith('tr') ? 'tr' : 'en');

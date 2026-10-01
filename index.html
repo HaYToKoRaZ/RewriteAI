@@ -336,10 +336,46 @@
       <p style="margin-top:8px;">
         <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener">📂 GitHub Deposu</a> • 
         <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank" rel="noopener">📦 En Son Sürümler (Releases)</a> • 
-        <a href="https://haytokoraz.github.io/" target="_blank" rel="noopener">🚀 Web Portalı</a>
+        <a href="https://haytokoraz.github.io/" target="_blank" rel="noopener">🚀 Web Portalı</a> • 
+        <a href="privacy.html" id="openPrivacyModal">🔒 Gizlilik Politikası (Privacy Policy)</a>
       </p>
     </div>
   </footer>
+
+  <!-- Privacy Policy Modal (Sayfadan Ayrılmadan Açılan Hızlı Panel) -->
+  <div class="modal-backdrop" id="privacyModal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="closePrivacyModal" aria-label="Kapat">&times;</button>
+      <div class="modal-body">
+        <h2>🔒 Gizlilik Politikası (Privacy Policy)</h2>
+        <p style="color:var(--text-muted);font-size:0.85rem;">Son Güncelleme / Last Updated: 01.10.2026</p>
+        
+        <div style="background:rgba(56, 189, 248, 0.08);border-left:4px solid var(--primary);padding:12px 16px;border-radius:4px;margin:16px 0;">
+          <p style="margin:0;color:#bae6fd;font-weight:500;">
+            RewriteAI, kişisel verilerinizi veya API anahtarlarınızı <strong>asla harici sunuculara göndermez</strong>. Tüm anahtarlarınız yalnızca kendi tarayıcınızın yerel depolama alanında (<code>chrome.storage.local</code>) saklanır.
+          </p>
+        </div>
+
+        <h3>1. Veri İşleme & İstemci Odaklı Mimari</h3>
+        <p>
+          Metin dönüştürme talepleri doğrudan bilgisayarınız ile resmi API sağlayıcıları (Google Gemini, OpenAI, Claude, Groq vb.) arasında uçtan uca gerçekleşir. Üçüncü taraf bir sunucu veya aracı proxy bulunmamaktadır.
+        </p>
+
+        <h3>2. Kullanılan İzinler</h3>
+        <ul>
+          <li><strong>storage:</strong> Ayarlarınızı ve API anahtarınızı yerel tutmak için.</li>
+          <li><strong>contextMenus:</strong> Sağ tık menüsüyle metin seçip hızlıca eklentiyi tetiklemek için.</li>
+          <li><strong>clipboardRead / clipboardWrite:</strong> Dönüştürülen metni panoya tek tıkla kopyalamak için.</li>
+          <li><strong>activeTab / scripting:</strong> Seçili metni okuyarak sayfa içi düzenleme modalını açmak için.</li>
+        </ul>
+
+        <h3>3. Bağımsız Sayfa ve İletişim</h3>
+        <p>
+          Ayrıntılı Gizlilik Politikası sayfamızı <a href="privacy.html" target="_blank" style="color:var(--primary);text-decoration:underline;">buradan</a> görüntüleyebilir veya kaynak kodlarını <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" style="color:var(--primary);text-decoration:underline;">GitHub Deposu</a> üzerinden denetleyebilirsiniz.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
