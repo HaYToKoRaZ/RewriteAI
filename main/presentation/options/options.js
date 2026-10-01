@@ -130,6 +130,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (quotaRpmTextEl) quotaRpmTextEl.innerHTML = t.quotaRpm;
     if (quotaRpdTextEl) quotaRpdTextEl.innerHTML = t.quotaRpd;
 
+    // Geri Bildirim ve Destek Kartı
+    const lblFeedbackTitle = document.getElementById('lblFeedbackTitle');
+    const lblFeedbackDesc = document.getElementById('lblFeedbackDesc');
+    const textGithubIssues = document.getElementById('textGithubIssues');
+    const textFeedbackMail = document.getElementById('textFeedbackMail');
+    const linkFeedbackMail = document.getElementById('linkFeedbackMail');
+
+    if (lblFeedbackTitle) lblFeedbackTitle.textContent = t.feedbackSectionTitle;
+    if (lblFeedbackDesc) lblFeedbackDesc.textContent = t.feedbackSectionDesc;
+    if (textGithubIssues) textGithubIssues.textContent = t.githubIssuesLink;
+    if (textFeedbackMail) textFeedbackMail.textContent = `✉️ korazhayto@gmail.com`;
+    if (linkFeedbackMail) {
+      const subject = lang === 'en' ? 'RewriteAI%20Feedback%20and%20Support' : 'RewriteAI%20Geri%20Bildirim%20ve%20Destek';
+      linkFeedbackMail.href = `mailto:korazhayto@gmail.com?subject=${subject}`;
+    }
+
     // Ton & Model Seçeneklerini güncelle
     renderToneOptions();
     renderModelOptions();

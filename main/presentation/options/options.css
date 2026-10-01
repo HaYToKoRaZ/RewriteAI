@@ -545,5 +545,71 @@ select:focus {
   border-radius: 50%;
 }
 
+/* Feedback & Support Card */
+.feedback-card {
+  margin-top: 36px;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.feedback-title {
+  font-size: 1.05rem;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.feedback-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-issues {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-issues:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #f87171;
+  transform: translateY(-2px);
+}
+
+.btn-mail {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.btn-mail:hover {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+
 
 
