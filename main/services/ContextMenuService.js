@@ -23,25 +23,25 @@ export class ContextMenuService {
         contexts: ['selection']
       });
 
-      // Ayırıcı
+      // Ayırıcı (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_separator',
         type: 'separator',
-        contexts: ['page', 'selection', 'link']
+        contexts: ['action']
       });
 
-      // Web sitesi linki
+      // Web sitesi linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_visit_site',
         title: '🌐 RewriteAI Web Sitesini Aç',
-        contexts: ['page', 'selection', 'link']
+        contexts: ['action']
       });
 
-      // Portal linki
+      // Portal linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_open_portal',
         title: '🚀 RewriteAI Portalı',
-        contexts: ['page', 'selection', 'link']
+        contexts: ['action']
       });
 
       Logger.log('Sağ tık menüsü (modal tetikleyici + site linkleri) oluşturuldu.');
