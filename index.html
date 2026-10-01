@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RewriteAI - Akıllı Tarayıcı Metin Düzenleyici & AI Ton Değiştirici</title>
+  <meta name="description" content="Chrome, Edge ve Helium tarayıcılarında herhangi bir metni seçin; tek tıkla imla düzeltin, üslup değiştirin ve Gemini, Groq, Claude ile metinlerinizi baştan yazın.">
+  <link rel="icon" type="image/png" href="assets/icons/icon32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-glow-orb bg-orb-1"></div>
+  <div class="bg-glow-orb bg-orb-2"></div>
+  <div class="bg-glow-orb bg-orb-3"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-wrap">
+      <a href="#" class="logo-brand">
+        <img src="assets/icons/icon48.png" alt="RewriteAI Logo">
+        <span class="logo-title">RewriteAI</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">Özellikler</a></li>
+        <li><a href="#preview" data-i18n="navPreview">Canlı Deneyim</a></li>
+        <li><a href="#providers" data-i18n="navProviders">AI Sağlayıcıları</a></li>
+        <li><a href="#download" data-i18n="navDownload">İndir</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Dil Seçici -->
+        <div class="lang-toggle" title="Dil / Language">
+          <button class="lang-btn active" id="btnLangTr">TR</button>
+          <button class="lang-btn" id="btnLangEn">EN</button>
+        </div>
+
+        <a href="#download" class="nav-btn" data-i18n="navInstallBtn">
+          🚀 Eklentiyi Edin
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span>✨</span> <span data-i18n="heroBadge">Çoklu AI Destekli Yeni Nesil Tarayıcı Eklentisi</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span data-i18n="heroTitleGradient">Tek Tıkla Seç, Dönüştür;</span><br>
+        <span data-i18n="heroTitleRest">Yazılarınıza Yapay Zeka Dokunuşu Yapın.</span>
+      </h1>
+
+      <p class="hero-subtitle" data-i18n="heroSubtitle">
+        İnternette gezinirken veya yazarken metinleri seçin; imla hatalarını anında giderin, resmi, samimi, akademik veya mizahi tonlara saniyeler içinde uyarlayın. Google Gemini, Groq, Claude ve OpenAI gücüyle.
+      </p>
+
+      <!-- Mağaza İndirme Butonları (Chrome, Edge, Helium) -->
+      <div class="store-buttons" id="download">
+        
+        <!-- 1. Chrome Web Store -->
+        <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank" rel="noopener" class="store-card-btn" id="btnStoreChrome">
+          <!-- Google Chrome SVG Logo -->
+          <svg class="store-icon" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            <circle cx="12" cy="12" r="5" fill="#EA4335"/>
+            <path fill="#FBBC05" d="M12 7a5 5 0 0 0-4.33 2.5L4.15 4.35A10 10 0 0 1 12 2v5z"/>
+            <path fill="#34A853" d="M12 17a5 5 0 0 0 4.33-2.5l3.52 5.15A10 10 0 0 1 12 22v-5z"/>
+          </svg>
+          <div class="store-info">
+            <span class="store-sub" data-i18n="storeSubChrome">Google Chrome İçin</span>
+            <span class="store-name">Chrome Mağazası</span>
+          </div>
+          <span class="store-badge" data-i18n="badgeOfficial">Resmi</span>
+        </a>
+
+        <!-- 2. Microsoft Edge Add-ons -->
+        <a href="https://microsoftedge.microsoft.com/addons/detail/rewriteai" target="_blank" rel="noopener" class="store-card-btn" id="btnStoreEdge">
+          <!-- Edge SVG Logo -->
+          <svg class="store-icon" viewBox="0 0 24 24" fill="#0078D7">
+            <path d="M21.9 12.8c-.2-4.8-4-8.7-8.9-8.7-4.2 0-7.8 2.8-8.8 6.7 1.1-.7 2.4-1.1 3.8-1.1 3.5 0 6.4 2.8 6.4 6.4 0 1.2-.3 2.3-.9 3.2 3.8-.5 7.1-3.2 8.4-6.5zm-15.6 1.8c.8-1.5 2.2-2.5 3.9-2.5 2.5 0 4.5 2 4.5 4.5 0 2.2-1.6 4-3.7 4.4-4.8.8-8.8-2.6-8.8-6.9 0-.8.1-1.6.4-2.4 1 1.4 2.3 2.4 3.7 2.9z"/>
+          </svg>
+          <div class="store-info">
+            <span class="store-sub" data-i18n="storeSubEdge">Microsoft Edge İçin</span>
+            <span class="store-name">Edge Eklentileri</span>
+          </div>
+          <span class="store-badge" data-i18n="badgeAddon">Eklenti</span>
+        </a>
+
+        <!-- 3. Helium Browser (Opens Chrome Web Store) -->
+        <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank" rel="noopener" class="store-card-btn" id="btnStoreHelium">
+          <!-- Helium SVG Atom/Shield Logo -->
+          <svg class="store-icon" viewBox="0 0 24 24" fill="#a855f7">
+            <circle cx="12" cy="12" r="9" stroke="#a855f7" stroke-width="2" fill="none"/>
+            <circle cx="12" cy="12" r="3" fill="#38bdf8"/>
+            <ellipse cx="12" cy="12" rx="8" ry="4" stroke="#c084fc" stroke-width="1.5" fill="none" transform="rotate(45 12 12)"/>
+            <ellipse cx="12" cy="12" rx="8" ry="4" stroke="#c084fc" stroke-width="1.5" fill="none" transform="rotate(-45 12 12)"/>
+          </svg>
+          <div class="store-info">
+            <span class="store-sub" data-i18n="storeSubHelium">Helium Browser İçin</span>
+            <span class="store-name">Helium (Chrome Mağaza)</span>
+          </div>
+          <span class="store-badge" data-i18n="badgeFast">Uyumlu</span>
+        </a>
+
+      </div>
+
+      <!-- Sevimli Kedi Maskotu Bölümü (Cat Companion) -->
+      <div class="cat-companion-wrapper">
+        <div class="cat-avatar-box">
+          <!-- Sevimli Kedi SVG İkonu -->
+          <svg class="cat-svg" viewBox="0 0 64 64" fill="none">
+            <!-- Kulaklar -->
+            <polygon points="12,18 20,4 28,16" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+            <polygon points="15,16 20,8 25,15" fill="#FDE68A"/>
+            <polygon points="52,18 44,4 36,16" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+            <polygon points="49,16 44,8 39,15" fill="#FDE68A"/>
+            <!-- Kafa -->
+            <ellipse cx="32" cy="34" rx="22" ry="18" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+            <!-- Yanak beyazlıkları -->
+            <ellipse cx="26" cy="38" rx="8" ry="6" fill="#FEF3C7"/>
+            <ellipse cx="38" cy="38" rx="8" ry="6" fill="#FEF3C7"/>
+            <!-- Gözler (Mutlu Kapalı Kavis) -->
+            <path d="M22 30 Q25 25 28 30" stroke="#78350F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <path d="M36 30 Q39 25 42 30" stroke="#78350F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            <!-- Burun & Ağız -->
+            <polygon points="32,36 30,34 34,34" fill="#EF4444"/>
+            <path d="M32 36 Q30 40 28 39" stroke="#78350F" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M32 36 Q34 40 36 39" stroke="#78350F" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Bıyıklar -->
+            <line x1="14" y1="36" x2="2" y2="34" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+            <line x1="14" y1="39" x2="3" y2="41" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="36" x2="62" y2="34" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="39" x2="61" y2="41" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cat-speech-bubble">
+          <div class="cat-name-tag" data-i18n="catName">🐱 RewriteBot Maskotu Mia</div>
+          <p class="cat-text" id="catQuoteText" data-i18n="catQuote">
+            "Miyav! İster e-posta yaz, ister tweet at, ister makale hazırla... Hatalarını düzeltip tam istediğin üslupla metnini pırıl pırıl yapıyorum!"
+          </p>
+        </div>
+        <button class="cat-purr-btn" id="catPurrBtn" data-i18n="catPurrBtn">🐾 Sev Beni</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Canlı Deneyim Mockup Önizleme -->
+  <section class="preview-section" id="preview">
+    <div class="container">
+      <div class="mockup-window">
+        <div class="mockup-header">
+          <div class="mockup-dots">
+            <span class="dot-red"></span>
+            <span class="dot-yellow"></span>
+            <span class="dot-green"></span>
+          </div>
+          <span class="mockup-title" data-i18n="mockupBarTitle">RewriteAI Content Modal & Ton Seçici Simülasyonu</span>
+          <div style="width:50px;"></div>
+        </div>
+
+        <div class="mockup-body">
+          <div class="mockup-tones-bar">
+            <button class="mockup-tone-chip active" data-mock-tone="fix_grammar" data-i18n="tone1">✍️ İmla & Dilbilgisi</button>
+            <button class="mockup-tone-chip" data-mock-tone="daily" data-i18n="tone2">💬 Günlük & Samimi</button>
+            <button class="mockup-tone-chip" data-mock-tone="formal" data-i18n="tone3">💼 Resmi & Kurumsal</button>
+            <button class="mockup-tone-chip" data-mock-tone="slang" data-i18n="tone4">🔥 Argo & Sokak Ağzı</button>
+            <button class="mockup-tone-chip" data-mock-tone="academic" data-i18n="tone5">🎓 Akademik</button>
+            <button class="mockup-tone-chip" data-mock-tone="summarize" data-i18n="tone6">📌 Özetle</button>
+          </div>
+
+          <div class="mockup-box">
+            <span class="mockup-box-title" data-i18n="mockupInputTitle">Orijinal Metin (Seçilen)</span>
+            <p class="mockup-content" id="mockInputText">
+              "slm yarınkı toplantı saat kacda olcak acaba sunumu yetıstıremedımde bıraz erteleyebılırmıyız"
+            </p>
+          </div>
+
+          <div class="mockup-box">
+            <span class="mockup-box-title" data-i18n="mockupOutputTitle">AI Çıktısı (Anında Dönüşüm)</span>
+            <p class="mockup-content mockup-result" id="mockOutputText">
+              "Selam, yarınki toplantı saat kaçta olacak acaba? Sunumu yetiştiremedim de, biraz erteleyebilir miyiz?"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Özellikler Bölümü -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge" data-i18n="featuresBadge">Neden RewriteAI?</span>
+        <h2 class="section-title" data-i18n="featuresTitle">Gelişmiş Yazım Asistanınız Her Sekmede Yanınızda</h2>
+        <p class="section-desc" data-i18n="featuresDesc">Karmaşık ayarlar veya kopyala-yapıştır zorunluluğu yok. Metni seçin, tonu belirleyin, sayfaya anında yerleştirin.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">⚡</div>
+          <h3 class="feature-title" data-i18n="feat1Title">Tek Tıkla Sayfada Değiştir</h3>
+          <p class="feature-text" data-i18n="feat1Text">Web sayfasında veya giriş alanında seçtiğiniz metni dönüştürdükten sonra tek tıkla doğrudan orijinal metnin yerine yerleştirir.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🎭</div>
+          <h3 class="feature-title" data-i18n="feat2Title">6 Farklı Üslup ve Ton</h3>
+          <p class="feature-text" data-i18n="feat2Text">İmla düzeltme, günlük konuşma, resmi iş dili, sokak argosu, akademik üslup veya anında özet çıkarma seçenekleri elinizin altında.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🆓</div>
+          <h3 class="feature-title" data-i18n="feat3Title">Ücretsiz Yüksek Kota</h3>
+          <p class="feature-text" data-i18n="feat3Text">Google Gemini ile günde 1.500 istek ve dakikada 15 istek ücretsiz kullanım. Kota takip paneli eklenti içine entegredir.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🌐</div>
+          <h3 class="feature-title" data-i18n="feat4Title">Çoklu Sağlayıcı Desteği</h3>
+          <p class="feature-text" data-i18n="feat4Text">Google Gemini, Groq, Cohere, Hugging Face, OpenAI, Anthropic Claude ve DeepSeek modelleri arasında dilediğiniz gibi geçiş yapın.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🔒</div>
+          <h3 class="feature-title" data-i18n="feat5Title">%100 Gizlilik ve Güvenlik</h3>
+          <p class="feature-text" data-i18n="feat5Text">Tüm API anahtarlarınız yalnızca kendi tarayıcınızın güvenli yerel depolama alanında saklanır. Asla harici bir sunucuya gitmez.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🌍</div>
+          <h3 class="feature-title" data-i18n="feat6Title">Tam Çift Dil (TR / EN)</h3>
+          <p class="feature-text" data-i18n="feat6Text">Türkçe ve İngilizce tam yerelleştirme. Tarayıcı dilinize otomatik uyum sağlar veya dilediğiniz zaman tek tıkla geçiş yapabilirsiniz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desteklenen Sağlayıcılar -->
+  <section class="section" id="providers" style="background: rgba(15, 23, 42, 0.4);">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge" data-i18n="providersBadge">Yapay Zeka Motorları</span>
+        <h2 class="section-title" data-i18n="providersTitle">Dünyanın En Güçlü Modelleriyle Entegre</h2>
+        <p class="section-desc" data-i18n="providersDesc">Kendi API anahtarınızı girerek dilediğiniz modelin hız ve kalitesinden faydalanın.</p>
+      </div>
+
+      <div class="providers-grid">
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#4285F4;">✦</div>
+          <div>
+            <div class="provider-name">Google Gemini</div>
+            <div class="provider-tier">Ücretsiz Tier (1.500/gün)</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#F55036;">⚡</div>
+          <div>
+            <div class="provider-name">Groq Cloud</div>
+            <div class="provider-tier">Ücretsiz & Işık Hızında</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#D45D55;">🏢</div>
+          <div>
+            <div class="provider-name">Cohere</div>
+            <div class="provider-tier">Ücretsiz Trial Key</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#FBBF24;">🤗</div>
+          <div>
+            <div class="provider-name">Hugging Face</div>
+            <div class="provider-tier">Ücretsiz Token</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#10A37F;">🌐</div>
+          <div>
+            <div class="provider-name">OpenAI</div>
+            <div class="provider-tier">ChatGPT / Bakiye</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#D97757;">🧠</div>
+          <div>
+            <div class="provider-name">Anthropic Claude</div>
+            <div class="provider-tier">Hesap Bakiyesi</div>
+          </div>
+        </div>
+
+        <div class="provider-item">
+          <div class="provider-logo" style="color:#4D6BFE;">🐋</div>
+          <div>
+            <div class="provider-name">DeepSeek</div>
+            <div class="provider-tier">Ekonomik Bakiye</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-title" data-i18n="ctaTitle">Yazım Deneyiminizi Bugün Yükseltin</h2>
+        <p class="cta-desc" data-i18n="ctaDesc">Chrome, Edge veya Helium tarayıcınıza hemen kurun; internetteki tüm metinleri saniyeler içinde mükemmelleştirin.</p>
+        <a href="#download" class="nav-btn" style="padding:14px 32px;font-size:1.05rem;" data-i18n="ctaBtn">
+          📥 Ücretsiz Eklentiyi İndir
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 RewriteAI. Tüm hakları saklıdır. Açık kaynak kodlu ve gizlilik odaklı tarayıcı eklentisi.</p>
+      <p style="margin-top:8px;">
+        <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener">GitHub</a> • 
+        <a href="#features" data-i18n="navFeatures">Özellikler</a> • 
+        <a href="#download" data-i18n="navDownload">İndir</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
