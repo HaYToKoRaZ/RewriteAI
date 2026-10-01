@@ -24,10 +24,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   const optLangTr = document.getElementById('optLangTr');
   const optLangEn = document.getElementById('optLangEn');
 
+  function renderToneOptions() {
+    const currentVal = defaultToneSelect.value;
+    defaultToneSelect.innerHTML = '';
+    Object.values(TONE_DEFINITIONS).forEach((tone) => {
+      const opt = document.createElement('option');
+      opt.value = tone.id;
+      const localizedTone = t.tones && t.tones[tone.id] ? t.tones[tone.id] : null;
+      const title = localizedTone ? localizedTone.title : tone.name;
+      const desc = localizedTone ? localizedTone.desc : tone.description;
+      opt.textContent = `${title} (${desc})`;
+      defaultToneSelect.appendChild(opt);
+    });
+    if (currentVal) defaultToneSelect.value = currentVal;
+  }
+
   function applyOptionsLanguage() {
     t = getT(lang);
     if (optLangTr) { optLangTr.classList.toggle('active', lang === 'tr'); }
     if (optLangEn) { optLangEn.classList.toggle('active', lang === 'en'); }
+
+    // Header & Meta
     const sfx = document.getElementById('optionsTitleSuffix');
     const sub = document.getElementById('optionsSubtitle');
     const wl = document.getElementById('websiteLink');
@@ -36,6 +53,86 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (sub) sub.textContent = t.optionsSubtitle;
     if (wl) wl.textContent = t.websiteLink;
     if (gl) gl.textContent = t.githubLink;
+
+    // Form Elemanları & Açıklamaları
+    const lblModel = document.getElementById('lblModelSelect');
+    const helperModel = document.getElementById('helperModelSelect');
+    const lblTone = document.getElementById('lblDefaultTone');
+    const lblAutoCopy = document.getElementById('lblAutoCopy');
+    const lblShowBubble = document.getElementById('lblShowBubble');
+    const helperShowBubble = document.getElementById('helperShowBubble');
+
+    if (lblModel) lblModel.textContent = t.modelLabel;
+    if (helperModel) helperModel.textContent = t.modelHelper;
+    if (lblTone) lblTone.textContent = t.toneDefaultLabel;
+    if (lblAutoCopy) lblAutoCopy.textContent = t.autoCopyLabel;
+    if (lblShowBubble) lblShowBubble.textContent = t.showBubbleLabel;
+    if (helperShowBubble) helperShowBubble.textContent = t.showBubbleHelper;
+
+    // API Anahtarları Bölümü
+    const apiKeysTitleEl = document.getElementById('apiKeysTitle');
+    const apiKeysDescEl = document.getElementById('apiKeysDesc');
+    if (apiKeysTitleEl) apiKeysTitleEl.textContent = t.apiKeysTitle;
+    if (apiKeysDescEl) apiKeysDescEl.textContent = t.apiKeysDesc;
+
+    // Sağlayıcı Rozetleri (Badges)
+    const badgeGemini = document.getElementById('badge-gemini');
+    const badgeGroq = document.getElementById('badge-groq');
+    const badgeCohere = document.getElementById('badge-cohere');
+    const badgeHf = document.getElementById('badge-hf');
+    const badgeOpenai = document.getElementById('badge-openai');
+    const badgeClaude = document.getElementById('badge-claude');
+    const badgeDeepseek = document.getElementById('badge-deepseek');
+
+    if (badgeGemini) badgeGemini.textContent = t.freeTierBadge;
+    if (badgeGroq) badgeGroq.textContent = t.freeUltraBadge;
+    if (badgeCohere) badgeCohere.textContent = t.freeTrialBadge;
+    if (badgeHf) badgeHf.textContent = t.freeTokenBadge;
+    if (badgeOpenai) badgeOpenai.textContent = t.paidChatGptBadge;
+    if (badgeClaude) badgeClaude.textContent = t.paidBalanceBadge;
+    if (badgeDeepseek) badgeDeepseek.textContent = t.paidBudgetBadge;
+
+    // Sağlayıcı Linkleri
+    const linkGemini = document.getElementById('link-gemini');
+    const linkGroq = document.getElementById('link-groq');
+    const linkCohere = document.getElementById('link-cohere');
+    const linkHf = document.getElementById('link-hf');
+    const linkOpenai = document.getElementById('link-openai');
+    const linkClaude = document.getElementById('link-claude');
+    const linkDeepseek = document.getElementById('link-deepseek');
+
+    if (linkGemini) linkGemini.textContent = t.getKeyLink;
+    if (linkGroq) linkGroq.textContent = t.getKeyLink;
+    if (linkCohere) linkCohere.textContent = t.getTrialLink;
+    if (linkHf) linkHf.textContent = t.getTokenLink;
+    if (linkOpenai) linkOpenai.textContent = t.openAiPortalLink;
+    if (linkClaude) linkClaude.textContent = t.claudePortalLink;
+    if (linkDeepseek) linkDeepseek.textContent = t.deepseekPortalLink;
+
+    // Kayıtlı Token Metinleri & Sil Butonları
+    document.querySelectorAll('.saved-text').forEach((el) => {
+      el.textContent = t.tokenSaved;
+    });
+    document.querySelectorAll('.delete-token-btn').forEach((btn) => {
+      btn.textContent = t.deleteToken;
+    });
+
+    // Kota Kartı Metinleri
+    const quotaTitleEl = document.getElementById('quotaTitle');
+    const quotaOfficialLinkEl = document.getElementById('quotaOfficialLink');
+    const quotaLimitTextEl = document.getElementById('quotaLimitText');
+    const quotaRpmTextEl = document.getElementById('quotaRpmText');
+    const quotaRpdTextEl = document.getElementById('quotaRpdText');
+
+    if (quotaTitleEl) quotaTitleEl.textContent = t.quotaCardTitle;
+    if (quotaOfficialLinkEl) quotaOfficialLinkEl.textContent = t.quotaOfficialPanel;
+    if (quotaLimitTextEl) quotaLimitTextEl.textContent = t.quotaTodaySuffix;
+    if (quotaRpmTextEl) quotaRpmTextEl.innerHTML = t.quotaRpm;
+    if (quotaRpdTextEl) quotaRpdTextEl.innerHTML = t.quotaRpd;
+
+    // Ton Seçeneklerini güncelle
+    renderToneOptions();
+
     // Manifest versiyonunu badge'e yaz
     const vb = document.getElementById('versionBadge');
     if (vb) {
@@ -53,9 +150,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Dili uygula
-  applyOptionsLanguage();
-
   // Modelleri sağlayıcı gruplarıyla yükle
   const groups = {};
   AVAILABLE_MODELS.forEach((m) => {
@@ -72,13 +166,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     groups[groupName].appendChild(opt);
   });
 
-  // Tonları yükle
-  Object.values(TONE_DEFINITIONS).forEach((tone) => {
-    const opt = document.createElement('option');
-    opt.value = tone.id;
-    opt.textContent = `${tone.name} (${tone.description})`;
-    defaultToneSelect.appendChild(opt);
-  });
+  // Dili uygula (tonları da render eder)
+  applyOptionsLanguage();
 
   // Mevcut ayarları çek
   let settings = await StorageRepository.getSettings();
@@ -120,7 +209,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const toastMsgEl = document.getElementById('toastMsg');
   let toastTimer = null;
 
-  function showToast(message = 'Ayarlar otomatik kaydedildi') {
+  function showToast(message = t.settingsAutoSaved || 'Ayarlar otomatik kaydedildi') {
     if (!toastEl) return;
     if (toastMsgEl) toastMsgEl.textContent = message;
     toastEl.classList.add('show');
@@ -134,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelectorAll('.delete-token-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const targetId = btn.getAttribute('data-target');
-      if (!confirm('Bu API anahtarını silmek istediğinize emin misiniz?')) {
+      if (!confirm(t.deleteConfirm || 'Bu API anahtarını silmek istediğinize emin misiniz?')) {
         return;
       }
 
@@ -146,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (inputEl) inputEl.value = '';
 
       renderKeyStates();
-      showToast('API Anahtarı silindi.');
+      showToast(t.deleteSuccess || 'API Anahtarı silindi.');
     });
   });
 
@@ -171,7 +260,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateOptionsQuota();
 
   // Otomatik Kayıt Fonksiyonu
-  async function autoSave(notificationMsg = 'Ayarlar otomatik kaydedildi') {
+  async function autoSave(notificationMsg) {
+    const msg = notificationMsg || t.settingsAutoSaved || 'Ayarlar otomatik kaydedildi';
     const updatedKeys = {};
     keyFieldIds.forEach((fieldId) => {
       const inputEl = document.getElementById(fieldId);
@@ -192,26 +282,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await StorageRepository.saveSettings(newSettings);
     renderKeyStates();
-    showToast(notificationMsg);
+    showToast(msg);
   }
 
   // Model & Ton değişince anında kaydet
   selectedModelSelect.addEventListener('change', () => {
     updateOptionsQuota();
-    autoSave('Model tercihi kaydedildi');
+    autoSave(t.modelSavedToast || 'Model tercihi kaydedildi');
   });
 
   defaultToneSelect.addEventListener('change', () => {
-    autoSave('Varsayılan ton kaydedildi');
+    autoSave(t.toneSavedToast || 'Varsayılan ton kaydedildi');
   });
 
   // Switch/Checkbox değişince anında kaydet
   autoCopyCheckbox.addEventListener('change', () => {
-    autoSave('Tercih güncellendi');
+    autoSave(t.prefSavedToast || 'Tercih güncellendi');
   });
 
   showSelectionBubbleCheckbox.addEventListener('change', () => {
-    autoSave('Tercih güncellendi');
+    autoSave(t.prefSavedToast || 'Tercih güncellendi');
   });
 
   // API Anahtarı kutularına anahtar yapıştırılıp veya yazılıp çıkıldığında / enter basıldığında kaydet
@@ -221,13 +311,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     inputEl.addEventListener('change', () => {
       if (inputEl.value.trim()) {
-        autoSave('API Anahtarı güvenle kaydedildi');
+        autoSave(t.keySavedToast || 'API Anahtarı güvenle kaydedildi');
       }
     });
 
     inputEl.addEventListener('blur', () => {
       if (inputEl.value.trim()) {
-        autoSave('API Anahtarı güvenle kaydedildi');
+        autoSave(t.keySavedToast || 'API Anahtarı güvenle kaydedildi');
       }
     });
 

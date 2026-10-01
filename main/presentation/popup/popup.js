@@ -41,6 +41,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     langBtnTr.classList.toggle('active', lang === 'tr');
     langBtnEn.classList.toggle('active', lang === 'en');
 
+    // Model çubuğu etiketi
+    const modelBarLabel = document.querySelector('.model-bar-label');
+    if (modelBarLabel) {
+      modelBarLabel.textContent = t.modelLabelShort || (lang === 'en' ? 'AI Model:' : 'AI Modeli:');
+    }
+
+    // Ton Butonları (Kartları) İçeriği
+    toneCardBtns.forEach((btn) => {
+      const toneKey = btn.getAttribute('data-tone');
+      if (t.tones && t.tones[toneKey]) {
+        const titleEl = btn.querySelector('strong');
+        const descEl = btn.querySelector('small');
+        if (titleEl) titleEl.textContent = t.tones[toneKey].title;
+        if (descEl) descEl.textContent = t.tones[toneKey].desc;
+      }
+    });
+
     // Metinleri güncelle
     inputPanelLabel.textContent = t.originalText;
     outputPanelLabel.textContent = t.convertedText;

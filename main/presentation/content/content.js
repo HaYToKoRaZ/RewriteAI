@@ -6,12 +6,81 @@
   let currentSelectedText = '';
   let selectionRange = null;
 
+  // Çeviri Sözlüğü (Content Script içinde bağımsız çalışabilmesi için)
+  const I18N = {
+    tr: {
+      appName: 'RewriteAI Metin Düzenleyici',
+      selectedText: 'Seçilen Metin:',
+      convertedResult: 'Dönüştürülen Sonuç:',
+      resultPlaceholder: 'Dönüşüm sonucunuz burada belirecek...',
+      transform: '⚡ Dönüştür',
+      processing: '⏳ İşleniyor...',
+      copy: '📋 Kopyala',
+      copied: '✓ Kopyalandı',
+      replaceInPage: '🔄 Sayfaya Yerleştir',
+      statusDefault: 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.',
+      statusProcessing: 'Yapay zeka metni yeniden yazıyor...',
+      statusDone: '✓ Tamamlandı!',
+      statusDefaultModelUpdated: '✓ Varsayılan model güncellendi',
+      autoRunStopped: 'Otomatik işlem durduruldu: Model API anahtarı girilmemiş.',
+      keyMissingWarning: '⚠️ {provider} API Anahtarı girilmemiş! Bu modeli kullanabilmek için anahtar ekleyin.',
+      keyMissingStatus: 'Uyarı: {provider} API anahtarı eksik. Ayarlardan anahtarınızı ekleyin.',
+      goToSettings: '⚙️ Ayarlara Git',
+      quotaText: (count) => `Google Kotası: ${count} / 1.500 istek (Bugün)`,
+      quotaPanel: 'Panel ↗',
+      pageReplaceError: 'Sayfa metni doğrudan değiştirilemedi, lütfen kopyalayın.',
+      triggerBtnTitle: 'RewriteAI ile Düzenle',
+      tones: {
+        fix_grammar: { title: '✍️ İmla & Dilbilgisi', desc: 'Hataları düzeltir' },
+        daily: { title: '💬 Günlük & Samimi', desc: 'Doğal konuşma dili' },
+        formal: { title: '💼 Resmi & Kurumsal', desc: 'Profesyonel üslup' },
+        slang: { title: '🔥 Argo & Sokak Ağzı', desc: 'Gençlik jargonu' },
+        academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
+        summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
+      }
+    },
+    en: {
+      appName: 'RewriteAI Text Editor',
+      selectedText: 'Selected Text:',
+      convertedResult: 'Converted Result:',
+      resultPlaceholder: 'Your converted text will appear here...',
+      transform: '⚡ Transform',
+      processing: '⏳ Processing...',
+      copy: '📋 Copy',
+      copied: '✓ Copied',
+      replaceInPage: '🔄 Replace in Page',
+      statusDefault: 'Select a tone and click Transform.',
+      statusProcessing: 'AI is rewriting your text...',
+      statusDone: '✓ Done!',
+      statusDefaultModelUpdated: '✓ Default model updated',
+      autoRunStopped: 'Auto-run stopped: No API key found for this model.',
+      keyMissingWarning: '⚠️ {provider} API Key missing! Add your key in settings to use this model.',
+      keyMissingStatus: 'Warning: {provider} API key is missing. Add your key in settings.',
+      goToSettings: '⚙️ Go to Settings',
+      quotaText: (count) => `Google Quota: ${count} / 1,500 req (Today)`,
+      quotaPanel: 'Panel ↗',
+      pageReplaceError: 'Could not replace text directly in page, please copy manually.',
+      triggerBtnTitle: 'Edit with RewriteAI',
+      tones: {
+        fix_grammar: { title: '✍️ Grammar & Spelling', desc: 'Fixes errors' },
+        daily: { title: '💬 Casual & Friendly', desc: 'Natural conversational' },
+        formal: { title: '💼 Formal & Corporate', desc: 'Professional style' },
+        slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
+        academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
+        summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
+      }
+    }
+  };
+
+  let curLang = 'tr';
+  let t = I18N.tr;
+
   // Floating trigger ikonu ve modal arayüzünü oluştur
   const iconUrl = chrome.runtime.getURL('assets/icons/icon32.png');
   const triggerBtn = document.createElement('div');
   triggerBtn.id = 'rewriteai-trigger-btn';
   triggerBtn.innerHTML = `<img src="${iconUrl}" alt="RewriteAI" style="width:20px;height:20px;display:block;">`;
-  triggerBtn.title = 'RewriteAI ile Düzenle';
+  triggerBtn.title = t.triggerBtnTitle;
   document.body.appendChild(triggerBtn);
 
   const modalOverlay = document.createElement('div');
@@ -21,7 +90,7 @@
       <div class="rewriteai-modal-header">
         <div class="rewriteai-brand">
           <img src="${iconUrl}" alt="RewriteAI" style="width:22px;height:22px;border-radius:4px;">
-          <span class="rewriteai-title">RewriteAI Metin Düzenleyici</span>
+          <span class="rewriteai-title" id="rewriteai-modal-title">RewriteAI Metin Düzenleyici</span>
         </div>
         <div class="rewriteai-header-controls">
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
@@ -64,7 +133,7 @@
         </div>
 
         <div class="rewriteai-field">
-          <label>Seçilen Metin:</label>
+          <label id="rewriteai-lbl-selected">Seçilen Metin:</label>
           <div id="rewriteai-preview-text" class="rewriteai-text-box"></div>
         </div>
 
@@ -96,7 +165,7 @@
         </div>
 
         <div class="rewriteai-field">
-          <label>Dönüştürülen Sonuç:</label>
+          <label id="rewriteai-lbl-result">Dönüştürülen Sonuç:</label>
           <textarea id="rewriteai-result-text" placeholder="Dönüşüm sonucunuz burada belirecek..." readonly></textarea>
         </div>
       </div>
@@ -473,6 +542,49 @@
   const keyWarningTextEl = document.getElementById('rewriteai-key-warning-text');
   const openSettingsBtn = document.getElementById('rewriteai-open-settings-btn');
 
+  // Modal Arayüz Dilini Güncelle
+  function applyModalLanguage() {
+    t = I18N[curLang] || I18N.tr;
+
+    // Başlık & Buton İpuçları
+    const modalTitleEl = document.getElementById('rewriteai-modal-title');
+    if (modalTitleEl) modalTitleEl.textContent = t.appName;
+    if (triggerBtn) triggerBtn.title = t.triggerBtnTitle;
+
+    // Etiketler & Placeholder
+    const lblSelected = document.getElementById('rewriteai-lbl-selected');
+    const lblResult = document.getElementById('rewriteai-lbl-result');
+    if (lblSelected) lblSelected.textContent = t.selectedText;
+    if (lblResult) lblResult.textContent = t.convertedResult;
+    if (resultBox) resultBox.placeholder = t.resultPlaceholder;
+
+    // Butonlar
+    if (applyBtn && !applyBtn.disabled) applyBtn.textContent = t.transform;
+    if (copyBtn) copyBtn.textContent = t.copy;
+    if (replaceBtn) replaceBtn.textContent = t.replaceInPage;
+    if (openSettingsBtn) openSettingsBtn.textContent = t.goToSettings;
+    if (quotaLinkEl) quotaLinkEl.textContent = t.quotaPanel;
+
+    // Ton Butonları
+    toneBtns.forEach((btn) => {
+      const toneKey = btn.getAttribute('data-tone');
+      if (t.tones && t.tones[toneKey]) {
+        const strongEl = btn.querySelector('strong');
+        const smallEl = btn.querySelector('small');
+        if (strongEl) strongEl.textContent = t.tones[toneKey].title;
+        if (smallEl) smallEl.textContent = t.tones[toneKey].desc;
+      }
+    });
+  }
+
+  // Storage değişikliklerini dinle (örneğin Ayarlar'da dil değiştirilirse anında güncelle)
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.uiLanguage && changes.uiLanguage.newValue) {
+      curLang = changes.uiLanguage.newValue;
+      applyModalLanguage();
+    }
+  });
+
   // Sağlayıcı ve anahtar eşleşmesi kontrol fonksiyonu
   function checkModelKeyStatus(modelId, callback) {
     let providerName = 'Google Gemini';
@@ -505,11 +617,11 @@
       const hasKey = !!(data[keyStorageName] && data[keyStorageName].trim());
       if (!hasKey) {
         if (keyWarningEl) {
-          keyWarningTextEl.textContent = `⚠️ ${providerName} API Anahtarı girilmemiş! Bu modeli kullanabilmek için anahtar ekleyin.`;
+          keyWarningTextEl.textContent = t.keyMissingWarning.replace('{provider}', providerName);
           keyWarningEl.style.display = 'flex';
         }
         if (statusMsg) {
-          statusMsg.textContent = `Uyarı: ${providerName} API anahtarı eksik. Ayarlardan anahtarınızı ekleyin.`;
+          statusMsg.textContent = t.keyMissingStatus.replace('{provider}', providerName);
         }
       } else {
         if (keyWarningEl) {
@@ -543,7 +655,7 @@
       const counts = (stats.date === today && stats.counts) ? stats.counts : {};
       const count = counts[curModel] || 0;
       if (quotaTextEl) {
-        quotaTextEl.textContent = `Google Kotası: ${count} / 1.500 istek (Bugün)`;
+        quotaTextEl.textContent = t.quotaText(count);
       }
     });
   }
@@ -553,13 +665,23 @@
     resultBox.value = '';
     copyBtn.disabled = true;
     replaceBtn.disabled = true;
-    statusMsg.textContent = 'Dönüşüm tonu seçin ve Dönüştür butonuna tıklayın.';
 
-    // Ayarlardan kaydedilmiş varsayılan model ve tonu getir
+    // Güncel dili ve ayarları yükle
     chrome.storage.local.get({
+      uiLanguage: '',
       selectedModel: 'gemini-3.5-flash-lite',
       defaultTone: 'fix_grammar'
     }, (items) => {
+      if (items.uiLanguage === 'tr' || items.uiLanguage === 'en') {
+        curLang = items.uiLanguage;
+      } else {
+        const browserLang = (navigator.language || navigator.userLanguage || 'tr').toLowerCase();
+        curLang = browserLang.startsWith('tr') ? 'tr' : 'en';
+      }
+
+      applyModalLanguage();
+      statusMsg.textContent = t.statusDefault;
+
       const activeModel = items.selectedModel || 'gemini-3.5-flash-lite';
       if (modelSelect) {
         modelSelect.value = activeModel;
@@ -583,7 +705,7 @@
           if (hasKey) {
             applyBtn.click();
           } else {
-            statusMsg.textContent = 'Otomatik işlem durduruldu: Model API anahtarı girilmemiş.';
+            statusMsg.textContent = t.autoRunStopped;
           }
         }
       });
@@ -600,7 +722,7 @@
         updateModalQuota();
         checkModelKeyStatus(newModel, (hasKey) => {
           if (hasKey) {
-            statusMsg.textContent = `✓ Varsayılan model güncellendi: ${modelSelect.options[modelSelect.selectedIndex].text}`;
+            statusMsg.textContent = `${t.statusDefaultModelUpdated}: ${modelSelect.options[modelSelect.selectedIndex].text}`;
           }
         });
       });
@@ -621,8 +743,8 @@
     if (!currentSelectedText) return;
 
     applyBtn.disabled = true;
-    applyBtn.textContent = '⏳ İşleniyor...';
-    statusMsg.textContent = 'Yapay zeka metni yeniden yazıyor...';
+    applyBtn.textContent = t.processing;
+    statusMsg.textContent = t.statusProcessing;
 
     const chosenModel = modelSelect ? modelSelect.value : 'gemini-3.5-flash-lite';
 
@@ -633,17 +755,17 @@
       model: chosenModel
     }, (response) => {
       applyBtn.disabled = false;
-      applyBtn.textContent = '⚡ Dönüştür';
+      applyBtn.textContent = t.transform;
 
       if (response && response.success) {
         resultBox.value = response.result;
         copyBtn.disabled = false;
         replaceBtn.disabled = false;
-        statusMsg.textContent = '✓ Tamamlandı!';
+        statusMsg.textContent = t.statusDone;
         updateModalQuota();
       } else {
         const err = response?.error || 'Bilinmeyen bir hata oluştu.';
-        statusMsg.textContent = `Hata: ${err}`;
+        statusMsg.textContent = `Hata / Error: ${err}`;
       }
     });
   });
@@ -653,7 +775,7 @@
     if (!resultBox.value) return;
     await navigator.clipboard.writeText(resultBox.value);
     const orig = copyBtn.textContent;
-    copyBtn.textContent = '✓ Kopyalandı';
+    copyBtn.textContent = t.copied;
     setTimeout(() => { copyBtn.textContent = orig; }, 1500);
   });
 
@@ -665,7 +787,7 @@
       selectionRange.insertNode(document.createTextNode(resultBox.value));
       closeModal();
     } catch {
-      statusMsg.textContent = 'Sayfa metni doğrudan değiştirilemedi, lütfen kopyalayın.';
+      statusMsg.textContent = t.pageReplaceError;
     }
   });
 
