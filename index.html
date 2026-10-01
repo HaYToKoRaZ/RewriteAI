@@ -347,31 +347,51 @@
     <div class="modal-content">
       <button class="modal-close-btn" id="closePrivacyModal" aria-label="Kapat">&times;</button>
       <div class="modal-body">
-        <h2>🔒 Gizlilik Politikası (Privacy Policy)</h2>
-        <p style="color:var(--text-muted);font-size:0.85rem;">Son Güncelleme / Last Updated: 01.10.2026</p>
+        <span style="display:inline-block;padding:2px 8px;background:rgba(56,189,248,0.15);color:var(--primary);border-radius:4px;font-size:0.75rem;font-weight:600;margin-bottom:8px;">🇬🇧 ENGLISH</span>
+        <h2>🔒 Privacy Policy</h2>
+        <p style="color:var(--text-muted);font-size:0.85rem;">Last Updated: October 01, 2026 · Version 1.3.0</p>
         
-        <div style="background:rgba(56, 189, 248, 0.08);border-left:4px solid var(--primary);padding:12px 16px;border-radius:4px;margin:16px 0;">
+        <div style="background:rgba(56, 189, 248, 0.08);border-left:4px solid var(--primary);padding:12px 16px;border-radius:4px;margin:14px 0;">
           <p style="margin:0;color:#bae6fd;font-weight:500;">
-            RewriteAI, kişisel verilerinizi veya API anahtarlarınızı <strong>asla harici sunuculara göndermez</strong>. Tüm anahtarlarınız yalnızca kendi tarayıcınızın yerel depolama alanında (<code>chrome.storage.local</code>) saklanır.
+            RewriteAI <strong>never sends or stores</strong> your personal text data or API keys on external servers. All user credentials remain encrypted in your browser's <code>chrome.storage.local</code>.
           </p>
         </div>
 
-        <h3>1. Veri İşleme & İstemci Odaklı Mimari</h3>
+        <h3>1. Direct Client-to-API Architecture</h3>
         <p>
-          Metin dönüştürme talepleri doğrudan bilgisayarınız ile resmi API sağlayıcıları (Google Gemini, OpenAI, Claude, Groq vb.) arasında uçtan uca gerçekleşir. Üçüncü taraf bir sunucu veya aracı proxy bulunmamaktadır.
+          Transformations are routed directly and securely between your browser and the selected AI endpoint (Google, OpenAI, Groq, etc.). Zero telemetry, zero middlemen.
         </p>
 
-        <h3>2. Kullanılan İzinler</h3>
+        <h3>2. Permissions Used</h3>
         <ul>
-          <li><strong>storage:</strong> Ayarlarınızı ve API anahtarınızı yerel tutmak için.</li>
-          <li><strong>contextMenus:</strong> Sağ tık menüsüyle metin seçip hızlıca eklentiyi tetiklemek için.</li>
-          <li><strong>clipboardRead / clipboardWrite:</strong> Dönüştürülen metni panoya tek tıkla kopyalamak için.</li>
-          <li><strong>activeTab / scripting:</strong> Seçili metni okuyarak sayfa içi düzenleme modalını açmak için.</li>
+          <li><strong>storage:</strong> Save settings & API keys locally.</li>
+          <li><strong>contextMenus:</strong> Launch rewrite options from right-click context menu.</li>
+          <li><strong>clipboardRead / Write:</strong> Copy polished text to clipboard.</li>
+          <li><strong>activeTab / scripting:</strong> Trigger the quick in-page editor modal.</li>
         </ul>
 
-        <h3>3. Bağımsız Sayfa ve İletişim</h3>
+        <p>Full standalone policy: <a href="privacy.html" target="_blank" style="color:var(--primary);text-decoration:underline;">privacy.html</a></p>
+
+        <hr style="border:0;height:1px;background:var(--border);margin:24px 0;">
+
+        <!-- TÜRKÇE -->
+        <span style="display:inline-block;padding:2px 8px;background:rgba(56,189,248,0.15);color:var(--primary);border-radius:4px;font-size:0.75rem;font-weight:600;margin-bottom:8px;">🇹🇷 TÜRKÇE</span>
+        <h2 style="font-size:1.5rem;">🔒 Gizlilik Politikası</h2>
+        <p style="color:var(--text-muted);font-size:0.85rem;">Son Güncelleme: 01 Ekim 2026</p>
+
+        <div style="background:rgba(56, 189, 248, 0.08);border-left:4px solid var(--primary);padding:12px 16px;border-radius:4px;margin:14px 0;">
+          <p style="margin:0;color:#bae6fd;font-weight:500;">
+            RewriteAI, kişisel verilerinizi veya API anahtarlarınızı <strong>asla harici sunuculara göndermez</strong>. Tüm anahtarlarınız yalnızca kendi tarayıcınızın yerel depolama alanında saklanır.
+          </p>
+        </div>
+
+        <h3>1. İstemci Odaklı Mimari</h3>
         <p>
-          Ayrıntılı Gizlilik Politikası sayfamızı <a href="privacy.html" target="_blank" style="color:var(--primary);text-decoration:underline;">buradan</a> görüntüleyebilir veya kaynak kodlarını <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" style="color:var(--primary);text-decoration:underline;">GitHub Deposu</a> üzerinden denetleyebilirsiniz.
+          Metin dönüştürme talepleri doğrudan bilgisayarınız ile resmi API sağlayıcıları arasında gerçekleşir. Aracı sunucu veya ara veritabanı bulunmaz.
+        </p>
+
+        <p>
+          Detaylı Gizlilik Politikası sayfamıza <a href="privacy.html" target="_blank" style="color:var(--primary);text-decoration:underline;">buradan</a> ulaşabilirsiniz.
         </p>
       </div>
     </div>

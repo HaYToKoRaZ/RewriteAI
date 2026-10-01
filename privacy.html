@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy - RewriteAI</title>
-  <meta name="description" content="RewriteAI Browser Extension Privacy Policy - 100% Client-Side, Zero Telemetry.">
+  <meta name="description" content="RewriteAI Browser Extension Privacy Policy - 100% Client-Side, Zero Telemetry, Full Data Privacy.">
   <link rel="icon" type="image/png" href="assets/icons/icon32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +20,12 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px;
+      padding: 44px;
       backdrop-filter: blur(16px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
     .policy-card h1 {
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 800;
       margin-bottom: 8px;
       background: var(--primary-gradient);
@@ -35,12 +35,12 @@
     .policy-date {
       color: var(--text-muted);
       font-size: 0.88rem;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .policy-card h2 {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       color: var(--text-primary);
-      margin: 28px 0 12px;
+      margin: 26px 0 12px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -61,6 +61,25 @@
       padding: 16px 20px;
       border-radius: 4px 8px 8px 4px;
       margin: 20px 0;
+    }
+    .lang-divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+      margin: 50px 0;
+    }
+    .lang-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 16px;
     }
     .back-btn {
       display: inline-flex;
@@ -93,51 +112,54 @@
 
       <div class="nav-actions">
         <a href="index.html" class="nav-btn" style="padding: 8px 18px; font-size: 0.9rem;">
-          🏠 Ana Sayfa / Home
+          🏠 Home / Ana Sayfa
         </a>
       </div>
     </div>
   </header>
 
   <main class="policy-container">
-    <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+    <a href="index.html" class="back-btn">← Back to Home / Ana Sayfaya Dön</a>
 
     <div class="policy-card">
-      <h1>Gizlilik Politikası (Privacy Policy)</h1>
-      <div class="policy-date">Son Güncelleme / Last Updated: 01.10.2026 · Versiyon 1.3.0</div>
+      
+      <!-- ================= ENGLISH SECTION ================= -->
+      <div class="lang-badge">🇬🇧 English Version</div>
+      <h1>Privacy Policy</h1>
+      <div class="policy-date">Last Updated: October 01, 2026 · Version 1.3.0</div>
 
       <div class="highlight-box">
         <p style="margin: 0; color: #bae6fd; font-weight: 500;">
-          🔒 <strong>Özet Taahhüt:</strong> RewriteAI, gizliliğinize %100 saygı duyar. Eklentimiz hiçbir kişisel verinizi, gezinme geçmişinizi veya API anahtarınızı kendi sunucularına <strong>TOPLAMAZ, KAYDETMEZ ve ÜÇÜNCÜ TARAFLARLA PAYLAŞMAZ</strong>.
+          🔒 <strong>Privacy Commitment:</strong> RewriteAI respects your privacy 100%. Our extension <strong>NEVER collects, tracks, stores, or sells</strong> your personal information, browsing history, or API keys to any third-party server.
         </p>
       </div>
 
-      <h2>1. Veri Toplama ve Depolama (Data Collection & Storage)</h2>
+      <h2>1. Overview & Architecture</h2>
       <p>
-        RewriteAI tamamen istemci taraflı (client-side) çalışan bir tarayıcı uzantısıdır. Eklentiyi kullanabilmek için girdiğiniz yapay zeka API anahtarları (Google Gemini, OpenAI, Claude, Groq vb.) yalnızca tarayıcınızın kendi güvenli yerel depolama alanında (<code>chrome.storage.local</code>) şifreli olarak barındırılır.
+        RewriteAI is a 100% client-side browser extension. All settings and user-provided API credentials (Google Gemini, OpenAI, Anthropic Claude, Groq, DeepSeek, etc.) are encrypted strictly inside your local browser storage (<code>chrome.storage.local</code>).
       </p>
 
-      <h2>2. Metin İşleme ve Yapay Zeka Sağlayıcıları</h2>
+      <h2>2. Text Processing & AI Providers</h2>
       <p>
-        Web sayfalarında seçtiğiniz ve dönüştürmek istediğiniz metinler yalnızca dönüşüm anında sizin tercih ettiğiniz resmi AI sağlayıcısının API uç noktasına (örneğin <code>generativelanguage.googleapis.com</code> veya <code>api.openai.com</code>) doğrudan gönderilir:
+        When you select text on a webpage and request a transformation, that specific text is sent directly and securely from your browser to the official API endpoint of your selected provider (e.g., <code>generativelanguage.googleapis.com</code>, <code>api.openai.com</code>, <code>api.groq.com</code>).
       </p>
       <ul>
-        <li>Herhangi bir aracı veya proxy sunucu kullanılmaz.</li>
-        <li>Metinleriniz hiçbir ara veritabanına kaydedilmez.</li>
-        <li>İşlenen metin doğrudan tarayıcınıza döner ve sayfaya uygulanır.</li>
+        <li><strong>No Intermediary Servers:</strong> Requests do not pass through any proxy or telemetry backend.</li>
+        <li><strong>No Text Retention:</strong> We do not log, retain, or analyze your inputs.</li>
+        <li><strong>Instant Response:</strong> The processed text returns directly to your active browser tab.</li>
       </ul>
 
-      <h2>3. İzinler ve Amacı (Permissions Used)</h2>
+      <h2>3. Browser Permissions & Purpose</h2>
       <ul>
-        <li><strong>storage:</strong> Tercihlerinizi ve API anahtarlarınızı tarayıcınızda yerel olarak saklamak için.</li>
-        <li><strong>contextMenus:</strong> Web sayfalarında metin seçtiğinizde sağ tık menüsünde RewriteAI seçeneklerini sunmak için.</li>
-        <li><strong>clipboardRead / clipboardWrite:</strong> Dönüştürülen metni panoya tek tıkla kopyalayabilmeniz veya yapıştırabilmeniz için.</li>
-        <li><strong>activeTab / scripting:</strong> Seçili metni otomatik algılayıp sayfa içinde hızlı dönüştürme kutusu (Content Modal) açabilmek için.</li>
+        <li><strong>storage:</strong> To persist your API keys and UI preferences locally in your browser.</li>
+        <li><strong>contextMenus:</strong> To show the "Rewrite with RewriteAI" options when you right-click highlighted text.</li>
+        <li><strong>clipboardRead / clipboardWrite:</strong> To copy rewritten text to your clipboard or paste into input boxes.</li>
+        <li><strong>activeTab / scripting:</strong> To read selected text and display the in-page quick transformation modal.</li>
       </ul>
 
-      <h2>4. Üçüncü Taraf Hizmetleri (Third-Party Services)</h2>
+      <h2>4. Third-Party AI Services</h2>
       <p>
-        Eklenti, kullanıcının seçtiği yapay zeka modelleriyle doğrudan iletişim kurar. Bu sağlayıcıların kendi gizlilik sözleşmeleri geçerlidir:
+        The extension communicates directly with the AI providers chosen by you. Their respective privacy policies apply to API interactions:
       </p>
       <ul>
         <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--primary);">Google Privacy Policy</a></li>
@@ -146,13 +168,64 @@
         <li><a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener" style="color:var(--primary);">Anthropic Privacy Policy</a></li>
       </ul>
 
-      <h2>5. İletişim (Contact)</h2>
+      <h2>5. Open Source & Auditability</h2>
       <p>
-        Gizlilik politikamız veya eklentiyle ilgili herhangi bir sorunuz olursa GitHub üzerinden iletişime geçebilirsiniz:
+        RewriteAI is open source. You can audit the entire source code on GitHub:
+      </p>
+      <p>
+        📂 Repository: <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener" style="color:var(--primary);">https://github.com/HaYToKoRaZ/RewriteAI</a>
+      </p>
+
+      <!-- ================= AYIRICI / DIVIDER ================= -->
+      <hr class="lang-divider">
+
+      <!-- ================= TÜRKÇE BÖLÜM ================= -->
+      <div class="lang-badge">🇹🇷 Türkçe Çeviri</div>
+      <h1 style="font-size: 2rem;">Gizlilik Politikası</h1>
+      <div class="policy-date">Son Güncelleme: 01 Ekim 2026 · Versiyon 1.3.0</div>
+
+      <div class="highlight-box">
+        <p style="margin: 0; color: #bae6fd; font-weight: 500;">
+          🔒 <strong>Özet Taahhüt:</strong> RewriteAI, gizliliğinize %100 saygı duyar. Eklentimiz hiçbir kişisel verinizi, gezinme geçmişinizi veya API anahtarınızı kendi sunucularına <strong>TOPLAMAZ, KAYDETMEZ ve ÜÇÜNCÜ TARAFLARLA PAYLAŞMAZ</strong>.
+        </p>
+      </div>
+
+      <h2>1. Genel Bakış ve Mimari</h2>
+      <p>
+        RewriteAI tamamen istemci taraflı (client-side) çalışan bir tarayıcı uzantısıdır. Eklentiyi kullanabilmek için girdiğiniz yapay zeka API anahtarları (Google Gemini, OpenAI, Claude, Groq vb.) yalnızca tarayıcınızın kendi güvenli yerel depolama alanında (<code>chrome.storage.local</code>) şifreli olarak barındırılır.
+      </p>
+
+      <h2>2. Metin İşleme ve Yapay Zeka Sağlayıcıları</h2>
+      <p>
+        Web sayfalarında seçtiğiniz ve dönüştürmek istediğiniz metinler yalnızca dönüşüm anında sizin tercih ettiğiniz resmi AI sağlayıcısının API uç noktasına doğrudan gönderilir:
+      </p>
+      <ul>
+        <li><strong>Aracı Sunucu Yoktur:</strong> Herhangi bir proxy veya harici sunucu kullanılmaz.</li>
+        <li><strong>Veri Kaydı Yoktur:</strong> Metinleriniz hiçbir ara veritabanına kaydedilmez.</li>
+        <li><strong>Doğrudan Yanıt:</strong> İşlenen metin doğrudan tarayıcınıza döner ve sayfaya uygulanır.</li>
+      </ul>
+
+      <h2>3. İzinler ve Kullanım Amaçları</h2>
+      <ul>
+        <li><strong>storage:</strong> Tercihlerinizi ve API anahtarlarınızı tarayıcınızda yerel olarak saklamak için.</li>
+        <li><strong>contextMenus:</strong> Web sayfalarında metin seçtiğinizde sağ tık menüsünde RewriteAI seçeneklerini sunmak için.</li>
+        <li><strong>clipboardRead / clipboardWrite:</strong> Dönüştürülen metni panoya tek tıkla kopyalayabilmeniz veya yapıştırabilmeniz için.</li>
+        <li><strong>activeTab / scripting:</strong> Seçili metni otomatik algılayıp sayfa içinde hızlı dönüştürme kutusu (Content Modal) açabilmek için.</li>
+      </ul>
+
+      <h2>4. Üçüncü Taraf Hizmetleri</h2>
+      <p>
+        Eklenti, kullanıcının seçtiği yapay zeka modelleriyle doğrudan iletişim kurar. Bu sağlayıcıların kendi gizlilik sözleşmeleri geçerlidir.
+      </p>
+
+      <h2>5. Açık Kaynak Güvencesi ve İletişim</h2>
+      <p>
+        RewriteAI açık kaynak kodludur. Kaynak kodlarını doğrudan GitHub üzerinden inceleyebilirsiniz:
       </p>
       <p>
         📂 GitHub: <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener" style="color:var(--primary);">https://github.com/HaYToKoRaZ/RewriteAI</a>
       </p>
+
     </div>
   </main>
 
@@ -160,7 +233,7 @@
     <div class="container">
       <p>© 2026 RewriteAI. Açık kaynak kodlu ve gizlilik odaklı tarayıcı eklentisi.</p>
       <p style="margin-top:8px;">
-        <a href="index.html">Ana Sayfa</a> • 
+        <a href="index.html">Home / Ana Sayfa</a> • 
         <a href="https://github.com/HaYToKoRaZ/RewriteAI" target="_blank" rel="noopener">GitHub</a> • 
         <a href="privacy.html" style="color:var(--primary);">Privacy Policy</a>
       </p>
