@@ -17,9 +17,6 @@
 
 <!-- Status & Information Badges (Local Repo Assets) -->
 <p>
-  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank">
-    <img src="main/assets/badges/version.svg" alt="Version v1.3.1" />
-  </a>
   <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
