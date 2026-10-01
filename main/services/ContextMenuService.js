@@ -69,7 +69,7 @@ export class ContextMenuService {
   static async handleMenuClick(info, tab) {
     // Web sitesi ve portal linkleri
     if (info.menuItemId === 'rewriteai_visit_site') {
-      chrome.tabs.create({ url: 'https://haytokoraz.github.io/' });
+      chrome.tabs.create({ url: 'https://haytokoraz.github.io/RewriteAI/' });
       return;
     }
 
