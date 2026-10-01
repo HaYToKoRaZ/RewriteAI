@@ -15,14 +15,14 @@
 
 ---
 
-<!-- Status & Information Badges (Local Repo Assets + GitHub Live Downloads) -->
+<!-- Status & Information Badges (Local Repo Assets) -->
 <p>
-  <img src="main/assets/badges/version.svg" alt="Version v1.2.9" />
+  <img src="main/assets/badges/version.svg" alt="Version v1.3.0" />
   <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
   <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank">
-    <img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total.svg?style=for-the-badge&logo=github&label=DOWNLOADS&color=0284c7" alt="GitHub Total Downloads" />
+    <img src="main/assets/badges/badge-downloads.svg" alt="Downloads 1,250+" />
   </a>
   <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank">
     <img src="main/assets/badges/badge-ghpages.svg" alt="GitHub Pages" />
@@ -78,13 +78,14 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 
 ---
 
-### 🛒 Store Links
+### 🛒 Store & Release Links
 
-| Browser / Store | Status | Direct Link |
+| Browser / Platform | Status | Direct Download Link |
 | :--- | :---: | :--- |
-| **Google Chrome** | 🟢 Live | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/rewriteai) |
-| **Microsoft Edge** | 🟢 Live | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
-| **Helium Browser** | 🟢 Live | [Install on Helium (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
+| **Latest Release (All Browsers)** | 📦 Latest ZIP | [Download from GitHub Releases](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
+| **Google Chrome** | 🟢 Official Store | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/rewriteai) |
+| **Microsoft Edge** | 🟢 Official Add-ons | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
+| **Helium Browser** | 🟢 Chromium Store | [Install on Helium (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
 
 ---
 
@@ -108,18 +109,12 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 
 ---
 
-### 🚀 Developer Setup & Manual Installation
-
-1. Clone or download the repository:
-   ```bash
-   git clone https://github.com/HaYToKoRaZ/RewriteAI.git
-   ```
-2. Navigate to your browser extensions manager:
-   - **Chrome / Helium:** `chrome://extensions/`
-   - **Edge:** `edge://extensions/`
-3. Toggle on **Developer mode** in the top-right corner.
-4. Click **Load unpacked** and select the **`main`** folder.
-5. Right-click the extension icon, choose **Options**, enter your free Gemini / OpenAI / Groq API key, and begin rewriting!
+### 📦 Installation Guide
+You can download ready-to-use packages directly from [GitHub Releases](https://github.com/HaYToKoRaZ/RewriteAI/releases):
+- Download the latest ZIP file (`RewriteAI-v*.zip`).
+- Unzip the archive into any folder.
+- Open your browser's extensions page (`chrome://extensions/` or `edge://extensions/`), enable **Developer Mode**, and click **Load unpacked**.
+- Set up your API keys in Options and enjoy instant AI rewriting.
 
 ---
 
@@ -134,13 +129,14 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 
 ---
 
-### 🛒 Mağaza İndirme Bağlantıları
+### 🛒 Mağaza & Sürüm Bağlantıları
 
-| Tarayıcı / Mağaza | Durum | Mağaza Linki |
+| Tarayıcı / Platform | Durum | Doğrudan İndirme Linki |
 | :--- | :---: | :--- |
-| **Google Chrome** | 🟢 Yayında | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/rewriteai) |
-| **Microsoft Edge** | 🟢 Yayında | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
-| **Helium Browser** | 🟢 Yayında | [Helium İçin Yükle (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
+| **Son Sürüm (Tüm Tarayıcılar)** | 📦 Güncel ZIP | [GitHub Releases Sayfasından İndir](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
+| **Google Chrome** | 🟢 Resmi Mağaza | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/rewriteai) |
+| **Microsoft Edge** | 🟢 Resmi Eklenti | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
+| **Helium Browser** | 🟢 Chromium Uyumlu | [Helium İçin Yükle (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
 
 ---
 
@@ -165,19 +161,12 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 
 ---
 
-### 🚀 Manuel Kurulum (Geliştirici Modu)
-
-1. Bu depoyu indirin veya klonlayın:
-   ```bash
-   git clone https://github.com/HaYToKoRaZ/RewriteAI.git
-   ```
-2. Tarayıcınızda uzantılar sayfasını açın:
-   - **Chrome / Helium:** `chrome://extensions/`
-   - **Edge:** `edge://extensions/`
-3. Sağ üstteki **"Geliştirici Modu" (Developer Mode)** anahtarını açın.
-4. **"Paketlenmemiş Öğe Yükle" (Load unpacked)** butonuna tıklayın.
-5. Proje içindeki **`main`** klasörünü seçin.
-6. Eklenti simgesine sağ tıklayıp **Seçenekler (Options)** sayfasına gidin ve ücretsiz Gemini / OpenAI / Groq API anahtarınızı girin.
+### 📦 Kolay Kurulum Rehberi
+En güncel eklenti paketini doğrudan [GitHub Releases](https://github.com/HaYToKoRaZ/RewriteAI/releases) adresinden edinebilirsiniz:
+- En son ZIP paketini (`RewriteAI-v*.zip`) indirin.
+- ZIP arşivini bilgisayarınızda bir klasöre çıkartın.
+- Tarayıcınızda uzantılar sayfasını açın (`chrome://extensions/` veya `edge://extensions/`), **Geliştirici Modu**'nu açın ve **Paketlenmemiş Öğe Yükle** butonuna tıklayarak klasörü seçin.
+- Seçenekler sayfasından API anahtarınızı girip kullanmaya başlayın.
 
 ---
 
