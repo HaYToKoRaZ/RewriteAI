@@ -4,8 +4,9 @@ import { Logger } from '../core/Logger.js';
 
 Logger.log('Background Service Worker başlatıldı.');
 
-// Sağ tık menülerini başlat
+// Sağ tık menülerini başlat ve oluştur
 ContextMenuService.init();
+ContextMenuService.createMenus();
 
 // Content Script & Popup mesajlaşma merkezi
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

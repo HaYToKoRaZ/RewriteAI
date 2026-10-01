@@ -1,5 +1,5 @@
-import { TONE_DEFINITIONS } from '../core/TonePrompts.js';
 import { Logger } from '../core/Logger.js';
+import { detectLanguage, getT } from '../core/i18n.js';
 
 export class ContextMenuService {
   static ROOT_ID = 'rewriteai_open_modal';
@@ -9,17 +9,31 @@ export class ContextMenuService {
       this.createMenus();
     });
 
+    chrome.runtime.onStartup.addListener(() => {
+      this.createMenus();
+    });
+
+    // Dil tercihi değiştiğinde menüleri hemen yeni dile göre yeniden oluştur
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === 'local' && changes.uiLanguage) {
+        this.createMenus();
+      }
+    });
+
     chrome.contextMenus.onClicked.addListener((info, tab) => {
       this.handleMenuClick(info, tab);
     });
   }
 
-  static createMenus() {
+  static async createMenus() {
+    const lang = await detectLanguage();
+    const t = getT(lang);
+
     chrome.contextMenus.removeAll(() => {
-      // Doğrudan düzenleme penceresini açacak ana bağlam menüsü
+      // Doğrudan düzenleme penceresini açacak ana bağlam menüsü (seçili metin)
       chrome.contextMenus.create({
         id: this.ROOT_ID,
-        title: 'RewriteAI ile Düzenle...',
+        title: t.contextEdit || 'RewriteAI ile Düzenle...',
         contexts: ['selection']
       });
 
@@ -33,18 +47,18 @@ export class ContextMenuService {
       // Web sitesi linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_visit_site',
-        title: '🌐 RewriteAI Web Sitesini Aç',
+        title: t.contextVisitSite || '🌐 RewriteAI Web Sitesini Aç',
         contexts: ['action']
       });
 
       // Portal linki (sadece eklenti simgesinde)
       chrome.contextMenus.create({
         id: 'rewriteai_open_portal',
-        title: '🚀 RewriteAI Portalı',
+        title: t.contextOpenPortal || '🚀 RewriteAI Portalı',
         contexts: ['action']
       });
 
-      Logger.log('Sağ tık menüsü (modal tetikleyici + site linkleri) oluşturuldu.');
+      Logger.log(`Sağ tık menüsü (${lang.toUpperCase()}) oluşturuldu.`);
     });
   }
 
