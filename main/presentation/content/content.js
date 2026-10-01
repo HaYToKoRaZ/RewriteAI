@@ -810,13 +810,13 @@
     .rewriteai-tone-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
+      gap: 7px;
     }
     .rewriteai-tone-btn {
       background: #1e293b;
       border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 8px 4px 6px;
+      border-radius: 9px;
+      padding: 9px 6px 7px;
       color: #e2e8f0;
       text-align: center;
       cursor: pointer;
@@ -825,18 +825,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       min-width: 0;
       overflow: hidden;
     }
     .rewriteai-tone-emoji {
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       line-height: 1;
       display: block;
     }
     .rewriteai-tone-btn strong {
-      font-size: 0.64rem;
+      font-size: 0.82rem;
       font-weight: 700;
+      letter-spacing: 0.2px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -930,12 +931,12 @@
       flex: 1;
     }
     .rewriteai-more-tone-name {
-      font-size: 12px;
+      font-size: 13.5px;
       font-weight: 700;
-      color: #e2e8f0;
+      color: #f1f5f9;
     }
     .rewriteai-more-tone-desc {
-      font-size: 10.5px;
+      font-size: 12px;
       color: #94a3b8;
       white-space: nowrap;
       overflow: hidden;
