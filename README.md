@@ -34,7 +34,7 @@
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
     <img src="main/assets/badges/chrome.svg" alt="Google Chrome" height="34" />
   </a>
-  <a href="https://microsoftedge.microsoft.com/addons/detail/rewriteai" target="_blank">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf" target="_blank">
     <img src="main/assets/badges/edge.svg" alt="Microsoft Edge" height="34" />
   </a>
   <a href="https://chromewebstore.google.com/detail/rewriteai" target="_blank">
@@ -83,7 +83,7 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 | :--- | :---: | :--- |
 | <img src="main/assets/badges/github-icon.svg" width="20" height="20" style="vertical-align:middle;" /> **Latest Release (All Browsers)** | 📦 Latest ZIP | [Download from GitHub Releases](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
 | <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Official Store | [Get on Chrome Web Store](https://chromewebstore.google.com/detail/rewriteai) |
-| <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Official Add-ons | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
+| <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Official Add-ons | [Get on Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf) |
 | <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Store | [Install on Helium (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
 
 ---
@@ -96,15 +96,28 @@ Built entirely on Manifest V3 and pure ES Modules without cumbersome bundlers, a
 2. **12 Tailored Writing Tones:**
    - 💼 *Professional* &nbsp;|&nbsp; 👔 *Formal* &nbsp;|&nbsp; ☕ *Casual* &nbsp;|&nbsp; ⚡ *Summarize* &nbsp;|&nbsp; 📖 *Elaborate*
    - 🎨 *Creative* &nbsp;|&nbsp; 🎓 *Academic* &nbsp;|&nbsp; 💻 *Technical* &nbsp;|&nbsp; 📣 *Marketing* &nbsp;|&nbsp; 🔤 *Fix Grammar*
-3. **Multi-Model Support:**
-   - **Google Gemini:** Gemini 2.5 Flash, 2.5 Pro, 2.0 Flash, 1.5 Pro
+3. **🌐 Smart Translation & Tone Adaptation (Transcreation in 20+ Languages):**
+   - Don't just translate words—speak in the exact tone needed! Write in your native language (e.g. Turkish) and let RewriteAI output fluent, native-level English, German, French, Spanish, Japanese, Arabic, and more in **Formal, Casual, Street Slang, Gamer or Academic** tones.
+   - **Supported Output Languages (20+):** 🇹🇷 Turkish, 🇬🇧 English, 🇩🇪 German, 🇫🇷 French, 🇪🇸 Spanish, 🇮🇹 Italian, 🇵🇹 Portuguese, 🇷🇺 Russian, 🇸🇦 Arabic, 🇨🇳 Chinese, 🇯🇵 Japanese, 🇰🇷 Korean, 🇦🇿 Azerbaijani, 🇳🇱 Dutch, 🇵🇱 Polish, 🇮🇳 Hindi, 🇸🇪 Swedish, 🇺🇦 Ukrainian, 🇮🇩 Indonesian, 🇬🇷 Greek.
+4. **Multi-Model Support:**
+   - **Google Gemini:** Gemini 3.5 Flash Lite, Gemini 3.8 Flash, Gemini 3.7 Flash
    - **OpenAI:** GPT-4o, GPT-4o Mini
-   - **Anthropic Claude:** Claude 3.5 Sonnet, Claude 3 Opus
+   - **Anthropic Claude:** Claude 3.5 Sonnet, Claude 3.5 Haiku
    - **Groq (Ultra-Fast Inference):** Llama 3.3 70B, Llama 3.1 8B
    - **DeepSeek, Cohere, Hugging Face Inference API**
-4. **100% Privacy & Security:**
-   - Zero telemetry, zero analytics tracking, zero middlemen.
-5. **Full Native Bilingual Support:** English (`EN 🇬🇧`) & Turkish (`TR 🇹🇷`) interface toggle.
+5. **🐦 Twitter / X 280-Character Enforcer:** Real-time character limiter ensuring your rewritten posts never exceed social limits.
+6. **100% Privacy & Security:** Zero telemetry, zero analytics tracking, zero middlemen.
+7. **Full Native Bilingual Interface:** English (`EN 🇬🇧`) & Turkish (`TR 🇹🇷`) interface toggle.
+
+---
+
+### 🆚 Traditional Translators vs. RewriteAI Transcreation
+
+| Input (e.g. Turkish) | Traditional Translator (e.g. Google Translate) | RewriteAI with Tone Adaptation (Transcreation) |
+| :--- | :--- | :--- |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Sorry I'm a bit late but I'm sending the file."* *(Flat & Literal)* | **💼 Formal / Corporate (EN):** *"Please accept my apologies for the slight delay. I have attached the revised file for your review."* |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Sorry I'm a bit late but I'm sending the file."* *(Literal)* | **🔥 Street / Slang (EN):** *"Hey, my bad for the delay! Dropping the file right here."* |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Tut mir leid, dass ich etwas spät dran bin..."* *(Standard)* | **💼 Formal German (DE):** *"Bitte entschuldigen Sie die Verzögerung. Anbei übermittle ich Ihnen die gewünschten Unterlagen."* |
 
 ---
 
@@ -134,7 +147,7 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 | :--- | :---: | :--- |
 | <img src="main/assets/badges/github-icon.svg" width="20" height="20" style="vertical-align:middle;" /> **Son Sürüm (Tüm Tarayıcılar)** | 📦 Güncel ZIP | [GitHub Releases Sayfasından İndir](https://github.com/HaYToKoRaZ/RewriteAI/releases) |
 | <img src="main/assets/badges/chrome.svg" width="20" height="20" style="vertical-align:middle;" /> **Google Chrome** | 🟢 Resmi Mağaza | [Chrome Web Store'dan İndir](https://chromewebstore.google.com/detail/rewriteai) |
-| <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Resmi Eklenti | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/rewriteai) |
+| <img src="main/assets/badges/edge.svg" width="20" height="20" style="vertical-align:middle;" /> **Microsoft Edge** | 🟢 Resmi Eklenti | [Edge Eklentilerinden İndir](https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf) |
 | <img src="main/assets/badges/helium.png" width="20" height="20" style="vertical-align:middle;" /> **Helium Browser** | 🟢 Chromium Uyumlu | [Helium İçin Yükle (Chrome Store)](https://chromewebstore.google.com/detail/rewriteai) |
 
 ---
@@ -147,16 +160,28 @@ Tüm metin işleme doğrudan tarayıcınız ile resmi AI API sağlayıcıları a
 2. **12 Özelleştirilmiş Ton:**
    - 💼 *Profesyonel* &nbsp;|&nbsp; 👔 *Resmi* &nbsp;|&nbsp; ☕ *Samimi* &nbsp;|&nbsp; ⚡ *Özet* &nbsp;|&nbsp; 📖 *Detaylı*
    - 🎨 *Yaratıcı* &nbsp;|&nbsp; 🎓 *Akademik* &nbsp;|&nbsp; 💻 *Teknik* &nbsp;|&nbsp; 📣 *Pazarlama* &nbsp;|&nbsp; 🔤 *Düzelt (Yazım Kuralı)*
-3. **Geniş Model Desteği:**
-   - **Google Gemini:** Gemini 2.5 Flash, 2.5 Pro, 2.0 Flash, 1.5 Pro
+3. **🌐 Akıllı Çeviri & Ton Uyarlaması (20+ Dünya Dilinde):**
+   - Sıradan çeviriciler gibi sadece kelime kelime çevirmez; metni seçtiğiniz tona büründürerek çevirir. Türkçe yazdığınız bir e-postayı tek tıkla **Kurumsal İngilizceye**, samimi bir mesajı **Sokak Ağzı Almancaya** veya teknik bir fikri **Akademik Fransızcaya** çevirip yazar.
+   - **Desteklenen Çıktı Dilleri (20+):** 🇹🇷 Türkçe, 🇬🇧 İngilizce, 🇩🇪 Almanca, 🇫🇷 Fransızca, 🇪🇸 İspanyolca, 🇮🇹 İtalyanca, 🇵🇹 Portekizce, 🇷🇺 Rusça, 🇸🇦 Arapça, 🇨🇳 Çince, 🇯🇵 Japonca, 🇰🇷 Korece, 🇦🇿 Azerbaycanca, 🇳🇱 Felemenkçe, 🇵🇱 Lehçe, 🇮🇳 Hintçe, 🇸🇪 İsveççe, 🇺🇦 Ukraynaca, 🇮🇩 Endonezce, 🇬🇷 Yunanca.
+4. **Geniş Model Desteği:**
+   - **Google Gemini:** Gemini 3.5 Flash Lite, Gemini 3.8 Flash, Gemini 3.7 Flash
    - **OpenAI:** GPT-4o, GPT-4o Mini
-   - **Anthropic Claude:** Claude 3.5 Sonnet, Claude 3 Opus
+   - **Anthropic Claude:** Claude 3.5 Sonnet, Claude 3.5 Haiku
    - **Groq (Süper Hızlı LLM):** Llama 3.3 70B, Llama 3.1 8B
    - **DeepSeek, Cohere, HuggingFace Inference** desteği
-4. **Çift Dil Desteği:** Türkçe (`TR 🇹🇷`) ve İngilizce (`EN 🇬🇧`) tam arayüz entegrasyonu.
-5. **%100 Gizlilik & Güvenlik:**
-   - Harici aracı sunucu YOK.
-   - API anahtarınız doğrudan Google/OpenAI/Groq sunucusuna istek atar.
+5. **🐦 Twitter / X 280 Karakter Sınırı Koruması:** Tek tıkla aktif edilen Twitter modu sayesinde metin asla 280 karakteri aşmaz.
+6. **Çift Dil Desteği:** Türkçe (`TR 🇹🇷`) ve İngilizce (`EN 🇬🇧`) tam arayüz entegrasyonu.
+7. **%100 Gizlilik & Güvenlik:** Harici aracı sunucu YOK. API anahtarlarınız doğrudan kendi tarayıcınızda saklanır.
+
+---
+
+### 🆚 Geleneksel Çeviriciler vs. RewriteAI Akıllı Ton Uyarlaması
+
+| Girdi Metniniz | Klasik Çevirici (Google / DeepL) | RewriteAI Akıllı Ton Uyarlaması |
+| :--- | :--- | :--- |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Sorry I'm a bit late but I'm sending the file."* *(Düz & Duygusuz)* | **💼 Kurumsal İngilizce:** *"Please accept my apologies for the slight delay. I have attached the revised file for your review."* |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Sorry I'm a bit late but I'm sending the file."* *(Kalıp Çeviri)* | **🔥 Sokak Ağzı / Samimi İngilizce:** *"Hey, my bad for the delay! Dropping the file right here."* |
+| *"Kusura bakmayın biraz geç kaldım ama dosyayı gönderiyorum."* | *"Tut mir leid, dass ich etwas spät dran bin..."* *(Standart)* | **💼 Kurumsal Almanca:** *"Bitte entschuldigen Sie die Verzögerung. Anbei übermittle ich Ihnen die gewünschten Unterlagen."* |
 
 ---
 
