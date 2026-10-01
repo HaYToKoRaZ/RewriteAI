@@ -184,12 +184,35 @@ body {
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .lang-btn.active {
   background: var(--primary);
   color: #04101e;
   box-shadow: 0 2px 8px var(--primary-glow);
+}
+
+/* Flag SVG Data URIs */
+.flag {
+  display: inline-block;
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+.flag-tr {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 20'%3E%3Crect width='30' height='20' fill='%23E30A17'/%3E%3Ccircle cx='10' cy='10' r='6' fill='white'/%3E%3Ccircle cx='12' cy='10' r='4.8' fill='%23E30A17'/%3E%3Cpolygon points='17,10 18.5,6.5 22,8.8 19.5,11.8 22,11' fill='white' transform='rotate(-18,17,10)'/%3E%3C/svg%3E");
+}
+
+.flag-gb {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0%2C0 L60%2C30 M60%2C0 L0%2C30' stroke='white' stroke-width='8'/%3E%3Cpath d='M0%2C0 L60%2C30 M60%2C0 L0%2C30' stroke='%23C8102E' stroke-width='5'/%3E%3Cpath d='M30%2C0 L30%2C30 M0%2C15 L60%2C15' stroke='white' stroke-width='12'/%3E%3Cpath d='M30%2C0 L30%2C30 M0%2C15 L60%2C15' stroke='%23C8102E' stroke-width='7'/%3E%3C/svg%3E");
 }
 
 .nav-btn {
