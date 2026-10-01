@@ -37,6 +37,30 @@
         slang: { title: '🔥 Argo & Sokak Ağzı', desc: 'Gençlik jargonu' },
         academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
         summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
+      },
+      modelGroups: {
+        gemini: '🆓 Google Gemini (Ücretsiz Tier)',
+        groq: '⚡ Groq (Ücretsiz & Işık Hızında)',
+        cohere: '🏢 Cohere (Ücretsiz Trial)',
+        hf: '🤗 Hugging Face (Ücretsiz Token)',
+        openai: '🌐 OpenAI (ChatGPT)',
+        claude: '🧠 Anthropic Claude',
+        deepseek: '🐋 DeepSeek'
+      },
+      models: {
+        'gemini-3.5-flash-lite': 'Gemini 3.5 Flash Lite (✨ En Hafif)',
+        'gemini-3.8-flash': 'Gemini 3.8 Flash (Zeki & Hızlı)',
+        'gemini-3.7-flash': 'Gemini 3.7 Flash (Kararlı)',
+        'llama-3.3-70b-versatile': 'Groq: Llama 3.3 70B (Çok Hızlı)',
+        'llama-3.1-8b-instant': 'Groq: Llama 3.1 8B (Anında)',
+        'command-a': 'Cohere: Command A (En Yeni & Güçlü)',
+        'command-r7b-12-2024': 'Cohere: Command R7B (Hızlı)',
+        'Qwen/Qwen2.5-72B-Instruct': 'HF: Qwen 2.5 72B (Açık Kaynak)',
+        'gpt-4o-mini': 'OpenAI: GPT-4o Mini (Ekonomik & Hızlı)',
+        'gpt-4o': 'OpenAI: GPT-4o (Amiral Gemisi)',
+        'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku (Yüksek Kalite)',
+        'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet (Üst Seviye)',
+        'deepseek-chat': 'DeepSeek: DeepSeek-V3 (Ekonomik & Zeki)'
       }
     },
     en: {
@@ -68,6 +92,30 @@
         slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
         academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
         summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
+      },
+      modelGroups: {
+        gemini: '🆓 Google Gemini (Free Tier)',
+        groq: '⚡ Groq (Free & Ultra Fast)',
+        cohere: '🏢 Cohere (Free Trial)',
+        hf: '🤗 Hugging Face (Free Token)',
+        openai: '🌐 OpenAI (ChatGPT)',
+        claude: '🧠 Anthropic Claude',
+        deepseek: '🐋 DeepSeek'
+      },
+      models: {
+        'gemini-3.5-flash-lite': 'Gemini 3.5 Flash Lite (✨ Lightweight)',
+        'gemini-3.8-flash': 'Gemini 3.8 Flash (Smart & Fast)',
+        'gemini-3.7-flash': 'Gemini 3.7 Flash (Stable)',
+        'llama-3.3-70b-versatile': 'Groq: Llama 3.3 70B (Very Fast)',
+        'llama-3.1-8b-instant': 'Groq: Llama 3.1 8B (Instant)',
+        'command-a': 'Cohere: Command A (Latest & Powerful)',
+        'command-r7b-12-2024': 'Cohere: Command R7B (Fast)',
+        'Qwen/Qwen2.5-72B-Instruct': 'HF: Qwen 2.5 72B (Open Source)',
+        'gpt-4o-mini': 'OpenAI: GPT-4o Mini (Cost-Effective & Fast)',
+        'gpt-4o': 'OpenAI: GPT-4o (Flagship)',
+        'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku (High Quality)',
+        'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet (Advanced)',
+        'deepseek-chat': 'DeepSeek: DeepSeek-V3 (Affordable & Smart)'
       }
     }
   };
@@ -94,33 +142,7 @@
         </div>
         <div class="rewriteai-header-controls">
           <select id="rewriteai-modal-model-select" class="rewriteai-select" title="Yapay Zeka Modeli">
-            <optgroup label="🆓 Google Gemini (Ücretsiz Tier)">
-              <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash Lite (✨ En Hafif)</option>
-              <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
-              <option value="gemini-3.7-flash">Gemini 3.7 Flash</option>
-            </optgroup>
-            <optgroup label="⚡ Groq (Ücretsiz & Işık Hızında)">
-              <option value="llama-3.3-70b-versatile">Groq: Llama 3.3 70B (Çok Hızlı)</option>
-              <option value="llama-3.1-8b-instant">Groq: Llama 3.1 8B (Anında)</option>
-            </optgroup>
-            <optgroup label="🏢 Cohere (Ücretsiz Trial)">
-              <option value="command-a">Cohere: Command A</option>
-              <option value="command-r7b-12-2024">Cohere: Command R7B</option>
-            </optgroup>
-            <optgroup label="🤗 Hugging Face (Ücretsiz Token)">
-              <option value="Qwen/Qwen2.5-72B-Instruct">HF: Qwen 2.5 72B</option>
-            </optgroup>
-            <optgroup label="🌐 OpenAI (ChatGPT)">
-              <option value="gpt-4o-mini">OpenAI: GPT-4o Mini</option>
-              <option value="gpt-4o">OpenAI: GPT-4o</option>
-            </optgroup>
-            <optgroup label="🧠 Anthropic Claude">
-              <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
-              <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
-            </optgroup>
-            <optgroup label="🐋 DeepSeek">
-              <option value="deepseek-chat">DeepSeek: DeepSeek-V3</option>
-            </optgroup>
+            <!-- Dinamik doldurulur -->
           </select>
           <button id="rewriteai-modal-close" class="rewriteai-close-btn">&times;</button>
         </div>
@@ -565,6 +587,9 @@
     if (openSettingsBtn) openSettingsBtn.textContent = t.goToSettings;
     if (quotaLinkEl) quotaLinkEl.textContent = t.quotaPanel;
 
+    // Model Seçim Listesini dinamik doldur
+    renderModalModels();
+
     // Ton Butonları
     toneBtns.forEach((btn) => {
       const toneKey = btn.getAttribute('data-tone');
@@ -575,6 +600,48 @@
         if (smallEl) smallEl.textContent = t.tones[toneKey].desc;
       }
     });
+  }
+
+  function renderModalModels() {
+    if (!modelSelect) return;
+    const currentVal = modelSelect.value;
+    modelSelect.innerHTML = '';
+    const groups = {};
+
+    const modelDefs = [
+      { id: 'gemini-3.5-flash-lite', provider: 'gemini' },
+      { id: 'gemini-3.8-flash', provider: 'gemini' },
+      { id: 'gemini-3.7-flash', provider: 'gemini' },
+      { id: 'llama-3.3-70b-versatile', provider: 'groq' },
+      { id: 'llama-3.1-8b-instant', provider: 'groq' },
+      { id: 'command-a', provider: 'cohere' },
+      { id: 'command-r7b-12-2024', provider: 'cohere' },
+      { id: 'Qwen/Qwen2.5-72B-Instruct', provider: 'hf' },
+      { id: 'gpt-4o-mini', provider: 'openai' },
+      { id: 'gpt-4o', provider: 'openai' },
+      { id: 'claude-3-5-haiku-20241022', provider: 'claude' },
+      { id: 'claude-3-5-sonnet-20241022', provider: 'claude' },
+      { id: 'deepseek-chat', provider: 'deepseek' }
+    ];
+
+    modelDefs.forEach((m) => {
+      const groupKey = m.provider;
+      const groupLabel = (t.modelGroups && t.modelGroups[groupKey]) ? t.modelGroups[groupKey] : groupKey;
+
+      if (!groups[groupKey]) {
+        const optGroup = document.createElement('optgroup');
+        optGroup.label = groupLabel;
+        groups[groupKey] = optGroup;
+        modelSelect.appendChild(optGroup);
+      }
+
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      opt.textContent = (t.models && t.models[m.id]) ? t.models[m.id] : m.id;
+      groups[groupKey].appendChild(opt);
+    });
+
+    if (currentVal) modelSelect.value = currentVal;
   }
 
   // Storage değişikliklerini dinle (örneğin Ayarlar'da dil değiştirilirse anında güncelle)

@@ -102,6 +102,31 @@ export const TRANSLATIONS = {
       academic: { title: '🎓 Akademik & Ağır', desc: 'Bilimsel terminoloji' },
       summarize: { title: '📌 Özetle', desc: 'Kısa ve netleştir' }
     },
+    // AI Model Grupları & Modelleri
+    modelGroups: {
+      gemini: '🆓 Google Gemini (Ücretsiz Tier)',
+      groq: '⚡ Groq (Ücretsiz & Işık Hızında)',
+      cohere: '🏢 Cohere (Ücretsiz Trial)',
+      hf: '🤗 Hugging Face (Ücretsiz Token)',
+      openai: '🌐 OpenAI (ChatGPT)',
+      claude: '🧠 Anthropic Claude',
+      deepseek: '🐋 DeepSeek'
+    },
+    models: {
+      'gemini-3.5-flash-lite': 'Gemini 3.5 Flash Lite (✨ En Hafif)',
+      'gemini-3.8-flash': 'Gemini 3.8 Flash (Zeki & Hızlı)',
+      'gemini-3.7-flash': 'Gemini 3.7 Flash (Kararlı)',
+      'llama-3.3-70b-versatile': 'Groq: Llama 3.3 70B (Çok Hızlı)',
+      'llama-3.1-8b-instant': 'Groq: Llama 3.1 8B (Anında)',
+      'command-a': 'Cohere: Command A (En Yeni & Güçlü)',
+      'command-r7b-12-2024': 'Cohere: Command R7B (Hızlı)',
+      'Qwen/Qwen2.5-72B-Instruct': 'HF: Qwen 2.5 72B (Açık Kaynak)',
+      'gpt-4o-mini': 'OpenAI: GPT-4o Mini (Ekonomik & Hızlı)',
+      'gpt-4o': 'OpenAI: GPT-4o (Amiral Gemisi)',
+      'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku (Yüksek Kalite)',
+      'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet (Üst Seviye)',
+      'deepseek-chat': 'DeepSeek: DeepSeek-V3 (Ekonomik & Zeki)'
+    },
     // Context menu
     contextEdit: 'RewriteAI ile Düzenle...',
     contextVisitSite: '🌐 RewriteAI Web Sitesini Aç',
@@ -204,6 +229,31 @@ export const TRANSLATIONS = {
       slang: { title: '🔥 Slang & Street', desc: 'Youth jargon' },
       academic: { title: '🎓 Academic & Formal', desc: 'Scientific terminology' },
       summarize: { title: '📌 Summarize', desc: 'Brief and clear' }
+    },
+    // AI Model Groups & Models
+    modelGroups: {
+      gemini: '🆓 Google Gemini (Free Tier)',
+      groq: '⚡ Groq (Free & Ultra Fast)',
+      cohere: '🏢 Cohere (Free Trial)',
+      hf: '🤗 Hugging Face (Free Token)',
+      openai: '🌐 OpenAI (ChatGPT)',
+      claude: '🧠 Anthropic Claude',
+      deepseek: '🐋 DeepSeek'
+    },
+    models: {
+      'gemini-3.5-flash-lite': 'Gemini 3.5 Flash Lite (✨ Lightweight)',
+      'gemini-3.8-flash': 'Gemini 3.8 Flash (Smart & Fast)',
+      'gemini-3.7-flash': 'Gemini 3.7 Flash (Stable)',
+      'llama-3.3-70b-versatile': 'Groq: Llama 3.3 70B (Very Fast)',
+      'llama-3.1-8b-instant': 'Groq: Llama 3.1 8B (Instant)',
+      'command-a': 'Cohere: Command A (Latest & Powerful)',
+      'command-r7b-12-2024': 'Cohere: Command R7B (Fast)',
+      'Qwen/Qwen2.5-72B-Instruct': 'HF: Qwen 2.5 72B (Open Source)',
+      'gpt-4o-mini': 'OpenAI: GPT-4o Mini (Cost-Effective & Fast)',
+      'gpt-4o': 'OpenAI: GPT-4o (Flagship)',
+      'claude-3-5-haiku-20241022': 'Claude 3.5 Haiku (High Quality)',
+      'claude-3-5-sonnet-20241022': 'Claude 3.5 Sonnet (Advanced)',
+      'deepseek-chat': 'DeepSeek: DeepSeek-V3 (Affordable & Smart)'
     },
     // Context menu
     contextEdit: 'Edit with RewriteAI...',

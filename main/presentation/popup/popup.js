@@ -1,5 +1,6 @@
 import { StorageRepository } from '../../data/StorageRepository.js';
 import { TextTransformService } from '../../services/TextTransformService.js';
+import { AVAILABLE_MODELS } from '../../data/DefaultSettings.js';
 import { detectLanguage, getT } from '../../core/i18n.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -34,6 +35,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   let lang = await detectLanguage();
   let t = getT(lang);
 
+  function renderPopupModels() {
+    const currentVal = modelSelect.value;
+    modelSelect.innerHTML = '';
+    const groups = {};
+
+    AVAILABLE_MODELS.forEach((m) => {
+      const groupKey = m.provider || 'other';
+      const localizedGroup = (t.modelGroups && t.modelGroups[groupKey]) ? t.modelGroups[groupKey] : (m.group || 'Diğer Modeller');
+
+      if (!groups[groupKey]) {
+        const optGroup = document.createElement('optgroup');
+        optGroup.label = localizedGroup;
+        groups[groupKey] = optGroup;
+        modelSelect.appendChild(optGroup);
+      }
+
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      const localizedName = (t.models && t.models[m.id]) ? t.models[m.id] : m.name;
+      opt.textContent = localizedName;
+      groups[groupKey].appendChild(opt);
+    });
+
+    if (currentVal) modelSelect.value = currentVal;
+  }
+
   function applyLanguage() {
     t = getT(lang);
 
@@ -41,11 +68,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     langBtnTr.classList.toggle('active', lang === 'tr');
     langBtnEn.classList.toggle('active', lang === 'en');
 
-    // Model çubuğu etiketi
+    // Model çubuğu etiketi ve dinamik model listesi
     const modelBarLabel = document.querySelector('.model-bar-label');
     if (modelBarLabel) {
       modelBarLabel.textContent = t.modelLabelShort || (lang === 'en' ? 'AI Model:' : 'AI Modeli:');
     }
+    renderPopupModels();
 
     // Ton Butonları (Kartları) İçeriği
     toneCardBtns.forEach((btn) => {

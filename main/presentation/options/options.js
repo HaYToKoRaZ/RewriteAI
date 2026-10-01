@@ -130,8 +130,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (quotaRpmTextEl) quotaRpmTextEl.innerHTML = t.quotaRpm;
     if (quotaRpdTextEl) quotaRpdTextEl.innerHTML = t.quotaRpd;
 
-    // Ton Seçeneklerini güncelle
+    // Ton & Model Seçeneklerini güncelle
     renderToneOptions();
+    renderModelOptions();
 
     // Manifest versiyonunu badge'e yaz
     const vb = document.getElementById('versionBadge');
@@ -150,23 +151,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Modelleri sağlayıcı gruplarıyla yükle
-  const groups = {};
-  AVAILABLE_MODELS.forEach((m) => {
-    const groupName = m.group || 'Diğer Modeller';
-    if (!groups[groupName]) {
-      const optGroup = document.createElement('optgroup');
-      optGroup.label = groupName;
-      groups[groupName] = optGroup;
-      selectedModelSelect.appendChild(optGroup);
-    }
-    const opt = document.createElement('option');
-    opt.value = m.id;
-    opt.textContent = m.name;
-    groups[groupName].appendChild(opt);
-  });
+  function renderModelOptions() {
+    const currentVal = selectedModelSelect.value;
+    selectedModelSelect.innerHTML = '';
+    const groups = {};
 
-  // Dili uygula (tonları da render eder)
+    AVAILABLE_MODELS.forEach((m) => {
+      const groupKey = m.provider || 'other';
+      const localizedGroup = (t.modelGroups && t.modelGroups[groupKey]) ? t.modelGroups[groupKey] : (m.group || 'Diğer Modeller');
+
+      if (!groups[groupKey]) {
+        const optGroup = document.createElement('optgroup');
+        optGroup.label = localizedGroup;
+        groups[groupKey] = optGroup;
+        selectedModelSelect.appendChild(optGroup);
+      }
+
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      const localizedName = (t.models && t.models[m.id]) ? t.models[m.id] : m.name;
+      opt.textContent = localizedName;
+      groups[groupKey].appendChild(opt);
+    });
+
+    if (currentVal) selectedModelSelect.value = currentVal;
+  }
+
+  // Dili uygula (tonları ve modelleri de render eder)
   applyOptionsLanguage();
 
   // Mevcut ayarları çek
