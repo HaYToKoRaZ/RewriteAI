@@ -16,15 +16,13 @@
 ---
 
 <!-- Status & Information Badges (Local Repo Assets) -->
-<p>
+<p align="center">
   <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
-  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases/latest"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/latest/total?color=success&label=Latest%20Release%20Downloads" alt="Latest Release Downloads" /></a>
-  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total?color=2ea44f&label=Total%20Downloads" alt="Total Downloads" /></a>
-  <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank">
-    <img src="main/assets/badges/badge-ghpages.svg" alt="GitHub Pages" />
-  </a>
+  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases/latest"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/latest/total?style=for-the-badge&logo=github&color=2ea44f&label=LATEST%20DOWNLOADS" alt="Latest Release Downloads" /></a>
+  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total?style=for-the-badge&logo=github&color=0969da&label=TOTAL%20DOWNLOADS" alt="Total Downloads" /></a>
+  <a href="https://haytokoraz.github.io/" target="_blank"><img src="main/assets/badges/portal.svg" alt="HaYTooL PoRTaL" /></a>
 </p>
 
 <!-- Supported Browsers & Stores -->
