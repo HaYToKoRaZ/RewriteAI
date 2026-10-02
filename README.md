@@ -25,6 +25,20 @@
   <a href="https://haytokoraz.github.io/" target="_blank"><img src="main/assets/badges/portal.svg" alt="HaYTooL PoRTaL" /></a>
 </p>
 
+
+### 🌐 Supported Browsers & Store Downloads
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" title="Chrome Web Store">
+    <img src="main/assets/badges/chrome.svg" alt="Chrome Web Store" width="40" height="40" style="margin: 0 10px;" />
+  </a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf" title="Microsoft Edge Add-ons">
+    <img src="main/assets/badges/edge.svg" alt="Microsoft Edge" width="40" height="40" style="margin: 0 10px;" />
+  </a>
+  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" title="Helium Browser">
+    <img src="main/assets/badges/helium.png" alt="Helium Browser" width="40" height="40" style="margin: 0 10px;" />
+  </a>
+</p>
+
 <!-- Supported Browsers & Stores -->
 ### 🛒 Supported Browsers & Store Links
 <p>
