@@ -20,9 +20,8 @@
   <img src="main/assets/badges/badge-license.svg" alt="License MIT" />
   <img src="main/assets/badges/badge-manifest-v3.svg" alt="Manifest V3" />
   <img src="main/assets/badges/privacy-local.svg" alt="Privacy 100% Local" />
-  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases" target="_blank">
-    <img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total.svg?style=for-the-badge&logo=github&label=DOWNLOADS&color=0284c7" alt="GitHub Releases Live Total Downloads" />
-  </a>
+  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases/latest"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/latest/total?color=success&label=Latest%20Release%20Downloads" alt="Latest Release Downloads" /></a>
+  <a href="https://github.com/HaYToKoRaZ/RewriteAI/releases"><img src="https://img.shields.io/github/downloads/HaYToKoRaZ/RewriteAI/total?color=2ea44f&label=Total%20Downloads" alt="Total Downloads" /></a>
   <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank">
     <img src="main/assets/badges/badge-ghpages.svg" alt="GitHub Pages" />
   </a>
