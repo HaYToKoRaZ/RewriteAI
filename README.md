@@ -39,19 +39,6 @@
   </a>
 </p>
 
-<!-- Supported Browsers & Stores -->
-### 🛒 Supported Browsers & Store Links
-<p>
-  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" target="_blank">
-    <img src="main/assets/badges/chrome.svg" alt="Google Chrome" height="34" />
-  </a>
-  <a href="https://microsoftedge.microsoft.com/addons/detail/hkhjhlaciakanpanhfckcalfddbgdibf" target="_blank">
-    <img src="main/assets/badges/edge.svg" alt="Microsoft Edge" height="34" />
-  </a>
-  <a href="https://chromewebstore.google.com/detail/hmblfojhnndofecfffkmamklcpibhbep" target="_blank">
-    <img src="main/assets/badges/helium.png" alt="Helium Browser" height="34" />
-  </a>
-</p>
 
 <!-- Supported AI Providers -->
 ### 🧠 Supported AI Providers & Models
