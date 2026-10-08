@@ -201,6 +201,13 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
+      <!-- Breadcrumb UI (Matches Schema.org BreadcrumbList) -->
+      <nav aria-label="Breadcrumb" class="site-breadcrumb">
+        <a href="https://haytokoraz.github.io/" target="_blank" rel="noopener" title="HaYTooL Portal">HaYTooL Portal</a>
+        <span class="bc-sep">/</span>
+        <span aria-current="page">RewriteAI</span>
+      </nav>
+
       <div class="hero-badge">
         <span>✨</span> <span data-i18n="heroBadge">Çoklu AI Destekli Yeni Nesil Tarayıcı Eklentisi</span>
       </div>
@@ -496,6 +503,40 @@
             <div class="provider-tier">Ekonomik Bakiye</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Matches Schema.org FAQPage) -->
+  <section class="section" id="faq-section" style="background: rgba(15, 23, 42, 0.3); border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">Sıkça Sorulan Sorular / FAQ</span>
+        <h2 class="section-title">Merak Edilenler & Sorularınız</h2>
+        <p class="section-desc">RewriteAI hakkında en çok merak edilen güvenlik, kullanım ve model destekleri.</p>
+      </div>
+
+      <div class="faq-accordion-wrap">
+        <details class="faq-card" open>
+          <summary class="faq-question">RewriteAI nasıl çalışır?</summary>
+          <div class="faq-answer">
+            <p>Web sayfasında herhangi bir metni seçip sağ tıklayarak ya da klavye kısayolu ile istediğiniz tona (profesyonel, samimi, esprili, akademik vb.) dönüştürebilir veya imla düzeltmesi yapabilirsiniz.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">Kişisel verilerim veya API anahtarlarım sunucuda saklanır mı?</summary>
+          <div class="faq-answer">
+            <p>Hayır. RewriteAI "Zero Telemetry" mimarisine sahiptir. Tüm API anahtarları yalnızca kendi tarayıcınızın yerel depolama alanında saklanır ve doğrudan AI sağlayıcılarına iletilir.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">Hangi yapay zeka modellerini destekler?</summary>
+          <div class="faq-answer">
+            <p>Google Gemini, OpenAI (GPT), Groq, Anthropic Claude, Cohere, DeepSeek ve Hugging Face modellerini destekler.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
