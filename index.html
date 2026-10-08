@@ -718,6 +718,13 @@
 
       setInterval(sendPulse, 2 * 60 * 1000);
     })();
+
+    // Service Worker Registration for Offline & Instant Cache
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').catch(function() {});
+      });
+    }
   </script>
 </body>
 </html>
