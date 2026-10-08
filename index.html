@@ -307,18 +307,57 @@
     </div>
   </section>
 
-  <!-- Canlı Deneyim / Interactive Demo Widget -->
+  <!-- Canlı Deneyim / Interactive Demo Widget (Inline - Zero Iframe) -->
   <section class="preview-section" id="preview">
     <div class="container">
-      <iframe
-        id="demoFrame"
-        src="demo-widget.html"
-        class="demo-frame"
-        scrolling="no"
-        frameborder="0"
-        loading="lazy"
-        title="RewriteAI Canlı Ton Simülatörü"
-      ></iframe>
+      <div class="demo-window">
+        <!-- Title bar -->
+        <div class="demo-win-bar">
+          <div class="demo-dots">
+            <span class="demo-dot demo-dot-r"></span>
+            <span class="demo-dot demo-dot-y"></span>
+            <span class="demo-dot demo-dot-g"></span>
+          </div>
+          <span class="demo-win-title" id="demoWinTitle">RewriteAI — Canlı Ton Simülatörü</span>
+        </div>
+
+        <!-- Tone chips -->
+        <div class="demo-tones-bar" id="demoTonesBar">
+          <button class="demo-tone-chip active" data-tone="fix_grammar">✍️ <span data-i18n="tone1">İmla &amp; Dilbilgisi</span></button>
+          <button class="demo-tone-chip" data-tone="daily">💬 <span data-i18n="tone2">Günlük &amp; Samimi</span></button>
+          <button class="demo-tone-chip" data-tone="formal">💼 <span data-i18n="tone3">Resmi &amp; Kurumsal</span></button>
+          <button class="demo-tone-chip" data-tone="slang">🔥 <span data-i18n="tone4">Argo &amp; Sokak Ağzı</span></button>
+          <button class="demo-tone-chip" data-tone="academic">🎓 <span data-i18n="tone5">Akademik</span></button>
+          <button class="demo-tone-chip" data-tone="summarize">📌 <span data-i18n="tone6">Özetle</span></button>
+        </div>
+
+        <!-- Input / Output Grid -->
+        <div class="demo-main-grid">
+          <div class="demo-panel">
+            <span class="demo-panel-label">✏️ Orijinal Metin</span>
+            <textarea class="demo-text-input" id="demoInputText" spellcheck="false"
+              placeholder="Buraya dönüştürmek istediğiniz metni yazın..."></textarea>
+          </div>
+          <div class="demo-panel">
+            <span class="demo-panel-label">✨ AI Çıktısı</span>
+            <div class="demo-text-output" id="demoOutputBox">
+              <span id="demoOutputSpan"></span><span class="demo-cursor" id="demoCursor" style="display:none"></span>
+            </div>
+            <button class="demo-copy-btn" id="demoCopyBtn">📋 Kopyala</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="demo-stat-row">
+          <span class="demo-stat-pill">
+            <span class="demo-stat-dot"></span>
+            <span>Canlı Simülasyon</span>
+          </span>
+          <span class="demo-stat-pill">⚡ <span>Işık Hızında</span></span>
+          <span class="demo-stat-pill">🔒 <span>%100 Yerel Gizlilik</span></span>
+          <span class="demo-stat-pill" id="demoCharCounter">0 → 0 karakter</span>
+        </div>
+      </div>
     </div>
   </section>
 

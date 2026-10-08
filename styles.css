@@ -983,16 +983,193 @@ summary,
 }
 
 /* 3. Reduced motion support for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* ==========================================================================
+   Inline Demo Simulator Styles (Zero Iframe Pattern)
+   ========================================================================== */
+.demo-window {
+  background: linear-gradient(160deg, rgba(18,24,38,.98) 0%, rgba(9,13,22,.98) 100%);
+  border: 1px solid var(--border-glow);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px -12px rgba(0,0,0,.9), 0 0 60px rgba(56,189,248,.1);
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
 }
+
+.demo-win-bar {
+  background: rgba(17,24,39,.95);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo-dots { display: flex; gap: 7px; }
+.demo-dot { width: 12px; height: 12px; border-radius: 50%; }
+.demo-dot-r { background: #ef4444; }
+.demo-dot-y { background: #f59e0b; }
+.demo-dot-g { background: #10b981; }
+
+.demo-win-title {
+  font-size: .82rem;
+  color: #94a3b8;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.demo-tones-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 20px 22px 4px;
+  justify-content: center;
+}
+
+.demo-tone-chip {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(30,41,59,.7);
+  border: 1px solid var(--border);
+  color: #94a3b8;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.demo-tone-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.demo-tone-chip.active {
+  background: var(--primary);
+  color: #04101e;
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(56,189,248,.4);
+  font-weight: 700;
+}
+
+.demo-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px 22px;
+}
+
+@media (max-width: 680px) {
+  .demo-main-grid { grid-template-columns: 1fr; }
+}
+
+.demo-panel {
+  background: rgba(15,23,42,.65);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.demo-panel-label {
+  font-size: .73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.demo-text-input {
+  width: 100%;
+  min-height: 110px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: .92rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+}
+
+.demo-text-input:focus { border-color: var(--primary); }
+
+.demo-text-output {
+  min-height: 110px;
+  font-size: .92rem;
+  color: var(--primary);
+  line-height: 1.6;
+  font-weight: 500;
+  padding: 11px 13px;
+  background: rgba(56,189,248,.04);
+  border: 1px solid rgba(56,189,248,.16);
+  border-radius: 8px;
+  flex: 1;
+  word-break: break-word;
+}
+
+.demo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--primary);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink .85s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.demo-copy-btn {
+  align-self: flex-end;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(56,189,248,.1);
+  border: 1px solid rgba(56,189,248,.25);
+  color: var(--primary);
+  font-size: .75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.demo-copy-btn:hover {
+  background: var(--primary);
+  color: #04101e;
+}
+
+.demo-stat-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 22px 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: .78rem;
+  color: #64748b;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.demo-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.03);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255,255,255,.05);
+}
+
+.demo-stat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
 
 /* ==========================================================================
    Breadcrumb UI & FAQ Accordion Components (Schema & UI Alignment)

@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Sync demo widget language
-    syncDemoLang(lang);
+    // Sync inline demo widget language
+    syncInlineDemoLang(lang);
 
     // Save preference to localStorage
     try {
@@ -213,14 +213,107 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply initial language and keep URL in sync
   applyLanguage(initialLang, Boolean(paramLang));
 
-  // Language switcher listeners
-  btnLangTr.addEventListener('click', () => applyLanguage('tr', true));
-  btnLangEn.addEventListener('click', () => applyLanguage('en', true));
+  // ── Inline Demo Simulator Logic (Zero Iframe) ──
+  const demoInputText = document.getElementById('demoInputText');
+  const demoOutputSpan = document.getElementById('demoOutputSpan');
+  const demoCursor = document.getElementById('demoCursor');
+  const demoCopyBtn = document.getElementById('demoCopyBtn');
+  const demoCharCounter = document.getElementById('demoCharCounter');
+  const demoTonesBar = document.getElementById('demoTonesBar');
+  const demoWinTitle = document.getElementById('demoWinTitle');
 
-  // Sync lang once iframe is loaded
-  if (demoFrame) {
-    demoFrame.addEventListener('load', () => syncDemoLang(currentLang));
+  let activeTone = 'fix_grammar';
+  let typingTmr = null;
+  let inputTmr = null;
+
+  function updateDemoCharCount() {
+    if (!demoInputText || !demoOutputSpan || !demoCharCounter) return;
+    const inC = demoInputText.value.length;
+    const outC = demoOutputSpan.textContent.length;
+    const unit = currentLang === 'tr' ? 'karakter' : 'chars';
+    demoCharCounter.textContent = `${inC} → ${outC} ${unit}`;
   }
+
+  function demoTypeWrite(text, speed = 14) {
+    if (!demoOutputSpan || !demoCursor) return;
+    if (typingTmr) clearTimeout(typingTmr);
+    demoCursor.style.display = 'inline-block';
+    demoOutputSpan.textContent = '';
+    let i = 0;
+
+    function step() {
+      if (i < text.length) {
+        demoOutputSpan.textContent += text[i++];
+        updateDemoCharCount();
+        typingTmr = setTimeout(step, speed);
+      } else {
+        demoCursor.style.display = 'none';
+        updateDemoCharCount();
+      }
+    }
+    step();
+  }
+
+  function triggerDemoOutput(delay = 500) {
+    if (!demoInputText) return;
+    if (inputTmr) clearTimeout(inputTmr);
+    inputTmr = setTimeout(() => {
+      const val = demoInputText.value.trim();
+      if (!val) {
+        if (typingTmr) clearTimeout(typingTmr);
+        if (demoOutputSpan) demoOutputSpan.textContent = '';
+        if (demoCursor) demoCursor.style.display = 'none';
+        updateDemoCharCount();
+        return;
+      }
+      const samples = SAMPLE_TEXTS[currentLang] || SAMPLE_TEXTS.tr;
+      demoTypeWrite(samples[activeTone] || samples.fix_grammar, 13);
+    }, delay);
+  }
+
+  function syncInlineDemoLang(lang) {
+    if (!demoInputText) return;
+    const d = SAMPLE_TEXTS[lang] || SAMPLE_TEXTS.tr;
+    demoInputText.value = d.input;
+    if (demoWinTitle) {
+      demoWinTitle.textContent = lang === 'tr' ? 'RewriteAI — Canlı Ton Simülatörü' : 'RewriteAI — Live Tone Simulator';
+    }
+    triggerDemoOutput(0);
+  }
+
+  if (demoTonesBar) {
+    demoTonesBar.querySelectorAll('.demo-tone-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        demoTonesBar.querySelectorAll('.demo-tone-chip').forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeTone = chip.getAttribute('data-tone') || 'fix_grammar';
+        triggerDemoOutput(0);
+      });
+    });
+  }
+
+  if (demoInputText) {
+    demoInputText.addEventListener('input', () => {
+      updateDemoCharCount();
+      triggerDemoOutput(600);
+    });
+  }
+
+  if (demoCopyBtn && demoOutputSpan) {
+    demoCopyBtn.addEventListener('click', () => {
+      const text = demoOutputSpan.textContent.trim();
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        demoCopyBtn.textContent = currentLang === 'tr' ? '✅ Kopyalandı!' : '✅ Copied!';
+        setTimeout(() => {
+          demoCopyBtn.textContent = currentLang === 'tr' ? '📋 Kopyala' : '📋 Copy';
+        }, 1800);
+      }).catch(() => {});
+    });
+  }
+
+  // Initial simulator sync
+  syncInlineDemoLang(initialLang);
 
   // Cat Companion purr button interactivity
   const catBtn = document.getElementById('catPurrBtn');
