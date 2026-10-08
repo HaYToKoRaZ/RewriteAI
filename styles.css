@@ -748,8 +748,9 @@ body {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--text-muted);
-  background: rgba(148, 163, 184, 0.1);
+  color: #cbd5e1;
+  background: rgba(148, 163, 184, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.28);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   margin-bottom: 6px;
@@ -855,17 +856,18 @@ body {
   border-top: 1px solid var(--border);
   padding: 40px 0;
   text-align: center;
-  color: var(--text-muted);
+  color: #94a3b8;
   font-size: 0.9rem;
 }
 
 .footer a {
-  color: var(--primary);
-  text-decoration: none;
+  color: #38bdf8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .footer a:hover {
-  text-decoration: underline;
+  color: #7dd3fc;
 }
 
 /* Privacy Policy Modal */
