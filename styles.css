@@ -957,3 +957,39 @@ body {
   margin-bottom: 12px;
 }
 
+/* ==========================================================================
+   UI/UX Pro Max Enhancements: Accessibility & Interaction Controls
+   ========================================================================== */
+
+/* 1. Visible, accessible keyboard focus rings (WCAG 2.2 compliant) */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 2. Interactive cursor consistency */
+button,
+a,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
+/* 3. Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
