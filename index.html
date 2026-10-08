@@ -37,94 +37,106 @@
   <meta name="twitter:image" content="https://haytokoraz.github.io/RewriteAI/assets/og-image.png">
   <meta name="twitter:image:alt" content="RewriteAI Browser Extension Preview">
 
-  <!-- Structured Data: Rich Schema.org JSON-LD (Claude SEO Standards) -->
+  <!-- Structured Data: Rich Schema.org JSON-LD (@graph standard) -->
   <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "RewriteAI",
-      "headline": "Smart Browser Text Editor & AI Tone Rewriter",
-      "operatingSystem": "Chrome, Edge, Chromium",
-      "applicationCategory": "BrowserExtension",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://haytokoraz.github.io/RewriteAI/#software",
+        "name": "RewriteAI",
+        "operatingSystem": "Chrome, Edge, Chromium",
+        "applicationCategory": "BrowserApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Select any text across Chrome, Edge and Chromium browsers; fix spelling, transform tone and rewrite with Gemini, Groq, Claude & ChatGPT in one click.",
+        "url": "https://haytokoraz.github.io/RewriteAI/",
+        "image": "https://haytokoraz.github.io/RewriteAI/assets/og-image.png",
+        "softwareRequirements": "Chrome v88+, Chromium-based browsers",
+        "featureList": [
+          "One-click spelling and grammar correction",
+          "AI-powered style and tone transformation",
+          "Direct Google Gemini, OpenAI, Claude, Groq support",
+          "100% client-side privacy (Zero Telemetry)"
+        ],
+        "author": {
+          "@type": "Person",
+          "name": "HaYTo",
+          "url": "https://github.com/HaYToKoRaZ"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "HaYTooL",
+          "url": "https://haytokoraz.github.io/"
+        }
       },
-      "description": "Select any text across Chrome, Edge and Chromium browsers; fix spelling, transform tone and rewrite with Gemini, Groq, Claude & ChatGPT in one click.",
-      "url": "https://haytokoraz.github.io/RewriteAI/",
-      "image": "https://haytokoraz.github.io/RewriteAI/assets/og-image.png",
-      "softwareRequirements": "Chrome v88+, Chromium-based browsers",
-      "featureList": [
-        "One-click spelling and grammar correction",
-        "AI-powered style and tone transformation",
-        "Direct Google Gemini, OpenAI, Claude, Groq support",
-        "100% client-side privacy (Zero Telemetry)"
-      ],
-      "author": {
-        "@type": "Person",
-        "name": "HaYToKoRaZ",
-        "url": "https://github.com/HaYToKoRaZ"
+      {
+        "@type": "WebSite",
+        "@id": "https://haytokoraz.github.io/RewriteAI/#website",
+        "name": "RewriteAI",
+        "url": "https://haytokoraz.github.io/RewriteAI/",
+        "description": "Smart Browser Text Editor & AI-Powered Tone Rewriter",
+        "inLanguage": ["en", "tr"],
+        "publisher": {
+          "@type": "Organization",
+          "name": "HaYTooL",
+          "url": "https://haytokoraz.github.io/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://haytokoraz.github.io/RewriteAI/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "HaYTooL Portal",
+            "item": "https://haytokoraz.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "RewriteAI",
+            "item": "https://haytokoraz.github.io/RewriteAI/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://haytokoraz.github.io/RewriteAI/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "RewriteAI nasıl çalışır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Web sayfasında herhangi bir metni seçip sağ tıklayarak ya da klavye kısayolu ile istediğiniz tona (profesyonel, samimi, esprili, akademik vb.) dönüştürebilir veya imla düzeltmesi yapabilirsiniz."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kişisel verilerim veya API anahtarlarım sunucuda saklanır mı?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. RewriteAI 'Zero Telemetry' mimarisine sahiptir. Tüm API anahtarları yalnızca kendi tarayıcınızın yerel depolama alanında saklanır ve doğrudan AI sağlayıcılarına iletilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hangi yapay zeka modellerini destekler?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Google Gemini, OpenAI (GPT), Groq, Anthropic Claude, Cohere, DeepSeek ve Hugging Face modellerini destekler."
+            }
+          }
+        ]
       }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "RewriteAI",
-      "url": "https://haytokoraz.github.io/RewriteAI/",
-      "description": "Smart Browser Text Editor & AI-Powered Tone Rewriter",
-      "inLanguage": ["en", "tr"]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "HaYTooL Portal",
-          "item": "https://haytokoraz.github.io/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "RewriteAI",
-          "item": "https://haytokoraz.github.io/RewriteAI/"
-        }
-      ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "RewriteAI nasıl çalışır?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Web sayfasında herhangi bir metni seçip sağ tıklayarak ya da klavye kısayolu ile istediğiniz tona (profesyonel, samimi, esprili, akademik vb.) dönüştürebilir veya imla düzeltmesi yapabilirsiniz."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Kişisel verilerim veya API anahtarlarım sunucuda saklanır mı?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Hayır. RewriteAI 'Zero Telemetry' mimarisine sahiptir. Tüm API anahtarları yalnızca kendi tarayıcınızın yerel depolama alanında saklanır ve doğrudan AI sağlayıcılarına iletilir."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Hangi yapay zeka modellerini destekler?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Google Gemini, OpenAI (GPT), Groq, Anthropic Claude, Cohere, DeepSeek ve Hugging Face modellerini destekler."
-          }
-        }
-      ]
-    }
-  ]
+    ]
+  }
   </script>
 
   <!-- Google Fonts: Asynchronous Non-blocking Load -->
