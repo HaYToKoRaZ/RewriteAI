@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function applyLanguage(lang) {
+  function applyLanguage(lang, updateUrl = true) {
     currentLang = lang;
     document.documentElement.lang = lang;
 
@@ -182,11 +182,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sync demo widget language
     syncDemoLang(lang);
+
+    // Save preference to localStorage
+    try {
+      localStorage.setItem('rewriteai_lang', lang);
+    } catch (e) {}
+
+    // Update browser URL query parameter (?lang=tr or ?lang=en) without reload
+    if (updateUrl && window.history && window.history.replaceState) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.history.replaceState({}, '', url.toString());
+    }
   }
 
+  // Detect initial language from URL (?lang=), then localStorage, fallback to browser / 'tr'
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramLang = urlParams.get('lang');
+  const storedLang = localStorage.getItem('rewriteai_lang');
+  let initialLang = 'tr';
+
+  if (paramLang && (paramLang === 'tr' || paramLang === 'en')) {
+    initialLang = paramLang;
+  } else if (storedLang && (storedLang === 'tr' || storedLang === 'en')) {
+    initialLang = storedLang;
+  } else if (navigator.language && navigator.language.toLowerCase().startsWith('en')) {
+    initialLang = 'en';
+  }
+
+  // Apply initial language and keep URL in sync
+  applyLanguage(initialLang, Boolean(paramLang));
+
   // Language switcher listeners
-  btnLangTr.addEventListener('click', () => applyLanguage('tr'));
-  btnLangEn.addEventListener('click', () => applyLanguage('en'));
+  btnLangTr.addEventListener('click', () => applyLanguage('tr', true));
+  btnLangEn.addEventListener('click', () => applyLanguage('en', true));
 
   // Sync lang once iframe is loaded
   if (demoFrame) {
