@@ -271,14 +271,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
-  function syncInlineDemoLang(lang) {
+  function syncInlineDemoLang(lang, animate = false) {
     if (!demoInputText) return;
     const d = SAMPLE_TEXTS[lang] || SAMPLE_TEXTS.tr;
     demoInputText.value = d.input;
     if (demoWinTitle) {
       demoWinTitle.textContent = lang === 'tr' ? 'RewriteAI — Canlı Ton Simülatörü' : 'RewriteAI — Live Tone Simulator';
     }
-    triggerDemoOutput(0);
+    const samples = SAMPLE_TEXTS[lang] || SAMPLE_TEXTS.tr;
+    const targetText = samples[activeTone] || samples.fix_grammar;
+
+    if (!animate) {
+      // Direct render without triggering layout thrashing / forced reflow on initial load
+      if (demoOutputSpan) demoOutputSpan.textContent = targetText;
+      if (demoCursor) demoCursor.style.display = 'none';
+      updateDemoCharCount();
+    } else {
+      triggerDemoOutput(100);
+    }
   }
 
   if (demoTonesBar) {
