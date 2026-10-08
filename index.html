@@ -4,9 +4,123 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RewriteAI - Akıllı Tarayıcı Metin Düzenleyici & AI Ton Değiştirici</title>
-  <meta name="description" content="Chrome, Edge ve Helium tarayıcılarında herhangi bir metni seçin; tek tıkla imla düzeltin, üslup değiştirin ve Gemini, Groq, Claude ile metinlerinizi baştan yazın.">
+  <meta name="description" content="Chrome, Edge ve Chromium tarayıcılarında herhangi bir metni seçin; tek tıkla imla düzeltin, üslup değiştirin ve Gemini, Groq, Claude ile metinlerinizi baştan yazın.">
+  <meta name="keywords" content="RewriteAI, yapay zeka metin duzenleyici, chrome eklentisi, ai text rewriter, gemini chrome extension, groq, claude, imla duzeltici, ton degistirici">
+  <meta name="author" content="HaYToKoRaZ">
+  <meta name="theme-color" content="#6366f1">
   <link rel="canonical" href="https://haytokoraz.github.io/RewriteAI/">
+  <link rel="alternate" hreflang="tr" href="https://haytokoraz.github.io/RewriteAI/">
+  <link rel="alternate" hreflang="en" href="https://haytokoraz.github.io/RewriteAI/">
+  <link rel="alternate" hreflang="x-default" href="https://haytokoraz.github.io/RewriteAI/">
   <link rel="icon" type="image/png" href="assets/icons/icon32.png">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://haytokoraz.github.io/RewriteAI/">
+  <meta property="og:title" content="RewriteAI - Akıllı Tarayıcı Metin Düzenleyici & AI Ton Değiştirici">
+  <meta property="og:description" content="Web'de seçtiğiniz her metni tek tıkla imla hatasından arındırın, profesyonel, samimi veya esprili tona büründürün.">
+  <meta property="og:image" content="https://haytokoraz.github.io/RewriteAI/assets/og-image.png">
+  <meta property="og:site_name" content="RewriteAI">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://haytokoraz.github.io/RewriteAI/">
+  <meta name="twitter:title" content="RewriteAI - Akıllı Tarayıcı Metin Düzenleyici & AI Ton Değiştirici">
+  <meta name="twitter:description" content="Web'de seçtiğiniz her metni tek tıkla imla hatasından arındırın, profesyonel, samimi veya esprili tona büründürün.">
+  <meta name="twitter:image" content="https://haytokoraz.github.io/RewriteAI/assets/og-image.png">
+
+  <!-- Structured Data: Rich Schema.org JSON-LD (Claude SEO Standards) -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "RewriteAI",
+      "headline": "Akıllı Tarayıcı Metin Düzenleyici & AI Ton Değiştirici",
+      "operatingSystem": "Chrome, Edge, Chromium",
+      "applicationCategory": "BrowserExtension",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Chrome, Edge ve Chromium tarayıcılarında herhangi bir metni seçin; tek tıkla imla düzeltin, üslup değiştirin ve Gemini, Groq, Claude ile metinlerinizi baştan yazın.",
+      "url": "https://haytokoraz.github.io/RewriteAI/",
+      "image": "https://haytokoraz.github.io/RewriteAI/assets/og-image.png",
+      "softwareRequirements": "Chrome v88+, Chromium tabanlı tarayıcılar",
+      "featureList": [
+        "Tek tıkla imla ve dil bilgisi düzeltme",
+        "Yapay zeka ile üslup ve ton dönüştürme",
+        "Google Gemini, OpenAI, Claude, Groq desteği",
+        "Tamamen istemci taraflı gizlilik (Zero Telemetry)"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "HaYToKoRaZ",
+        "url": "https://github.com/HaYToKoRaZ"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "RewriteAI",
+      "url": "https://haytokoraz.github.io/RewriteAI/",
+      "description": "Akıllı Tarayıcı Metin Düzenleyici & Yapay Zeka Destekli Ton Dönüştürücü",
+      "inLanguage": ["tr", "en"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "HaYTooL Portal",
+          "item": "https://haytokoraz.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "RewriteAI",
+          "item": "https://haytokoraz.github.io/RewriteAI/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "RewriteAI nasıl çalışır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Web sayfasında herhangi bir metni seçip sağ tıklayarak ya da klavye kısayolu ile istediğiniz tona (profesyonel, samimi, esprili, akademik vb.) dönüştürebilir veya imla düzeltmesi yapabilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kişisel verilerim veya API anahtarlarım sunucuda saklanır mı?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır. RewriteAI 'Zero Telemetry' mimarisine sahiptir. Tüm API anahtarları yalnızca kendi tarayıcınızın yerel depolama alanında saklanır ve doğrudan AI sağlayıcılarına iletilir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hangi yapay zeka modellerini destekler?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Google Gemini, OpenAI (GPT), Groq, Anthropic Claude, Cohere, DeepSeek ve Hugging Face modellerini destekler."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -156,45 +270,18 @@
     </div>
   </section>
 
-  <!-- Canlı Deneyim Mockup Önizleme -->
+  <!-- Canlı Deneyim / Interactive Demo Widget -->
   <section class="preview-section" id="preview">
     <div class="container">
-      <div class="mockup-window">
-        <div class="mockup-header">
-          <div class="mockup-dots">
-            <span class="dot-red"></span>
-            <span class="dot-yellow"></span>
-            <span class="dot-green"></span>
-          </div>
-          <span class="mockup-title" data-i18n="mockupBarTitle">RewriteAI Content Modal & Ton Seçici Simülasyonu</span>
-          <div style="width:50px;"></div>
-        </div>
-
-        <div class="mockup-body">
-          <div class="mockup-tones-bar">
-            <button class="mockup-tone-chip active" data-mock-tone="fix_grammar" data-i18n="tone1">✍️ İmla & Dilbilgisi</button>
-            <button class="mockup-tone-chip" data-mock-tone="daily" data-i18n="tone2">💬 Günlük & Samimi</button>
-            <button class="mockup-tone-chip" data-mock-tone="formal" data-i18n="tone3">💼 Resmi & Kurumsal</button>
-            <button class="mockup-tone-chip" data-mock-tone="slang" data-i18n="tone4">🔥 Argo & Sokak Ağzı</button>
-            <button class="mockup-tone-chip" data-mock-tone="academic" data-i18n="tone5">🎓 Akademik</button>
-            <button class="mockup-tone-chip" data-mock-tone="summarize" data-i18n="tone6">📌 Özetle</button>
-          </div>
-
-          <div class="mockup-box">
-            <span class="mockup-box-title" data-i18n="mockupInputTitle">Orijinal Metin (Seçilen)</span>
-            <p class="mockup-content" id="mockInputText">
-              "slm yarınkı toplantı saat kacda olcak acaba sunumu yetıstıremedımde bıraz erteleyebılırmıyız"
-            </p>
-          </div>
-
-          <div class="mockup-box">
-            <span class="mockup-box-title" data-i18n="mockupOutputTitle">AI Çıktısı (Anında Dönüşüm)</span>
-            <p class="mockup-content mockup-result" id="mockOutputText">
-              "Selam, yarınki toplantı saat kaçta olacak acaba? Sunumu yetiştiremedim de, biraz erteleyebilir miyiz?"
-            </p>
-          </div>
-        </div>
-      </div>
+      <iframe
+        id="demoFrame"
+        src="demo-widget.html"
+        class="demo-frame"
+        scrolling="no"
+        frameborder="0"
+        loading="lazy"
+        title="RewriteAI Canlı Ton Simülatörü"
+      ></iframe>
     </div>
   </section>
 

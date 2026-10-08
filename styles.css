@@ -464,6 +464,27 @@ body {
   padding: 40px 0 80px;
 }
 
+.demo-frame {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  height: 340px;
+  margin: 0 auto;
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(56, 189, 248, 0.12);
+  background: transparent;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .demo-frame {
+    height: 460px;
+  }
+}
+
 .mockup-window {
   background: #0f172a;
   border: 1px solid var(--border-glow);
@@ -473,6 +494,7 @@ body {
   margin: 0 auto;
   overflow: hidden;
 }
+
 
 .mockup-header {
   background: #1e293b;

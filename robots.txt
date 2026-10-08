@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers & Answer Engines
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://haytokoraz.github.io/RewriteAI/sitemap.xml
+

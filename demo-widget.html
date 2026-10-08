@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RewriteAI Live Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c-primary:     #38bdf8;
+      --c-purple:      #818cf8;
+      --c-amber:       #f59e0b;
+      --c-emerald:     #10b981;
+      --c-bg:          #090d16;
+      --c-card:        rgba(18, 24, 38, 0.92);
+      --c-border:      rgba(56, 189, 248, 0.18);
+      --c-border-glow: rgba(56, 189, 248, 0.42);
+      --c-text:        #f8fafc;
+      --c-muted:       #94a3b8;
+      --c-dim:         #64748b;
+      --grad:          linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      --ease:          cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--c-bg);
+      color: var(--c-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* ── Window shell ─────────────────────────────────────────────────────── */
+    .window {
+      background: linear-gradient(160deg, rgba(18,24,38,.98) 0%, rgba(9,13,22,.98) 100%);
+      border: 1px solid var(--c-border-glow);
+      border-radius: 18px;
+      box-shadow:
+        0 32px 80px -12px rgba(0,0,0,.9),
+        0 0 60px rgba(56,189,248,.1),
+        inset 0 1px 0 rgba(255,255,255,.05);
+      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Title bar ────────────────────────────────────────────────────────── */
+    .win-bar {
+      background: rgba(17,24,39,.95);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .dots { display: flex; gap: 7px; }
+    .dot  { width: 12px; height: 12px; border-radius: 50%; transition: opacity .2s; }
+    .dot:hover { opacity: .7; }
+    .dot-r { background: #ef4444; box-shadow: 0 0 6px #ef444466; }
+    .dot-y { background: #f59e0b; box-shadow: 0 0 6px #f59e0b66; }
+    .dot-g { background: #10b981; box-shadow: 0 0 6px #10b98166; }
+
+    .win-title {
+      font-size: .82rem;
+      color: var(--c-muted);
+      font-weight: 600;
+      flex: 1;
+      text-align: center;
+      letter-spacing: .2px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 3px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--c-border);
+      border-radius: 999px;
+      padding: 3px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--c-dim);
+      font-size: .75rem;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 4px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .2s var(--ease);
+    }
+    .lang-btn.active {
+      background: var(--c-primary);
+      color: #04101e;
+      box-shadow: 0 2px 8px rgba(56,189,248,.35);
+    }
+
+    /* ── Tone chips ───────────────────────────────────────────────────────── */
+    .tones-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 20px 22px 4px;
+      justify-content: center;
+    }
+
+    .tone-chip {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(30,41,59,.7);
+      border: 1px solid var(--c-border);
+      color: var(--c-muted);
+      font-size: .82rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .22s var(--ease);
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .tone-chip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(56,189,248,.2), transparent 70%);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .tone-chip:hover::before { opacity: 1; }
+    .tone-chip:hover {
+      border-color: var(--c-primary);
+      color: var(--c-primary);
+      transform: translateY(-1px);
+    }
+    .tone-chip.active {
+      background: var(--c-primary);
+      color: #04101e;
+      border-color: var(--c-primary);
+      box-shadow: 0 4px 16px rgba(56,189,248,.4);
+      font-weight: 700;
+    }
+    .tone-chip.active::before { opacity: 0; }
+
+    /* ── Main grid ────────────────────────────────────────────────────────── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 16px 22px;
+    }
+    @media (max-width: 600px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: rgba(15,23,42,.65);
+      border: 1px solid var(--c-border);
+      border-radius: 13px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: border-color .25s;
+    }
+    .panel:focus-within,
+    .panel:hover {
+      border-color: rgba(56,189,248,.32);
+    }
+
+    .panel-label {
+      font-size: .73rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--c-muted);
+    }
+
+    /* Editable textarea */
+    .text-input {
+      width: 100%;
+      min-height: 100px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: .92rem;
+      color: var(--c-text);
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .text-input:focus { border-color: rgba(56,189,248,.45); }
+    .text-input::placeholder { color: rgba(148,163,184,.4); }
+
+    /* Output box */
+    .text-output {
+      min-height: 100px;
+      font-size: .92rem;
+      color: var(--c-primary);
+      line-height: 1.6;
+      font-weight: 500;
+      padding: 11px 13px;
+      background: rgba(56,189,248,.04);
+      border: 1px solid rgba(56,189,248,.16);
+      border-radius: 8px;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    /* Typing cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--c-primary);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink .85s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Copy btn */
+    .copy-btn {
+      align-self: flex-end;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56,189,248,.1);
+      border: 1px solid rgba(56,189,248,.25);
+      color: var(--c-primary);
+      font-size: .75rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .2s var(--ease);
+    }
+    .copy-btn:hover {
+      background: var(--c-primary);
+      color: #04101e;
+      box-shadow: 0 4px 12px rgba(56,189,248,.35);
+    }
+
+    /* ── Stats bar ────────────────────────────────────────────────────────── */
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 22px 18px;
+      font-size: .76rem;
+      color: var(--c-muted);
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--c-border);
+      background: rgba(255,255,255,.03);
+      white-space: nowrap;
+    }
+
+    .stat-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--c-emerald);
+      box-shadow: 0 0 7px var(--c-emerald);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%     { opacity:.55; transform:scale(1.35); }
+    }
+
+    /* Fade-in for output */
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(5px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-in { animation: fadeIn .3s var(--ease); }
+
+    /* Loading shimmer */
+    .shimmer {
+      background: linear-gradient(90deg,
+        rgba(56,189,248,.06) 25%,
+        rgba(56,189,248,.14) 50%,
+        rgba(56,189,248,.06) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      border-radius: 4px;
+      height: 14px;
+      width: 70%;
+      margin: 4px 0;
+    }
+    @keyframes shimmer {
+      0%  { background-position: 200% 0; }
+      100%{ background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="window">
+
+  <!-- Title bar -->
+  <div class="win-bar">
+    <div class="dots">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+    </div>
+    <span class="win-title" id="winTitle">RewriteAI — Canlı Ton Simülatörü</span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnTr">TR</button>
+      <button class="lang-btn" id="btnEn">EN</button>
+    </div>
+  </div>
+
+  <!-- Tone chips -->
+  <div class="tones-bar" id="tonesBar">
+    <button class="tone-chip active" data-tone="fix_grammar">✍️ <span data-k="t1">İmla &amp; Dilbilgisi</span></button>
+    <button class="tone-chip" data-tone="daily">💬 <span data-k="t2">Günlük &amp; Samimi</span></button>
+    <button class="tone-chip" data-tone="formal">💼 <span data-k="t3">Resmi &amp; Kurumsal</span></button>
+    <button class="tone-chip" data-tone="slang">🔥 <span data-k="t4">Argo &amp; Sokak Ağzı</span></button>
+    <button class="tone-chip" data-tone="academic">🎓 <span data-k="t5">Akademik</span></button>
+    <button class="tone-chip" data-tone="summarize">📌 <span data-k="t6">Özetle</span></button>
+  </div>
+
+  <!-- Input / Output -->
+  <div class="main-grid">
+    <div class="panel">
+      <span class="panel-label" data-k="inLabel">✏️ Orijinal Metin</span>
+      <textarea class="text-input" id="inputText" spellcheck="false"
+        placeholder="Buraya dönüştürmek istediğiniz metni yazın..."></textarea>
+    </div>
+    <div class="panel">
+      <span class="panel-label" data-k="outLabel">✨ AI Çıktısı</span>
+      <div class="text-output" id="outputBox">
+        <span id="outputSpan"></span><span class="cursor" id="cursor" style="display:none"></span>
+      </div>
+      <button class="copy-btn" id="copyBtn" data-k="copyBtn">📋 Kopyala</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-row">
+    <span class="stat-pill">
+      <span class="stat-dot"></span>
+      <span data-k="live">Canlı Simülasyon</span>
+    </span>
+    <span class="stat-pill">⚡ <span data-k="speed">Işık Hızında</span></span>
+    <span class="stat-pill">🔒 <span data-k="priv">%100 Yerel Gizlilik</span></span>
+    <span class="stat-pill" id="charCounter">0 → 0 karakter</span>
+  </div>
+
+</div>
+
+<script>
+/* ── i18n ──────────────────────────────────────────────────────────────────── */
+const LANG = {
+  tr: {
+    winTitle:    'RewriteAI — Canlı Ton Simülatörü',
+    t1: 'İmla & Dilbilgisi', t2: 'Günlük & Samimi', t3: 'Resmi & Kurumsal',
+    t4: 'Argo & Sokak Ağzı', t5: 'Akademik',        t6: 'Özetle',
+    inLabel: '✏️ Orijinal Metin', outLabel: '✨ AI Çıktısı',
+    copyBtn: '📋 Kopyala', copied: '✅ Kopyalandı!',
+    live: 'Canlı Simülasyon', speed: 'Işık Hızında', priv: '%100 Yerel Gizlilik',
+    chars: 'karakter',
+    placeholder: 'Buraya dönüştürmek istediğiniz metni yazın...',
+    defaultInput: 'slm yarınkı toplantı saat kacda olcak acaba sunumu yetıstıremedımde bıraz erteleyebılırmıyız'
+  },
+  en: {
+    winTitle:    'RewriteAI — Live Tone Simulator',
+    t1: 'Grammar & Spelling', t2: 'Casual & Friendly', t3: 'Formal & Corporate',
+    t4: 'Slang & Street',     t5: 'Academic',           t6: 'Summarize',
+    inLabel: '✏️ Original Text', outLabel: '✨ AI Output',
+    copyBtn: '📋 Copy', copied: '✅ Copied!',
+    live: 'Live Simulation', speed: 'Lightning Speed', priv: '100% Local Privacy',
+    chars: 'chars',
+    placeholder: 'Type or paste text you want to transform...',
+    defaultInput: 'hey what time is tomorrows meeting gonna be i couldnt finish the presentation can we delay it a bit'
+  }
+};
+
+/* ── Sample outputs ────────────────────────────────────────────────────────── */
+const SAMPLES = {
+  tr: {
+    fix_grammar: 'Selam, yarınki toplantı saat kaçta olacak acaba? Sunumu yetiştiremedim de, biraz erteleyebilir miyiz?',
+    daily:       'Selamlar! Yarınki toplantı kaçtaydı acaba? Sunum biraz sarktı da, toplantıyı azıcık erteleyebilir miyiz?',
+    formal:      'Sayın İlgili, yarın gerçekleştirilmesi planlanan toplantının saati hususunda bilgi rica ederim. Sunum hazırlıklarındaki gecikme sebebiyle toplantının ileri bir saate ertelenmesi hususunu takdirlerinize arz ederim.',
+    slang:       'Selam millet, yarınki toplanma kaçtaydı ya? Sunum elde patladı valla, biraz öteleyebilir miyiz mevzuyu?',
+    academic:    'İlgili toplantının planlanan icra saatinin teyidi talep edilmektedir. Sunum materyallerinin hazırlanma sürecindeki gecikmeler doğrultusunda oturumun tehir edilmesi önerilmektedir.',
+    summarize:   'Toplantı saatini sorma ve sunum yetişmediği için erteleme ricası.'
+  },
+  en: {
+    fix_grammar: "Hey, what time is tomorrow's meeting going to be? I couldn't finish the presentation, can we delay it a bit?",
+    daily:       "Hey there! Quick check on tomorrow's meeting time? Running a little behind on the slides — would it be okay if we pushed it back slightly?",
+    formal:      "Dear Team, I am writing to inquire regarding the scheduled time for tomorrow's meeting. Due to unexpected delays in finalizing the presentation materials, I would like to kindly request a brief postponement.",
+    slang:       "Yo, what time we hitting that meeting tomorrow? Slides ain't ready yet fam, can we chill and push it back a sec?",
+    academic:    "This inquiry pertains to the scheduled timing of tomorrow's conference. Owing to procedural delays in empirical presentation preparation, a temporal postponement is respectfully proposed.",
+    summarize:   'Inquiring about meeting time and requesting a postponement due to unfinished slides.'
+  }
+};
+
+/* ── State ─────────────────────────────────────────────────────────────────── */
+let lang       = 'tr';
+let activeTone = 'fix_grammar';
+let typingTmr  = null;
+let inputTmr   = null;
+
+/* ── DOM ───────────────────────────────────────────────────────────────────── */
+const btnTr      = document.getElementById('btnTr');
+const btnEn      = document.getElementById('btnEn');
+const tonesBar   = document.getElementById('tonesBar');
+const inputText  = document.getElementById('inputText');
+const outputSpan = document.getElementById('outputSpan');
+const cursor     = document.getElementById('cursor');
+const copyBtn    = document.getElementById('copyBtn');
+const charCount  = document.getElementById('charCounter');
+const winTitle   = document.getElementById('winTitle');
+
+/* ── Apply language ────────────────────────────────────────────────────────── */
+function applyLang(l) {
+  lang = l;
+  btnTr.classList.toggle('active', l === 'tr');
+  btnEn.classList.toggle('active', l === 'en');
+
+  const d = LANG[l];
+  winTitle.textContent      = d.winTitle;
+  inputText.placeholder     = d.placeholder;
+
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const k = el.getAttribute('data-k');
+    if (d[k] !== undefined) el.textContent = d[k];
+  });
+
+  inputText.value = d.defaultInput;
+  triggerOutput(0);
+}
+
+/* ── Typewriter ────────────────────────────────────────────────────────────── */
+function typeWrite(text, speed = 15) {
+  if (typingTmr) clearTimeout(typingTmr);
+  cursor.style.display  = 'inline-block';
+  outputSpan.textContent = '';
+  let i = 0;
+
+  function step() {
+    if (i < text.length) {
+      outputSpan.textContent += text[i++];
+      updateCharCount();
+      typingTmr = setTimeout(step, speed);
+    } else {
+      cursor.style.display = 'none';
+      outputSpan.classList.add('fade-in');
+      updateCharCount();
+    }
+  }
+  step();
+}
+
+/* ── Update output ─────────────────────────────────────────────────────────── */
+function triggerOutput(delay = 550) {
+  if (inputTmr) clearTimeout(inputTmr);
+  inputTmr = setTimeout(() => {
+    const samples = SAMPLES[lang];
+    const val = inputText.value.trim();
+    if (!val) {
+      if (typingTmr) clearTimeout(typingTmr);
+      outputSpan.textContent = '';
+      cursor.style.display = 'none';
+      updateCharCount();
+      return;
+    }
+    typeWrite(samples[activeTone] || samples.fix_grammar, 13);
+  }, delay);
+}
+
+function updateCharCount() {
+  const inC  = inputText.value.length;
+  const outC = outputSpan.textContent.length;
+  charCount.textContent = `${inC} → ${outC} ${LANG[lang].chars}`;
+}
+
+/* ── Tone selection ────────────────────────────────────────────────────────── */
+tonesBar.querySelectorAll('.tone-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    tonesBar.querySelectorAll('.tone-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeTone = chip.getAttribute('data-tone');
+    triggerOutput(0);
+  });
+});
+
+/* ── Input ─────────────────────────────────────────────────────────────────── */
+inputText.addEventListener('input', () => {
+  updateCharCount();
+  triggerOutput(600);
+});
+
+/* ── Copy ──────────────────────────────────────────────────────────────────── */
+copyBtn.addEventListener('click', () => {
+  const text = outputSpan.textContent.trim();
+  if (!text) return;
+
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  };
+
+  const done = () => {
+    const d = LANG[lang];
+    copyBtn.textContent = d.copied;
+    setTimeout(() => { copyBtn.textContent = d.copyBtn; }, 1800);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => { fallback(); done(); });
+  } else {
+    fallback(); done();
+  }
+});
+
+/* ── Language buttons ──────────────────────────────────────────────────────── */
+btnTr.addEventListener('click', () => applyLang('tr'));
+btnEn.addEventListener('click', () => applyLang('en'));
+
+/* ── Init ──────────────────────────────────────────────────────────────────── */
+const browserLang = (navigator.language || 'tr').toLowerCase();
+applyLang(browserLang.startsWith('tr') ? 'tr' : 'en');
+
+/* ── Listen for language sync from parent page ─────────────────────────────── */
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'setLang' && (e.data.lang === 'tr' || e.data.lang === 'en')) {
+    applyLang(e.data.lang);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# RewriteAI - LLMs & AI Crawler Documentation
+> RewriteAI: Tarayıcı Üzerinde Çok Modelli Yapay Zeka Metin Düzenleme ve Üslup Dönüştürme Eklentisi.
+
+## Genel Bakış (Overview)
+RewriteAI, Chromium tabanlı tarayıcılarda (Google Chrome, Microsoft Edge, Brave, Helium vb.) kullanıcıların seçtikleri herhangi bir metni tek tıkla dil bilgisi ve imla hatalarından arındıran, istenen ton ve üsluba (resmi, samimi, akıcı, esprili, akademik, özet vb.) dönüştüren gizlilik öncelikli (Zero Telemetry) bir tarayıcı uzantısıdır.
+
+## Temel Özellikler (Core Features)
+- **Çoklu Yapay Zeka Desteği:** Google Gemini, OpenAI (GPT), Groq (Llama), Anthropic Claude, Cohere, DeepSeek ve Hugging Face API anahtarları ile doğrudan istemci taraflı bağlantı.
+- **İstemci Taraflı Gizlilik (Zero Telemetry):** Kullanıcının metinleri ve API anahtarları üçüncü taraf bir sunucuda depolanmaz; yalnızca `chrome.storage.local` üzerinde yerel olarak tutulur.
+- **Hızlı Erişim:** Sağ tık bağlam menüsü (Context Menu), klavye kısayolları ve sayfa içi etkileşimli düzenleme aracı.
+- **Çok Dilli:** Türkçe ve İngilizce başta olmak üzere tüm diller arası ton dönüşümü ve çeviri desteği.
+
+## Sayfalar ve Dokümantasyon
+- Ana Sayfa: https://haytokoraz.github.io/RewriteAI/
+- Gizlilik Politikası: https://haytokoraz.github.io/RewriteAI/privacy.html
+- Açık Kaynak Kod Deposu: https://github.com/HaYToKoRaZ/RewriteAI
+- En Son Sürümler (Releases): https://github.com/HaYToKoRaZ/RewriteAI/releases
+
+## Geliştirici & Lisans
+- Geliştirici: HaYToKoRaZ
+- Lisans: MIT License

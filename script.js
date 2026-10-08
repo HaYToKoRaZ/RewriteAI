@@ -154,11 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const btnLangTr = document.getElementById('btnLangTr');
   const btnLangEn = document.getElementById('btnLangEn');
+  const demoFrame = document.getElementById('demoFrame');
 
-  const mockInput = document.getElementById('mockInputText');
-  const mockOutput = document.getElementById('mockOutputText');
-  const mockToneChips = document.querySelectorAll('.mockup-tone-chip');
-  let activeMockTone = 'fix_grammar';
+  // Send language to demo iframe
+  function syncDemoLang(lang) {
+    if (demoFrame && demoFrame.contentWindow) {
+      demoFrame.contentWindow.postMessage({ type: 'setLang', lang }, '*');
+    }
+  }
 
   function applyLanguage(lang) {
     currentLang = lang;
@@ -177,29 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Update simulation
-    updateMockupPreview();
-  }
-
-  function updateMockupPreview() {
-    const samples = SAMPLE_TEXTS[currentLang];
-    if (mockInput) mockInput.textContent = samples.input;
-    if (mockOutput) mockOutput.textContent = samples[activeMockTone] || samples.fix_grammar;
+    // Sync demo widget language
+    syncDemoLang(lang);
   }
 
   // Language switcher listeners
   btnLangTr.addEventListener('click', () => applyLanguage('tr'));
   btnLangEn.addEventListener('click', () => applyLanguage('en'));
 
-  // Interactive Mockup tone selection
-  mockToneChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      mockToneChips.forEach((c) => c.classList.remove('active'));
-      chip.classList.add('active');
-      activeMockTone = chip.getAttribute('data-mock-tone') || 'fix_grammar';
-      updateMockupPreview();
-    });
-  });
+  // Sync lang once iframe is loaded
+  if (demoFrame) {
+    demoFrame.addEventListener('load', () => syncDemoLang(currentLang));
+  }
 
   // Cat Companion purr button interactivity
   const catBtn = document.getElementById('catPurrBtn');
