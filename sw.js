@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rewriteai-v1';
+const CACHE_NAME = 'rewriteai-v2';
 const ASSETS_TO_CACHE = [
   './',
   'index.html',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   'script.js',
   'privacy.html',
   'favicon.ico',
+  'apple-touch-icon.png',
   'assets/icons/icon32.png',
   'assets/icons/icon51.png',
   'assets/icons/icon68.png',
