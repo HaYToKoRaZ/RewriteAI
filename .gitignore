@@ -1,5 +1,7 @@
 # Yerel yönetim, anayasa ve betikler (.agents)
 .agents/
+skills-lock.json
+websites/
 
 *.7z
 *.zip

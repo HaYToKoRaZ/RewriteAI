@@ -315,7 +315,7 @@
         <a href="https://haytokoraz.github.io/RewriteAI/" target="_blank" rel="noopener" class="rewriteai-brand" title="RewriteAI Web Sitesi">
           <img src="${iconUrl}" alt="RewriteAI" style="width:22px;height:22px;border-radius:4px;">
           <span class="rewriteai-title" id="rewriteai-modal-title">RewriteAI</span>
-          <span class="rewriteai-version" id="rewriteai-modal-version">v2.1</span>
+          <span class="rewriteai-version" id="rewriteai-modal-version">v2.6</span>
         </a>
         <div class="rewriteai-header-controls">
           <!-- Gizli select (uyumluluk için) -->
@@ -1496,7 +1496,7 @@
       try {
         modalVerEl.textContent = `v${chrome.runtime.getManifest().version}`;
       } catch {
-        modalVerEl.textContent = 'v2.2';
+        modalVerEl.textContent = 'v2.6';
       }
     }
     if (triggerBtn) triggerBtn.title = t.triggerBtnTitle;
